@@ -190,6 +190,20 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   TOOL(itm_pan, -1, itm_pot, -1, itm_spear_wood, -1, NULL);
   COMP(itm_meat, 1, NULL);
 
+ RECIPE(itm_cleaned_fish, CC_FOOD, sk_cooking, sk_null, 0, 2000);
+  TOOL(itm_knife_steak, -1, itm_knife_butcher, -1, itm_knife_combat, NULL);
+  COMP(itm_water, 1, NULL);
+  COMP(itm_fish, 1,NULL);
+
+ RECIPE(itm_salted_fish, CC_FOOD, sk_cooking, sk_null, 0, 1000);
+  COMP(itm_cleaned_fish, 1, NULL);
+  COMP(itm_salt, 1, itm_salt_water, 1, NULL);
+ 
+ RECIPE(itm_roast_fish, CC_FOOD, sk_cooking, sk_null, 0, 5000);
+  TOOL(itm_hotplate, 5, itm_toolset, 4, itm_fire, -1, NULL);
+  TOOL(itm_pan, -1, itm_pot, -1, itm_spear_wood, -1, NULL);
+  COMP(itm_cleaned_fish, 1,NULL);
+
  RECIPE(itm_dogfood, CC_FOOD, sk_cooking, sk_null, 4, 10000);
   TOOL(itm_hotplate, 6, itm_toolset, 3, itm_fire, -1, NULL);
   TOOL(itm_pot, -1, NULL);
@@ -566,12 +580,12 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
 
  RECIPE(itm_nail,      CC_SMITH, sk_null,    sk_null, 0, 20000);
   TOOL(itm_forge, -1, NULL);
+  TOOL(itm_smith_hammer, -1, NULL);
   TOOL(itm_shears, -1, NULL);
   TOOL(itm_anvil, -1, NULL);
   TOOL(itm_lighter, 1, NULL);
-  COMP(itm_knife_butter, 10, itm_knife_steak, 5, itm_knife_butcher, 2,
-       itm_steel_chunk, 3, NULL);
-  COMP(itm_water, 2, itm_forgewater, 1, NULL);
+  COMP(itm_iron, 2, itm_steel_chunk, 2, NULL);
+  COMP(itm_water, 2, itm_forgewater, -1, NULL);
   COMP(itm_charcoal, 1, NULL);
 
  RECIPE(itm_anvilmold,  CC_SMITH, sk_null,    sk_null, 0, 20000);
@@ -583,13 +597,14 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   TOOL(itm_crucible, -1, NULL);
   TOOL(itm_hammer, -1, itm_rock, -1, itm_hatchet, -1, NULL);
   TOOL(itm_lighter, 1, NULL);
+  COMP(itm_anvilmold, NULL);
   COMP(itm_charcoal, 3, itm_coal, 5, NULL);
   COMP(itm_steel_chunk, 15, itm_iron, 20, NULL);
 
  RECIPE(itm_shears,     CC_SMITH, sk_null,    sk_null, 0, 5000);
   TOOL(itm_forge, -1, NULL);
   TOOL(itm_fire, -1, NULL);
-  TOOL(itm_hammer, -1, itm_hatchet, -1, NULL);
+  TOOL(itm_smith_hammer, -1, NULL);
   COMP(itm_pipe, 1, itm_steel_chunk, 1, NULL);
   COMP(itm_knife_butcher, 2, itm_knife_combat, 2, NULL);
   COMP(itm_charcoal, 1, NULL);
