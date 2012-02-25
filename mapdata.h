@@ -66,7 +66,7 @@ enum ter_id {
 t_null = 0,
 t_hole,	// Real nothingness; makes you fall a z-level
 // Smithing
-t_forge, t_grindstone, t_watertub, t_crucible, t_anvil, t_mold,
+t_forge_base, t_forge, t_grindstone, t_watertub, t_crucible, t_anvil, t_mold,
 // Ground
 t_dirt, t_bog, t_dbog, t_claydirt, t_dirtmound,
 t_pit_shallow, t_pit, t_pit_spiked, t_pit_bridge, t_s_pit_bridge,
@@ -142,6 +142,8 @@ const ter_t terlist[num_terrain_types] = {  // MUST match enum ter_id above!
 	mfb(transparent)|mfb(diggable)},
 {"empty space",      '#', c_black,   2,
 	mfb(transparent)},
+{"forge base",       '#', c_dkgray,   0,
+	mfb(transparent)|mfb(bashable)},
 {"forge",            '&', c_dkgray,   0,
 	mfb(transparent)|mfb(bashable)},
 {"grindstone",       '&', c_ltgray,   0,

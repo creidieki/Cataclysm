@@ -98,13 +98,14 @@ void game::init_construction()
    COMP(itm_nail, 20, NULL);
 
  CONSTRUCT("Build Forge", 0, &construct::able_empty, &construct::done_nothing);
-  STAGE(t_forge, 10);
-  TOOL(itm_hammer, itm_rock, itm_hatchet, NULL);
-//  COMP(itm_nail, 80, itm_stake, 20, NULL);
+  STAGE(t_forge_base, 10);
   COMP(itm_rock, 20, NULL);
   COMP(itm_bellows, 1, NULL);
-//  COMP(itm_chain, 1, NULL);
-//  COMP(itm_2x4, 15, NULL);
+  STAGE(t_forge, 10);
+  TOOL(itm_hammer, itm_rock, itm_hatchet, NULL);
+  COMP(itm_nail, 80, itm_stake, 20, NULL);
+  COMP(itm_chain, 1, NULL);
+  COMP(itm_2x4, 15, NULL);
 
  CONSTRUCT("Build Anvil", 0, &construct::able_empty, &construct::done_nothing);
   STAGE(t_anvil, 1);
