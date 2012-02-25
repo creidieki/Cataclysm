@@ -463,7 +463,8 @@ idea of whether you're in good condition or not."},
 When you try to tell a lie, you blush, stammer, and get all shifty-eyed.\n\
 Telling lies and otherwise bluffing will be much more difficult for you."},
 {"Soft Skin", -2, 0, -2, "\
-Your skin is smooth and pleasing to the eye, but cutting weapons can more easily penetrate it."},
+Your skin is smooth and pleasing to the eye,\n\ 
+but cutting weapons can more easily penetrate it."},
 {"Ugly", -1, 0, 2, "\
 You're not much to look at.  NPCs who care about such things will react\n\
 poorly to you."},
