@@ -177,6 +177,7 @@ enum pl_flag {
  PF_SLEEK_SCALES,//
  PF_CHAMELEON_SCALES,// TODO: balance effects...
  PF_LIGHT_BONES,//
+ PF_SKIN_BRISTLE,// Feathers needed a prereq
  PF_FEATHERS,//
  PF_LIGHTFUR,// TODO: Warmth effects
  PF_FUR,// TODO: Warmth effects
@@ -529,12 +530,14 @@ making you much harder to see."}, // not as ugly, pretty colours =), more notica
 Your bones are very light.  This enables you to run and attack 10%% faster,\n\
 but also reduces your carrying weight by 15%% and makes bashing attacks hurt\n\
 a little more."},
+{"Bristly Skin", 0, 2, 2, "\
+Your skin is covered by small, rough projections, this has no effect."},
 {"Feathers", 2, 10, 3, "\
 Iridescent feathers have grown to cover your entire body, providing a\n\
 marginal protection against attacks and minor protection from cold. They\n\
 also provide a natural waterproofing."},
 {"Lightly Furred", 1, 6, 2, "\
-Light fur has grown to cover your entire body, providing slight protection\n\
+Light black fur has grown to cover your entire body, providing slight protection\n\
 from cold."},
 {"Furry", 2, 10, 3, "\
 Thick black fur has grown to cover your entire body, providing a marginal\n\

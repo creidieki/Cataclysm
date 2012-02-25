@@ -87,6 +87,13 @@ DRINK("water",		90, 50,	c_ltcyan, itm_bottle_plastic,
 	50,  0,  0,  0,  0,  0,  1,  0,&iuse::none,	ADD_NULL, "\
 Water, the stuff of life, the best thirst-quencher available.");
 
+//     NAME		RAR PRC	COLOR     CONTAINER
+DRINK("boiled water",	90, 50,	c_ltcyan, itm_bottle_plastic,
+//	QUE NUT SPO STM HTH ADD CHG FUN use_func	addiction type
+	50,  0,  0,  0,  0,  0,  1,  -10,&iuse::none,	ADD_NULL, "\
+Water, the stuff of life, the best thirst-quencher available.\n\
+This water has been boiled, and tastes bad.");
+
 DRINK("sewage sample",	 5,  5, c_ltgreen, itm_bottle_plastic,
 	 5,  0,  0,  0,-10,  0,  1,-20,&iuse::sewage,	ADD_NULL, "\
 A sample of sewage from a treatment plant.  Gross.");
@@ -1150,7 +1157,7 @@ ARMOR("deersuit",	50, 200,C_BODY,		COTTON,		PLASTIC,
     6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
                                                 mfb(bp_head), "\
 A thick cotton suit, covered in tawny fur and with\n\
-a while belly and a stubby tail. The head is a deer");
+a white belly and a stubby tail. The head is a deer");
 
 ARMOR("dress",		70, 180,C_BODY,		COTTON,		MNULL,
     8,  6, -5, -5,  3,  0,  1,  0,  2,  0,	mfb(bp_legs)|mfb(bp_torso), "\
@@ -1532,7 +1539,7 @@ A sharpened arrow carved from wood.  It's light-weight, does little damage,\n\
 and is so-so on accuracy.  Stands a good chance of remaining intact once\n\
 fired.",
 0);
-            
+
 AMMO("carbon fiber arrow",5,500,AT_ARROW,       c_green,        PLASTIC,
          2, 30, 24,  5, 15, 18,  0,  12, "\
 High-tech carbon fiber shafts and 100 grain broadheads. Very light weight,\n\
@@ -1895,7 +1902,7 @@ A bow with wheels that fires high velocity arrows.  Weaker people can use\n\
 compound bows more easily.  Arrows fired from this weapon have a good chance\n\
 of remaining intact for re-use.",
 mfb(IF_STR8_DRAW)|mfb(IF_RELOAD_AND_SHOOT));
-        
+
 GUN("longbow",           5, 400,c_yellow,       WOOD,   MNULL,
         sk_archery,     AT_ARROW,8, 4, 10,  0,  0, 12,  0,  6,  0,  1,  80, "\
 A six-foot wooden bow that fires feathered arrows.  This takes a fair amount\n\
@@ -3457,7 +3464,7 @@ GUN("fusion blaster",	 0,0,c_magenta,	STEEL,	PLASTIC,
    } while (namepart.find("-") == std::string::npos);
    art->name = namedata.str();
    start = true;
- 
+
    std::stringstream descdata;
    do {
     fin >> namepart;

@@ -4088,6 +4088,8 @@ int player::armor_bash(body_part bp)
   ret += 6;
  if (has_trait(PF_PINCERS) && bp == bp_hands)
   ret += 2;
+ if (bp == bp_feet && has_trait(PF_HOOVES))
+  ret -= 2;
  return ret;
 }
 
@@ -4132,6 +4134,8 @@ int player::armor_cut(body_part bp)
   ret += 4;
  if (has_trait(PF_SKIN_SOFT))
   ret -= 1;
+ if (bp == bp_feet && has_trait(PF_HOOVES))
+  ret -= 4;
  return ret;
 }
 
