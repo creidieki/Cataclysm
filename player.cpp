@@ -3972,7 +3972,7 @@ bool player::can_sleep(game *g)
   sleepy += 1;
  else if (g->m.ter(posx, posy) == t_pallet)
   sleepy += 2;
- else if (g->m.ter(posx, posy) == t_cot)
+ else if (g->m.tr_at(posx, posy) == tr_cot)
   sleepy += 3;
  else
   sleepy -= g->m.move_cost(posx, posy);

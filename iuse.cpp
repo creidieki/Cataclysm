@@ -2350,15 +2350,10 @@ void iuse::cot(game *g, player *p, item *it, bool t)
  }
  dirx += p->posx;
  diry += p->posy;
- ter_id type = g->m.ter(dirx, diry);
- if (type == t_floor) {
   g->add_msg("You unfold your cot and lay in on the ground");
    p->moves -= (10);
-   g->m.ter(dirx, diry) = t_cot;
+   g->m.tr_at(dirx, diry) = tr_cot;
    it->invlet = 0;
-  } else {
-  g->add_msg("You can only place this indoors");
- }
 }
 
 void iuse::dredge(game *g, player *p, item *it, bool t)
