@@ -72,7 +72,8 @@ void game::init_mapitems()
 	itm_mag_news, itm_novel_romance, itm_novel_drama, itm_manual_mechanics,
 	itm_manual_speech, itm_manual_business, itm_manual_computers,
 	itm_lighter, itm_sewing_kit, itm_scissors, itm_soldering_iron,
-	itm_radio, itm_syringe, itm_mp3, itm_usb_drive, NULL);
+	itm_radio, itm_syringe, itm_mp3, itm_usb_drive,
+        itm_fur1, itm_fur2, NULL);
 
  setvector(
    mapitems[mi_homeguns],

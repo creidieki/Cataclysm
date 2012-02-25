@@ -76,7 +76,8 @@ itm_sneakers, itm_boots, itm_boots_steel, itm_boots_winter, itm_mocassins,
 itm_jeans, itm_pants, itm_pants_leather, itm_pants_cargo, itm_pants_army,
  itm_skirt,
 // Full-body clothing
-itm_jumpsuit, itm_dress, itm_armor_chitin, itm_suit, itm_hazmat_suit,
+itm_jumpsuit, itm_fur1, itm_fur2,
+ itm_dress, itm_armor_chitin, itm_suit, itm_hazmat_suit,
 // Torso clothing
 itm_tshirt, itm_polo_shirt, itm_dress_shirt, itm_tank_top, itm_sweatshirt,
  itm_sweater, itm_hoodie, itm_jacket_light, itm_jacket_jean, itm_blazer,

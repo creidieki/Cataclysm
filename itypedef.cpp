@@ -1146,6 +1146,22 @@ ARMOR("jumpsuit",	20, 200,C_BODY,		COTTON,		PLASTIC,
     6,  6, -3, -3,  1,  0,  1,  0,  3, 16,	mfb(bp_legs)|mfb(bp_torso), "\
 A full-body jumpsuit with many pockets.");
 
+//     NAME		RAR PRC	COLOR		MAT1		MAT2
+ARMOR("fursuit (wolf)",	50, 200,C_BODY,		COTTON,		PLASTIC,
+// VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
+    6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
+                                                mfb(bp_head), "\
+A thick cotton suit, covered in shaggy grey fur.\n\
+The head is a wolf");
+
+//     NAME		RAR PRC	COLOR		MAT1		MAT2
+ARMOR("fursuit (deer)",	50, 200,C_BODY,		COTTON,		PLASTIC,
+// VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
+    6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
+                                                mfb(bp_head), "\
+A thick cotton suit, covered in tawny fur and with\n\
+a while belly. The head is a deer");
+
 ARMOR("dress",		70, 180,C_BODY,		COTTON,		MNULL,
     8,  6, -5, -5,  3,  0,  1,  0,  2,  0,	mfb(bp_legs)|mfb(bp_torso), "\
 A long cotton dress.  Difficult to move in and lacks any storage space.");
