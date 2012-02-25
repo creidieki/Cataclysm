@@ -319,7 +319,7 @@ bool map::bash(int x, int y, int str, std::string &sound)
  case t_bed:
  case t_cot:
   if (str >= dice(6, 45)) {
-   sound += "skree!";
+   sound += "smash!";
    ter(x, y) = t_floor;
     add_item(x, y, (*itypes)[itm_sheet], 0);
    int num_planks = rng(2, 8);
@@ -336,7 +336,7 @@ bool map::bash(int x, int y, int str, std::string &sound)
   if (str >= dice(6, 45)) {
    sound += "skree!";
    ter(x, y) = t_floor;
-   int num_pipes = rng(1, 6);
+   int num_pipes = rng(0, 2);
    for (int i = 0; i < num_pipes; i++)
     add_item(x, y, (*itypes)[itm_pipe], 0);
    return true;

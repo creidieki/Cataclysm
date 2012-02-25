@@ -244,6 +244,11 @@ void inventory::form_from_map(game *g, point origin, int range)
     anvil.charges = 1;
     add_item(anvil);
    }
+   if (g->m.ter(x, y) == t_mold) {
+    item mold(g->itypes[itm_ingotmold], 0);
+    mold.charges = 1;
+    add_item(mold);
+   }
   }
  }
 }

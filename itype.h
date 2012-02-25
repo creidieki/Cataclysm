@@ -23,7 +23,7 @@ itm_null = 0,
 itm_corpse,
 // Special pseudoitems
 itm_fire, itm_toolset, itm_forge, itm_grindstone, itm_forgewater, itm_hot_crucible,
-itm_anvil,
+itm_anvil, itm_ingotmold,
 // Drinks
 itm_water, itm_sewage, itm_salt_water, itm_oj, itm_apple_cider,
  itm_energy_drink, itm_cola, itm_rootbeer, itm_milk, itm_V8, itm_broth,
@@ -67,7 +67,8 @@ itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_binoculars, itm_usb_drive, itm_log, itm_splinter, itm_stake, itm_crossbar,
  itm_hog, itm_carbattery, itm_wire, itm_sheet, itm_carving_knife, itm_bellows,
  itm_crucible, itm_clay, itm_shears, itm_vice, itm_anvilmold, itm_anvil_mobile,
- itm_iron, itm_charcoal, itm_coalchunk,
+ itm_iron, itm_charcoal, itm_coalchunk, itm_ingot_mold, itm_carbon_steel,
+ itm_iron_ingot, itm_handle,
 // Footwear
 itm_sneakers, itm_boots, itm_boots_steel, itm_boots_winter, itm_mocassins,
  itm_flip_flops, itm_dress_shoes, itm_heels,

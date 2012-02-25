@@ -157,13 +157,13 @@ void game::init_mapitems()
  setvector(
    mapitems[mi_wood_working_tools],
         itm_nailgun, itm_hammer, itm_saw, itm_hacksaw, itm_crowbar,     itm_nail, itm_chainsaw_off, itm_extinguisher,
-        itm_screwdriver, itm_glasses_safety, itm_hat_hard, itm_pipe, itm_textbook_carpentry, itm_2x4, itm_ax, itm_saw, NULL);
+        itm_screwdriver, itm_glasses_safety, itm_hat_hard, itm_pipe, itm_textbook_carpentry, itm_2x4, itm_ax, itm_saw, itm_carving_knife, NULL);
 
  setvector(
    mapitems[mi_tools],
 	itm_screwdriver, itm_hammer, itm_wrench, itm_saw, itm_hacksaw,
 	itm_hammer_sledge, itm_xacto, itm_flashlight, itm_crowbar, itm_nailgun,
-        itm_ax, itm_pickaxe,
+        itm_pickaxe,
 	NULL);
 
  setvector(
@@ -400,7 +400,7 @@ void game::init_mapitems()
 	itm_novel_romance, itm_novel_spy, itm_novel_scifi, itm_novel_drama,
 	itm_SICP, itm_textbook_robots, itm_extinguisher, itm_radio,
 	itm_chainsaw_off, itm_jackhammer, itm_ring, itm_necklace, itm_usb_drive,
-        itm_dredge, itm_pickaxe, itm_clay,
+        itm_dredge, itm_pickaxe, itm_clay, itm_iron, itm_carving_knife,
 	NULL);
 
  setvector(
@@ -550,7 +550,7 @@ void game::init_mapitems()
 	itm_bottle_plastic, itm_lighter, itm_sewing_kit, itm_extinguisher,
 	itm_flashlight, itm_crowbar, itm_chainsaw_off, itm_beartrap,
 	itm_grenade, itm_EMPbomb, itm_hotplate, itm_UPS_off, itm_ax,
-        itm_tent, itm_awning, itm_cot,  NULL);
+        itm_tent, itm_awning, itm_cot, itm_carving_knife,  NULL);
 
  setvector(
    mapitems[mi_sewage_plant],

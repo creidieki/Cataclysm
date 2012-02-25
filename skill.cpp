@@ -51,6 +51,8 @@ std::string skill_name(int sk)
   return "tailoring";
  case sk_firstaid:
   return "first aid";
+ case sk_smithing:
+  return "metalworking";
  case sk_speech:
   return "speech";
  case sk_barter:
@@ -175,6 +177,11 @@ other methods of clothing repair and textile crafting.";
 Your skill at emergency medical treatment, such as that from first aid kits\n\
 and bandages. High levels of this skill may help heal more HP. Some drugs\n\
 may be more effective as well.";
+ case sk_smithing:
+  return "\
+Your skill at working metal in a forge to create tools and equipment.\n\
+high levels of this skill will allow you to create more intricate and\n\
+precise items at a forge,";
  case sk_speech:
   return "\
 Your skill at talking to people, convincing them of things, lying, and many\n\

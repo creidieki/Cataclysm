@@ -63,7 +63,12 @@ void game::init_itypes ()
   new itype(8, 0, 0, "anvil",
             "A fake item.  If you are reading this it's a bug!",
             '&', c_dkgray, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
- int index = 8;
+
+ itypes.push_back(
+  new itype(9, 0, 0, "ingot mold",
+            "A fake item.  If you are reading this it's a bug!",
+            '#', c_dkgray, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+ int index = 9;
 
 // Drinks
 // Stim should be -8 to 8.
@@ -1038,6 +1043,30 @@ MELEE("chunk of coal", 30, 10, ',', c_dkgray,	WOOD,	MNULL,
 //	VOL WGT DAM CUT HIT FLAGS
 	 4,  6, 12,  0, -2, 0, "\
 A very large chunk of coal, useful for heating during smithing");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("ingot mold", 30, 10, ',', c_dkgray,	STONE,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 4,  6, 12,  0, -2, 0, "\
+A clay mold with a large, bar shaped, depression in it\n\
+for pouring molten metal into");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("carbon steel", 30, 10, ',', c_dkgray,	STEEL,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  10, 14,  0, -2, 0, "\
+A bar of carbon steel");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("iron bar", 30, 10, ',', c_dkgray,	IRON,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  10, 14,  0, -2, 0, "\
+A large bar of iron");
+
+MELEE("wooden handle",	60, 160,'/', c_ltred,	WOOD,	MNULL,
+	12, 10, 15,  0,  3, 0, "\
+A sturdy wooden handle, useful in creation of tools, and not a\n\
+bad weapon, either.");
 
 // ARMOR
 #define ARMOR(name,rarity,price,color,mat1,mat2,volume,wgt,dam,to_hit,\
