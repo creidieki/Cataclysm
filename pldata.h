@@ -111,7 +111,6 @@ enum pl_flag {
  PF_FASTREADER,	// Reads books faster
  PF_TOUGH,	// Bonus to HP
  PF_THICKSKIN,	// Built-in armor of 1
- PF_SKIN_SMOOTH,//
  PF_PACKMULE,	// Bonus to carried volume
  PF_FASTLEARNER,// Better chance of skills leveling up
  PF_DEFT,	// Less movement penalty for melee miss
@@ -155,6 +154,7 @@ enum pl_flag {
  PF_WOOLALLERGY,// Can't wear wool
  PF_HPIGNORANT,	// Don't get to see exact HP numbers, just colors & symbols
  PF_TRUTHTELLER, // Worse at telling lies
+ PF_SKIN_SOFT,//
  PF_UGLY, // +1 grotesqueness
  PF_OVERWEIGHT, // +1 torso encumbrance, 5% slower and slighly ugly, not as much as ugly
 
@@ -162,6 +162,7 @@ enum pl_flag {
 // Below this point is mutations and other mid-game perks.
 // They are NOT available during character creation.
  PF_SKIN_ROUGH,//
+ PF_SKIN_LEATHER,//
  PF_NIGHTVISION2,//
  PF_NIGHTVISION3,//
  PF_INFRARED,//
@@ -335,9 +336,6 @@ You're a quick reader, and can get through books a lot faster than most."},
 It takes a lot to bring you down!  You get a 20%% bonus to all hit points."},
 {"Thick-Skinned", 2, 0, 0, "\
 Your skin is tough.  Cutting damage is slightly reduced for you."},
-{"Smooth Skin", 1, 0, -2, "\
-Your skin is smooth and pleasing to the eye, other than that\n\
-it has no gameplay effects."},
 {"Packmule", 3, 0, 0, "\
 You can manage to find space for anything!  You can carry 40%% more volume."},
 {"Fast Learner", 3, 0, 0, "\
@@ -463,6 +461,8 @@ idea of whether you're in good condition or not."},
 {"Truth Teller", -2, 0, 0, "\
 When you try to tell a lie, you blush, stammer, and get all shifty-eyed.\n\
 Telling lies and otherwise bluffing will be much more difficult for you."},
+{"Soft Skin", -2, 0, -2, "\
+Your skin is smooth and pleasing to the eye, but cutting weapons can more easily penetrate it."},
 {"Ugly", -1, 0, 2, "\
 You're not much to look at.  NPCs who care about such things will react\n\
 poorly to you."},
@@ -486,6 +486,8 @@ This shouldn't be here!  You have the trait PF_MAX toggled.  Weird."},
 
 {"Rough Skin", 0, 2, 1, "\
 Your skin is slightly rough.  This has no gameplay effect."},
+{"Leathery Skin", 0, 3, 2, "\
+Your skin is thick and leathery, providing you with decent cut protection."},
 {"High Night Vision", 3, 0, 0, "\
 You can see incredibly well in the dark!"},
 {"Full Night Vision", 5, 0, 0, "\
@@ -872,10 +874,9 @@ Your arms have transformed into eight tentacles, resulting in a bonus of 1 to\n\
 dexterity, permanent hand encumbrance of 3, and preventing you from wearing\n\
 gloves.  You can make up to 7 extra attacks with them."},
 {"Pincers", -4, 8, 3, "\
-Your hands have become fearsome pincers. They provide great protection and give\n\
-you powerful melee attacks, however. The lack of fingers and flexibility\n\
-results in a permanent hand encumbrance of 4 and a dexterity loss of 2,\n\
-also preventing you from wearing gloves."},
+Your hands have become pincers. They provide protection and give you powerful\n\
+melee attacks. The lack of fingers results in a permanent hand encumbrance of\n\
+4 and a dexterity loss of 2, also preventing you from wearing gloves."},
 {"Shell", -6, 8, 3, "\
 You have grown a thick shell over your torso, providing excellent armor.  You\n\
 find you can use the empty space as 16 storage space, but cannot wear\n\

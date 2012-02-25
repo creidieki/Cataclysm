@@ -3634,8 +3634,9 @@ bool player::wear(game *g, char let)
                (has_trait(PF_MANDIBLES) ? "mandibles" : "tusks")));
   return false;
  }
- if (armor->covers & mfb(bp_feet) && has_trait(PF_HOOVES)) {
-  g->add_msg("You cannot wear footwear on your hooves.");
+ if (armor->covers & mfb(bp_feet) && has_trait(PF_HOOVES) || has_trait(PF_LEG_TENTACLES)) {
+  g->add_msg("You cannot wear footwear on your %s.",
+             (has_trait(PF_HOOVES) ? "hooves" : "tentacles"));
   return false;
  }
  if (armor->covers & mfb(bp_head) && has_trait(PF_HORNS_CURLED)) {
@@ -4075,10 +4076,14 @@ int player::armor_bash(body_part bp)
   ret += 3;
  else if (bp == bp_legs && has_bionic(bio_armor_legs))
   ret += 3;
- if (has_trait(PF_FUR))
-  ret++;
- if (has_trait(PF_CHITIN))
+ if (has_trait(PF_FUR) || has_trait(PF_SKIN_LEATHER) || has_trait(PF_SCALES) || has_trait(PF_SLEEK_SCALES) || has_trait(PF_CHAMELEON_SCALES))
+  ret ++;
+ if (has_trait(PF_CHITIN) || has_trait(PF_THICK_SCALES))
   ret += 2;
+ if (has_trait(PF_CHITIN2))
+    ret += 3;
+ if (has_trait(PF_CHITIN3))
+    ret += 4;
  if (has_trait(PF_SHELL) && bp == bp_torso)
   ret += 6;
  if (has_trait(PF_PINCERS) && bp == bp_hands)
@@ -4105,8 +4110,8 @@ int player::armor_cut(body_part bp)
   ret += 3;
  else if (bp == bp_legs && has_bionic(bio_armor_legs))
   ret += 3;
- if (has_trait(PF_THICKSKIN))
-  ret++;
+ if (has_trait(PF_THICKSKIN) || has_trait(PF_SKIN_LEATHER))
+  ret ++;
  if (has_trait(PF_SCALES))
   ret += 2;
  if (has_trait(PF_THICK_SCALES))
@@ -4125,6 +4130,8 @@ int player::armor_cut(body_part bp)
   ret += 14;
  if (has_trait(PF_PINCERS) && bp == bp_hands)
   ret += 4;
+ if (has_trait(PF_SKIN_SOFT))
+  ret -= 1;
  return ret;
 }
 
