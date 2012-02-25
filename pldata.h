@@ -38,6 +38,7 @@ enum dis_type {
  DI_POISON, DI_BADPOISON, DI_FOODPOISON, DI_SHAKES,
  DI_DERMATIK, DI_FORMICATION,
  DI_WEBBED,
+ DI_RAT,
 // Food & Drugs
  DI_PKILL1, DI_PKILL2, DI_PKILL3, DI_PKILL_L, DI_DRUNK, DI_CIG, DI_HIGH,
   DI_HALLU, DI_VISUALS, DI_IODINE, DI_TOOK_XANAX, DI_TOOK_PROZAC,
@@ -233,6 +234,7 @@ enum pl_flag {
  PF_ACID_RESIST,// TODO: Make acid effect clothing but not damage the player
  PF_ACID_IMMUNE,
  PF_ACID_TRAIL,// TODO: Make a bit more powerful
+ PF_WHISKERS,
 
  PF_HEADBUMPS,//
  PF_ANTLERS,//
@@ -714,6 +716,10 @@ that clothing isn't."},
 {"Acid Trail", 4, 8, 7, "\
 A corrosive slime oozes from your skin and leaves a trail behind you.\n\
 There is a chance for this trail to have acid instead of slime."},
+{"Whiskers", 1, 3, 1, "\
+You have a set of prominent rodent-like whiskers around your mouth.  These\n\
+make you more aware of vibrations in the air, and improve your ability to\n\
+dodge very slightly."},
 
 {"Head Bumps", 0, 3, 3, "\
 You have a pair of bumps on your skull."},
