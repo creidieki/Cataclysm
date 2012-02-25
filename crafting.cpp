@@ -602,7 +602,7 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   TOOL(itm_crucible, -1, NULL);
   TOOL(itm_hammer, -1, itm_rock, -1, itm_hatchet, -1, NULL);
   TOOL(itm_lighter, 1, NULL);
-  COMP(itm_anvilmold, NULL);
+  COMP(itm_anvilmold, 1, NULL);
   COMP(itm_charcoal, 3, itm_coal, 5, NULL);
   COMP(itm_steel_chunk, 15, itm_iron, 20, NULL);
 
