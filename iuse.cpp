@@ -53,7 +53,7 @@ void iuse::royal_jelly(game *g, player *p, item *it, bool t)
   g->add_msg(message.c_str());
 }
 
-void iuse::bandage(game *g, player *p, item *it, bool t) 
+void iuse::bandage(game *g, player *p, item *it, bool t)
 {
  int bonus = p->sklevel[sk_firstaid];
  hp_part healed;
@@ -72,7 +72,7 @@ void iuse::bandage(game *g, player *p, item *it, bool t)
    }
   }
  } else { // Player--present a menu
-   
+
   WINDOW* w = newwin(10, 20, 8, 1);
   wborder(w, LINE_XOXO, LINE_XOXO, LINE_OXOX, LINE_OXOX,
              LINE_OXXO, LINE_OOXX, LINE_XXOO, LINE_XOOX );
@@ -180,7 +180,7 @@ void iuse::bandage(game *g, player *p, item *it, bool t)
  p->heal(healed, dam);
 }
 
-void iuse::firstaid(game *g, player *p, item *it, bool t) 
+void iuse::firstaid(game *g, player *p, item *it, bool t)
 {
  int bonus = p->sklevel[sk_firstaid];
  hp_part healed;
@@ -199,7 +199,7 @@ void iuse::firstaid(game *g, player *p, item *it, bool t)
    }
   }
  } else { // Player--present a menu
-   
+
   WINDOW* w = newwin(10, 20, 8, 1);
   wborder(w, LINE_XOXO, LINE_XOXO, LINE_OXOX, LINE_OXOX,
              LINE_OXXO, LINE_OOXX, LINE_XXOO, LINE_XOOX );
@@ -632,8 +632,8 @@ void iuse::dogfood(game *g, player *p, item *it, bool t)
   g->add_msg("You spill the dogfood all over the ground.");
 
 }
-  
- 
+
+
 
 // TOOLS below this point!
 
@@ -909,7 +909,7 @@ void iuse::hammer(game *g, player *p, item *it, bool t)
   g->m.add_item(p->posx, p->posy, board);
  g->m.ter(dirx, diry) = newter;
 }
- 
+
 void iuse::light_off(game *g, player *p, item *it, bool t)
 {
  if (it->charges == 0)
@@ -920,7 +920,7 @@ void iuse::light_off(game *g, player *p, item *it, bool t)
   it->active = true;
  }
 }
- 
+
 void iuse::light_on(game *g, player *p, item *it, bool t)
 {
  if (t) {	// Normal use
@@ -1027,7 +1027,7 @@ void iuse::two_way_radio(game *g, player *p, item *it, bool t)
  delwin(w);
  refresh();
 }
- 
+
 void iuse::radio_off(game *g, player *p, item *it, bool t)
 {
  if (it->charges == 0)
@@ -1126,7 +1126,7 @@ void iuse::crowbar(game *g, player *p, item *it, bool t)
   } else {
    g->add_msg("You pry, but cannot open the crate.");
    p->moves -= 100;
-  } 
+  }
  } else {
   int nails = 0, boards = 0;
   ter_id newter;
@@ -1158,14 +1158,45 @@ void iuse::crowbar(game *g, player *p, item *it, bool t)
 
 void iuse::makemound(game *g, player *p, item *it, bool t)
 {
- if (g->m.has_flag(diggable, p->posx, p->posy)) {
+ if (g->m.has_flag(diggable, p->posx, p->posy) && (g->m.ter(p->posx, p->posy) != t_dirtmound)) {
   g->add_msg("You churn up the earth here.");
   p->moves = -300;
   g->m.ter(p->posx, p->posy) = t_dirtmound;
  } else
+ if (g->m.ter(p->posx, p->posy) = t_dirtmound) {
+  p->moves = -400;
+  g->add_msg("You smooth the earth here.");
+  g->m.ter(p->posx, p->posy) = t_dirt;
+ } else
   g->add_msg("You can't churn up this ground.");
 }
 
+/* //WIP (yes, I suck at C++)
+void iuse::makemound(game *g, player *p, item *it, bool t)
+{
+ int dirx, diry;
+ g->draw();
+ mvprintw(0, 0, "Churn/smooth earth where?");
+ get_direction(dirx, diry, input());
+ if (dirx == -2) {
+  g->add_msg("Invalid direction.");
+  return;
+ }
+ dirx += p->posx;
+ diry += p->posy;
+ ter_id type = g->m.ter(dirx, diry);
+ if (g->m.ter(dirx, diry)has_flag(diggable) && (g->m.ter(dirx, diry) != t_dirtmound)) {
+  g->add_msg("You churn up the earth here.");
+  p->moves = -300;
+  g->m.ter(p->posx, p->posy) = t_dirtmound;
+ } else {
+ if (g->m.ter(dirx, diry) = t_dirtmound) {
+  g->add_msg("You smooth the earth here.");
+  p->moves = -300;
+  g->m.ter(p->posx, p->posy) = t_dirt;
+   }
+  }
+*/
 void iuse::dig(game *g, player *p, item *it, bool t)
 {
  int dirx, diry;
@@ -1183,7 +1214,7 @@ void iuse::dig(game *g, player *p, item *it, bool t)
   if (!one_in(6)) {
     g->add_msg("You find no clay");
     p->moves -= 200;
-    g->m.ter(dirx, diry) = t_dirt;
+    g->m.ter(dirx, diry) = t_dirtmound;
  } else {
     p->moves -= 200;
     g->add_msg("You find some clay!");
@@ -1300,7 +1331,7 @@ void iuse::set_trap(game *g, player *p, item *it, bool t)
             query_yn("Bury the beartrap?"));
   type = (buried ? tr_beartrap_buried : tr_beartrap);
   message << "You " << (buried ? "bury" : "set") << " the beartrap.";
-  practice = (buried ? 7 : 4); 
+  practice = (buried ? 7 : 4);
   break;
  case itm_board_trap:
   message << "You set the board trap on the " << g->m.tername(posx, posy) <<
@@ -1516,7 +1547,7 @@ void iuse::pipebomb_act(game *g, player *p, item *it, bool t)
    g->explosion(pos.x, pos.y, rng(6, 14), rng(0, 4), false);
  }
 }
- 
+
 void iuse::grenade(game *g, player *p, item *it, bool t)
 {
  g->add_msg("You pull the pin on the grenade.");
@@ -1671,7 +1702,7 @@ void iuse::acidbomb(game *g, player *p, item *it, bool t)
  it->bday = int(g->turn);
  it->active = true;
 }
- 
+
 void iuse::acidbomb_act(game *g, player *p, item *it, bool t)
 {
  if (!p->has_item(it)) {
@@ -1700,7 +1731,7 @@ void iuse::molotov(game *g, player *p, item *it, bool t)
  it->bday = int(g->turn);
  it->active = true;
 }
- 
+
 void iuse::molotov_lit(game *g, player *p, item *it, bool t)
 {
  int age = int(g->turn) - it->bday;
@@ -1806,7 +1837,7 @@ void iuse::pheromone(game *g, player *p, item *it, bool t)
    g->add_msg("...and several nearby zombies turn friendly!");
  }
 }
- 
+
 
 void iuse::portal(game *g, player *p, item *it, bool t)
 {
@@ -1877,7 +1908,7 @@ void iuse::UPS_off(game *g, player *p, item *it, bool t)
   it->active = true;
  }
 }
- 
+
 void iuse::UPS_on(game *g, player *p, item *it, bool t)
 {
  if (t) {	// Normal use
@@ -1931,7 +1962,7 @@ void iuse::tazer(game *g, player *p, item *it, bool t)
    g->kill_mon(mondex);
   return;
  }
- 
+
  if (npcdex != -1) {
   npc *foe = dynamic_cast<npc*>(&g->active_npc[npcdex]);
   if (foe->attitude != NPCATT_FLEE)
@@ -2675,7 +2706,7 @@ void iuse::artifact(game *g, player *p, item *it, bool t)
     }
    }
   } break;
-    
+
 
   case AEA_RADIATION:
    g->add_msg("Horrible gasses are emitted!");

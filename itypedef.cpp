@@ -2867,7 +2867,7 @@ of dirt.");
 
 TOOL("shovel",		40, 100,'/', c_brown,	IRON,	WOOD,
    16, 18, 15,  5,  3,  0,  0,  0,  0, AT_NULL,	itm_null, &iuse::dig, 0, "\
-A digging tool.  Use it to dig pits adjacent to your location.");
+A digging tool.  Use it to find clay adjacent to your location.");
 
 TOOL("chainsaw (off)",	 7, 350,'/', c_red,	IRON,	PLASTIC,
    12, 40, 10,  0, -4, 400, 0,  0,  0, AT_GAS,	itm_null, &iuse::chainsaw_off,0,
