@@ -191,7 +191,7 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   COMP(itm_meat, 1, NULL);
 
  RECIPE(itm_cleaned_fish, CC_FOOD, sk_cooking, sk_null, 0, 2000);
-  TOOL(itm_knife_steak, -1, itm_knife_butcher, -1, itm_knife_combat, NULL);
+  TOOL(itm_knife_steak, -1, itm_knife_butcher, -1, itm_knife_combat, -1, NULL);
   COMP(itm_water, 1, NULL);
   COMP(itm_fish, 1,NULL);
 
