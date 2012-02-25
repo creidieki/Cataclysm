@@ -1022,10 +1022,6 @@ MELEE("anvil mould", 0, 1000, ';', c_dkgray, STONE, MNULL,
 An anvil mould made of clay, fill it up with\n\
 molten metal and you'll have an anvil.");
 
-MELEE("anvil", 0, 1000, 'z', c_dkgray, IRON, MNULL,
-         20, 50,  9, 0,  -5, 0, "\
-An very heavy anvil, don't leave it hanging from a rope");
-
 //    NAME		RAR PRC SYM COLOR	MAT1	MAT2
 MELEE("chunk of iron", 30, 10, ',', c_ltgray,	IRON,	MNULL,
 //	VOL WGT DAM CUT HIT FLAGS
@@ -1044,12 +1040,6 @@ MELEE("chunk of coal", 30, 10, ',', c_dkgray,	WOOD,	MNULL,
 	 4,  6, 12,  0, -2, 0, "\
 A very large chunk of coal, useful for heating during smithing");
 
-//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
-MELEE("ingot mold", 30, 10, ',', c_dkgray,	STONE,	MNULL,
-//	VOL WGT DAM CUT HIT FLAGS
-	 4,  6, 12,  0, -2, 0, "\
-A clay mold with a large, bar shaped, depression in it\n\
-for pouring molten metal into");
 
 //    NAME		RAR PRC SYM COLOR	MAT1	MAT2
 MELEE("carbon steel", 30, 10, ',', c_dkgray,	STEEL,	MNULL,
@@ -1147,20 +1137,20 @@ ARMOR("jumpsuit",	20, 200,C_BODY,		COTTON,		PLASTIC,
 A full-body jumpsuit with many pockets.");
 
 //     NAME		RAR PRC	COLOR		MAT1		MAT2
-ARMOR("fursuit (wolf)",	50, 200,C_BODY,		COTTON,		PLASTIC,
+ARMOR("wolfsuit",	50, 200,C_BODY,		COTTON,		PLASTIC,
 // VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
     6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
                                                 mfb(bp_head), "\
-A thick cotton suit, covered in shaggy grey fur.\n\
+A thick cotton suit, covered in shaggy grey fur, and with a thick tail.\n\
 The head is a wolf");
 
 //     NAME		RAR PRC	COLOR		MAT1		MAT2
-ARMOR("fursuit (deer)",	50, 200,C_BODY,		COTTON,		PLASTIC,
+ARMOR("deersuit",	50, 200,C_BODY,		COTTON,		PLASTIC,
 // VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
     6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
                                                 mfb(bp_head), "\
 A thick cotton suit, covered in tawny fur and with\n\
-a while belly. The head is a deer");
+a while belly and a stubby tail. The head is a deer");
 
 ARMOR("dress",		70, 180,C_BODY,		COTTON,		MNULL,
     8,  6, -5, -5,  3,  0,  1,  0,  2,  0,	mfb(bp_legs)|mfb(bp_torso), "\
@@ -3220,8 +3210,19 @@ TOOL("cot",                   80, 1000,';',  c_green,   STEEL, MNULL,
 A military style cot, folded up for transportation");
 
 TOOL("dredge",                   30, 1000,'/',  c_brown,   WOOD, STEEL,
-        15,7,0, 4,   -5,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::dredge,0,"\
+         15, 7,   0, 4,  -5, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::dredge,0,"\
 It's shaped a bit like a plough, it's used for bog iron dredging");
+
+
+TOOL("anvil", 0, 1000, 'z', c_dkgray, IRON, MNULL,
+         20, 50,  9, 0,  -5, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::anvil,0, "\
+An very heavy anvil, don't leave it hanging from a rope");
+
+TOOL("ingot mold", 30, 10, ',', c_dkgray,	STONE,	MNULL,
+	 4,  6,  12, 0,  -2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::ingotmold,0, "\
+A clay mold with a large, bar shaped, depression in it\n\
+for pouring molten metal into");
+
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated

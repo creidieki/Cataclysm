@@ -2393,6 +2393,42 @@ void iuse::dredge(game *g, player *p, item *it, bool t)
  }
 }
 
+void iuse::anvil(game *g, player *p, item *it, bool t)
+{
+ int dirx, diry;
+ g->draw();
+ mvprintw(0, 0, "Place your anvil where?");
+ get_direction(dirx, diry, input());
+ if (dirx == -2) {
+  g->add_msg("Invalid direction.");
+  return;
+ }
+ dirx += p->posx;
+ diry += p->posy;
+  g->add_msg("You place your anvil down and stabilise it");
+   p->moves -= (10);
+   g->m.ter(dirx, diry) = t_anvil;
+   it->invlet = 0;
+}
+
+void iuse::ingotmold(game *g, player *p, item *it, bool t)
+{
+ int dirx, diry;
+ g->draw();
+ mvprintw(0, 0, "Place your ingot press where?");
+ get_direction(dirx, diry, input());
+ if (dirx == -2) {
+  g->add_msg("Invalid direction.");
+  return;
+ }
+ dirx += p->posx;
+ diry += p->posy;
+  g->add_msg("You set up your ingot press");
+   p->moves -= (10);
+   g->m.ter(dirx, diry) = t_mold;
+   it->invlet = 0;
+}
+
 /* MACGUFFIN FUNCTIONS
  * These functions should refer to it->associated_mission for the particulars
  */

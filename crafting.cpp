@@ -629,7 +629,9 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   TOOL(itm_knife_steak, -1, itm_knife_combat, -1, itm_knife_butcher, -1,
        itm_knife_butter, -1, itm_carving_knife, -1, NULL);
   COMP(itm_clay, 10, NULL);
- 
+  COMP(itm_2x4, 6, NULL);
+  COMP(itm_nail, 20, itm_stake, 2, NULL);
+
  RECIPE(itm_iron_ingot,   CC_SMITH, sk_smithing, sk_null, 0, 10000);
   TOOL(itm_ingotmold, -1, NULL);
   TOOL(itm_crucible, -1, NULL);

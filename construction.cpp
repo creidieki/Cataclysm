@@ -107,16 +107,6 @@ void game::init_construction()
   COMP(itm_chain, 1, NULL);
   COMP(itm_2x4, 15, NULL);
 
- CONSTRUCT("Build Anvil", 0, &construct::able_empty, &construct::done_nothing);
-  STAGE(t_anvil, 1);
-  COMP(itm_anvil_mobile, 1, NULL);
-
- CONSTRUCT("Ingot Press", 0, &construct::able_empty, &construct::done_nothing);
-  STAGE(t_mold, 10);
-  COMP(itm_ingot_mold, 1, NULL);
-  COMP(itm_2x4, 6, NULL);
-  COMP(itm_clay, 4, NULL);
-
  CONSTRUCT("Build Crucible", 0, &construct::able_empty, &construct::done_nothing);
   STAGE(t_crucible, 10);
   COMP(itm_crucible, 1, NULL);

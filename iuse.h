@@ -108,6 +108,8 @@ class iuse
   void efence           (game *g, player *p, item *it, bool t);
   void cot              (game *g, player *p, item *it, bool t);
   void dredge           (game *g, player *p, item *it, bool t);
+  void anvil            (game *g, player *p, item *it, bool t);
+  void ingotmold        (game *g, player *p, item *it, bool t);
 // MACGUFFINS
   void mcg_note		(game *g, player *p, item *it, bool t);
 // ARTIFACTS
