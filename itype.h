@@ -68,7 +68,7 @@ itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_hog, itm_carbattery, itm_wire, itm_sheet, itm_carving_knife, itm_bellows,
  itm_crucible, itm_clay, itm_shears, itm_vice, itm_anvilmold,
  itm_iron, itm_charcoal, itm_coalchunk, itm_carbon_steel,
- itm_iron_ingot, itm_handle,
+ itm_iron_ingot, itm_handle, itm_door,
 // Footwear
 itm_sneakers, itm_boots, itm_boots_steel, itm_boots_winter, itm_mocassins,
  itm_flip_flops, itm_dress_shoes, itm_heels,

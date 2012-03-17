@@ -4233,12 +4233,14 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
   ter(17, 17) = t_door_locked;
 
   // Item placement
-  place_items(mi_snacks, 30, 19, 3, 19, 10, false, 0);
-  place_items(mi_snacks, 50, 18, 18, 21, 18, false, 0);
+  place_items(mi_bar, 30, 19, 3, 19, 10, false, 0);
+  place_items(mi_bar, 50, 18, 18, 21, 18, false, 0);
   place_items(mi_fridgesnacks, 60, 21, 4, 21, 4, false, 0);
   place_items(mi_fridgesnacks, 60, 21, 17, 21, 17, false, 0);
-  place_items(mi_alcohol, 50, 21, 5, 21, 8, false, 0);
+  place_items(mi_bar, 50, 21, 5, 21, 8, false, 0);
   place_items(mi_trash, 15, 2, 17, 16, 19, true, 0);
+ if (one_in(3))
+  place_items(mi_alcohol, 50, 21, 5, 21, 8, false, 0);
 
   if (terrain_type == ot_bar_east)
    rotate(1);

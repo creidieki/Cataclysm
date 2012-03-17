@@ -1264,12 +1264,63 @@ void iuse::chainsaw_on(game *g, player *p, item *it, bool t)
   if (one_in(15))
    g->sound(p->posx, p->posy, 12, "Your chainsaw rumbles.");
  } else {	// Toggling
+ int ch = menu("Lumberjacking:", "Deactivate", "Fell Tree",
+                "Cancel", NULL);
+switch (ch) {
+if (ch == 3)
+break;
+case 1:
   g->add_msg("Your chainsaw dies.");
   it->make(g->itypes[itm_chainsaw_off]);
   it->active = false;
+break;
+case 2:{
+ int dirx, diry;
+ g->draw();
+ mvprintw(0, 0, "Fell which tree?");
+ get_direction(dirx, diry, input());
+ if (dirx == -2) { 
+  g->add_msg("Invalid direction.");
+  return;
+ }
+ dirx += p->posx;
+ diry += p->posy;
+ ter_id type = g->m.ter(dirx, diry);
+ if (type == t_tree) {
+  g->add_msg("You chop down the tree.");
+  g->sound(p->posx, p->posy, 70, "GRRRNNNNDDD");
+   p->moves -= (1000 - (p->str_cur * 20));
+   g->m.ter(dirx, diry) = t_stump;
+    int logs = rng(2, 6);
+    item log(g->itypes[itm_log], 0, g->nextinv);
+    for (int i = 0; i < logs; i++)
+     g->m.add_item(dirx, diry, log);
+} else if (type == t_tree_young)
+ {
+  g->add_msg("The tree is felled in an instant.");
+  g->sound(p->posx, p->posy, 30, "GRND!");
+  p->moves -= (1);
+  g->m.ter(dirx, diry) = t_dirt;
+   int sticks = rng(1, 3);
+   item stick(g->itypes[itm_stick], 0, g->nextinv);
+   for (int i = 0; i < sticks; i++)
+    g->m.add_item(dirx, diry, stick);
+} else if (type == t_stump)
+ {
+  g->add_msg("You cut the stump into splinters");
+  g->sound(p->posx, p->posy, 30, "GRRRNND");
+  p->moves -= (1000);
+  g->m.ter(dirx, diry) = t_dirt;
+   int splinters = rng(1, 3);
+   item splinter(g->itypes[itm_splinter], 0, g->nextinv);
+   for (int i = 0; i < splinters; i++)
+    g->m.add_item(dirx, diry, splinter);
+    }
+break;
+   }
+  }
  }
 }
-
 void iuse::jackhammer(game *g, player *p, item *it, bool t)
 {
  int dirx, diry;
@@ -2108,13 +2159,19 @@ void iuse::vacutainer(game *g, player *p, item *it, bool t)
  it->put_in(blood);
 }
 
-void iuse::axe(game *g, player *p, item *it, bool t)
-{
+void iuse::axe(game *g, player *p, item *it, bool t) {
+ int ch = menu("Lumberjacking:", "Fell tree", "Make planks",
+                "Cancel", NULL);
+switch (ch) {
+if (ch == 3)
+break;
+
+case 1:{
  int dirx, diry;
  g->draw();
  mvprintw(0, 0, "Fell which tree?");
  get_direction(dirx, diry, input());
- if (dirx == -2) {
+ if (dirx == -2) { 
   g->add_msg("Invalid direction.");
   return;
  }
@@ -2132,8 +2189,8 @@ void iuse::axe(game *g, player *p, item *it, bool t)
      g->m.add_item(dirx, diry, log);
 } else if (type == t_tree_young)
  {
-  g->add_msg("A single swing and the sapling falls to the ground.");
-  g->sound(p->posx, p->posy, 5, "CHNK");
+  g->add_msg("The tree is felled in an instant.");
+  g->sound(p->posx, p->posy, 5, "THUD!");
   p->moves -= (100);
   g->m.ter(dirx, diry) = t_dirt;
    int sticks = rng(1, 3);
@@ -2142,9 +2199,9 @@ void iuse::axe(game *g, player *p, item *it, bool t)
     g->m.add_item(dirx, diry, stick);
 } else if (type == t_stump)
  {
-  g->add_msg("You hack the stump into splinters");
-  g->sound(p->posx, p->posy, 5, "THUNK, THUNK, THUNK");
-  p->moves -= (2000);
+  g->add_msg("You cut the stump into splinters");
+  g->sound(p->posx, p->posy, 5, " ");
+  p->moves -= (1000);
   g->m.ter(dirx, diry) = t_dirt;
    int splinters = rng(1, 3);
    item splinter(g->itypes[itm_splinter], 0, g->nextinv);
@@ -2152,7 +2209,41 @@ void iuse::axe(game *g, player *p, item *it, bool t)
     g->m.add_item(dirx, diry, splinter);
  }
 }
-
+ break;
+case 2:{
+ char ch = g->inv("Chop up what?");
+ item* cut = &(p->i_at(ch));
+ if (cut->type->id == 0) {
+  g->add_msg("You do not have that item!");
+  return;
+ }
+ if (cut->type->id == itm_log) {
+  p->moves -= 5000;
+  g->add_msg("You cut the log into planks.");
+  int planks = rng(8, 20);
+  item plank(g->itypes[itm_2x4], int(g->turn), g->nextinv);
+  p->i_rem(ch);
+  bool drop = false;
+  for (int i = 0; i < planks; i++) {
+   int iter = 0;
+   while (p->has_item(plank.invlet)) {
+    plank.invlet = g->nextinv;
+    g->advance_nextinv();
+    iter++;
+   }
+   if (!drop && (iter == 52 || p->volume_carried() >= p->volume_capacity()))
+    drop = true;
+   if (drop)
+    g->m.add_item(p->posx, p->posy, plank);
+   else
+    p->i_add(plank);
+  }} else {
+  g->add_msg("You can't cut that!");
+  }
+ }
+ break;
+ }
+}
 void iuse::tent(game *g, player *p, item *it, bool t)
 {
  int dirx, diry;
@@ -2251,39 +2342,6 @@ void iuse::fish(game *g, player *p, item *it, bool t)
   g->add_msg("Nothing!");
   }
  }
-}
-void iuse::saw(game *g, player *p, item *it, bool t)
-{
- char ch = g->inv("Chop up what?");
- item* cut = &(p->i_at(ch));
- if (cut->type->id == 0) {
-  g->add_msg("You do not have that item!");
-  return;
- }
- if (cut->type->id == itm_log) {
-  p->moves -= 5000;
-  g->add_msg("You saw the log into planks.");
-  int planks = rng(8, 20);
-  item plank(g->itypes[itm_2x4], int(g->turn), g->nextinv);
-  p->i_rem(ch);
-  bool drop = false;
-  for (int i = 0; i < planks; i++) {
-   int iter = 0;
-   while (p->has_item(plank.invlet)) {
-    plank.invlet = g->nextinv;
-    g->advance_nextinv();
-    iter++;
-   }
-   if (!drop && (iter == 52 || p->volume_carried() >= p->volume_capacity()))
-    drop = true;
-   if (drop)
-    g->m.add_item(p->posx, p->posy, plank);
-   else
-    p->i_add(plank);
-  }} else {
-  g->add_msg("You can't cut that!");
-  }
-  return;
 }
 
 void iuse::pickaxe(game *g, player *p, item *it, bool t)

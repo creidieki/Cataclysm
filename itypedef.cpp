@@ -1065,6 +1065,9 @@ MELEE("wooden handle",	60, 160,'/', c_ltred,	WOOD,	MNULL,
 A sturdy wooden handle, useful in creation of tools, and not a\n\
 bad weapon, either.");
 
+MELEE("door",  60, 200,'#', c_ltred,   WOOD,   MNULL,
+        60, 20, 10,  0,  -5, 0, "\
+I'm not sure, but I think it's a door.");
 // ARMOR
 #define ARMOR(name,rarity,price,color,mat1,mat2,volume,wgt,dam,to_hit,\
 encumber,dmg_resist,cut_resist,env,warmth,storage,covers,des)\
@@ -3188,7 +3191,7 @@ TOOL("tent kit", 40, 400,';', c_green,  LEATHER, IRON,
 A tent, specially treated to resist environmental acids.");
 
 TOOL("wood saw", 60, 100,';', c_ltgray,   IRON,   PLASTIC,
-        12, 4,  0,  3,  -2,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::saw,0,"\
+        12, 4,  0,  3,  -2,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::axe,0,"\
 A flimsy saw, good for cutting up wooden objects.");
 
 TOOL("pickaxe",  60, 100,'/', c_brown,    STEEL,  MNULL,

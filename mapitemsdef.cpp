@@ -52,7 +52,7 @@ void game::init_mapitems()
    mapitems[mi_fridge],
 	itm_water, itm_oj, itm_cola, itm_rootbeer, itm_milk, itm_V8, itm_apple,
 	itm_sandwich_t, itm_mushroom, itm_blueberries, itm_strawberries, 
-	itm_tomato, itm_broccoli, itm_zucchini, itm_frozen_dinner, itm_vodka,
+	itm_tomato, itm_broccoli, itm_zucchini, itm_frozen_dinner, itm_beer,
 	itm_apple_cider, NULL);
 
  setvector(
@@ -220,6 +220,10 @@ void game::init_mapitems()
  setvector(
    mapitems[mi_alcohol],
 	itm_whiskey, itm_vodka, itm_rum, itm_tequila, NULL);
+
+ setvector(
+   mapitems[mi_bar],
+        itm_beer, itm_chips, itm_pretzels, itm_cola, itm_energy_drink, NULL);
 
  setvector(
    mapitems[mi_trash],

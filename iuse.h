@@ -100,7 +100,6 @@ class iuse
   void vacutainer	(game *g, player *p, item *it, bool t);
   void axe              (game *g, player *p, item *it, bool t);
   void tent             (game *g, player *p, item *it, bool t);
-  void saw              (game *g, player *p, item *it, bool t);
   void pickaxe          (game *g, player *p, item *it, bool t);
   void barricade        (game *g, player *p, item *it, bool t);
   void awning           (game *g, player *p, item *it, bool t);
