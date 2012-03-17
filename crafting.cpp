@@ -576,6 +576,13 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   COMP(itm_2x4, 5, NULL);
   COMP(itm_stake, 4, itm_nail, 20, NULL);
 
+ RECIPE(itm_bellows,   CC_SMITH, sk_null,    sk_null, 0, 5000);
+  TOOL(itm_sewing_kit, 100, NULL);
+  TOOL(itm_hammer, -1, itm_rock, -1, NULL);
+  COMP(itm_2x4, 2, NULL);
+  COMP(itm_leather_jacket, 1, itm_backpack, 1, NULL);
+  COMP(itm_nail, 20, NULL);
+
  RECIPE(itm_charcoal,  CC_SMITH, sk_null,    sk_null, 0, 2000);
   TOOL(itm_fire, -1, NULL);
   COMP(itm_2x4, 1, itm_stick, 1, itm_splinter, 1, NULL);
