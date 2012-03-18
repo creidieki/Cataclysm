@@ -1060,6 +1060,24 @@ void draw_recipe_tabs(WINDOW *w, craft_cat tab)
   mvwputch(w, 1,  2, h_ltgray, '<');
   mvwputch(w, 1, 16, h_ltgray, '>');
   break;
+ case CC_SMITH:
+  for (int i = 5; i < 14; i++)
+   mvwputch(w, 2, i, c_black, ' ');
+  mvwprintz(w, 1, 5, h_ltgray, "SMITHING");
+  mvwputch(w, 2,  4, c_ltgray, LINE_XOOX);
+  mvwputch(w, 2, 14, c_ltgray, LINE_XXOO);
+  mvwputch(w, 1,  2, h_ltgray, '<');
+  mvwputch(w, 1, 16, h_ltgray, '>');
+  break;
+ case CC_WOOD:
+  for (int i = 5; i < 14; i++)
+   mvwputch(w, 2, i, c_black, ' ');
+  mvwprintz(w, 1, 4, h_ltgray, "WOODWORKING");
+  mvwputch(w, 2,  4, c_ltgray, LINE_XOOX);
+  mvwputch(w, 2, 14, c_ltgray, LINE_XXOO);
+  mvwputch(w, 1,  2, h_ltgray, '<');
+  mvwputch(w, 1, 16, h_ltgray, '>');
+  break;
  case CC_FOOD:
   for (int i = 21; i < 27; i++)
    mvwputch(w, 2, i, c_black, ' ');

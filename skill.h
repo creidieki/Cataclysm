@@ -12,6 +12,7 @@ enum skill {
   sk_launcher,
 // Crafting
  sk_mechanics, sk_electronics, sk_cooking, sk_tailor, sk_carpentry, sk_smithing,
+ sk_woodworking,
 // Medical
  sk_firstaid,
 // Social

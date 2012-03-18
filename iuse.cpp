@@ -2220,7 +2220,7 @@ case 2:{
  if (cut->type->id == itm_log) {
   p->moves -= 5000;
   g->add_msg("You cut the log into planks.");
-  int planks = rng(8, 20);
+  int planks = rng(3, 7);
   item plank(g->itypes[itm_2x4], int(g->turn), g->nextinv);
   p->i_rem(ch);
   bool drop = false;

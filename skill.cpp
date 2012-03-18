@@ -42,7 +42,7 @@ std::string skill_name(int sk)
  case sk_cooking:
   return "cooking";
  case sk_carpentry:
-  return "carpentry";
+  return "construction";
  case sk_survival:
   return "survival";
  case sk_traps:
@@ -53,6 +53,8 @@ std::string skill_name(int sk)
   return "first aid";
  case sk_smithing:
   return "metalworking";
+ case sk_woodworking:
+  return "woodworking";
  case sk_speech:
   return "speech";
  case sk_barter:
@@ -182,6 +184,11 @@ may be more effective as well.";
 Your skill at working metal in a forge to create tools and equipment.\n\
 high levels of this skill will allow you to create more intricate and\n\
 precise items at a forge,";
+ case sk_woodworking:
+  return "\
+Your skill at fashioning items from wood, be they tools, decorations\n\
+or fine furniture, high levels at this skill will allow you to create\n\
+more intricate and precise items,";
  case sk_speech:
   return "\
 Your skill at talking to people, convincing them of things, lying, and many\n\

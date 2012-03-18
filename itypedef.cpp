@@ -855,10 +855,11 @@ MELEE("combat knife",	14, 100,';', c_blue,	STEEL,  PLASTIC,
 Designed for combat, and deadly in the right hands.  Can be used to butcher\n\
 corpses.");
 
-MELEE("two by four", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
+MELEE("scrap wood", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
 	 6,  6, 14,  0,  1, 0, "\
-A plank of wood.  Makes a decent melee weapon, and can be used to board up\n\
-doors and windows if you have a hammer and nails.");
+A relatively plank shaped piece of wood, likely the best you're going to\n\
+get in these times, not a bad weapon, and useful for building things and\n\
+boarding up doors and windows");
 
 MELEE("muffler",	30,  30,'/', c_ltgray,	IRON,	MNULL,
 	20, 20, 19,  0, -3, 0, "\
@@ -972,7 +973,7 @@ A log, like the thing trees are made of.");
 
 MELEE("splintered wood", 0, 0, '/',  c_brown,   WOOD,   MNULL,
          4,   6,  7,  0,  -1,  0, "\
-Some splintered bits of wood, not much use as anything but firewood.");
+Ragged chunks of wood, not useful for anything but firewood.");
 
 MELEE("stone stake",     0, 0, ',',  c_ltgray,  STONE,  MNULL,
          1,   1,  0,  7,  0,   0, "\
@@ -980,7 +981,7 @@ A stone, hammered into a rough stake shape. Handy when nails are scarce.");
 
 MELEE("crossbar",        0, 0, '/',  c_brown,   WOOD,   MNULL,
          10,  10, 9,  0,  -1,  0, "\
-A hefty wooden crossbar, it can be used to hold a large\n\
+A hefty wooden crossbar, it could be used to hold a large\n\
 gate closed.");
 
 MELEE("hand of god",     0, 0, ';',  c_cyan,    STEEL,  IRON,
@@ -1005,8 +1006,7 @@ A carving knife, used for carving.");
 
 MELEE("bellows",          0, 100, ';', c_ltgray, LEATHER, MNULL,
          10,  5, 0, 0, -2, 0, "\
-A large set of makeshift bellows, vital for\n\
-the post apocalyptic blacksmith.");
+A large set of makeshift bellows, vital for the post apocalyptic blacksmith.");
 
 MELEE("crucible",       0, 100, ';', c_ltgray, STONE, MNULL,
          15,  10,  3, 0, -2, 0, "\
@@ -1061,7 +1061,7 @@ MELEE("iron bar", 30, 10, ',', c_dkgray,	IRON,	MNULL,
 A large bar of iron");
 
 MELEE("wooden handle",	60, 160,'/', c_ltred,	WOOD,	MNULL,
-	12, 10, 15,  0,  3, 0, "\
+	12, 10, 15,  0,  2, 0, "\
 A sturdy wooden handle, useful in creation of tools, and not a\n\
 bad weapon, either.");
 
