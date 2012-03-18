@@ -87,6 +87,13 @@ DRINK("water",		90, 50,	c_ltcyan, itm_bottle_plastic,
 	50,  0,  0,  0,  0,  0,  1,  0,&iuse::none,	ADD_NULL, "\
 Water, the stuff of life, the best thirst-quencher available.");
 
+//     NAME		RAR PRC	COLOR     CONTAINER
+DRINK("boiled water",	90, 50,	c_ltcyan, itm_bottle_plastic,
+//	QUE NUT SPO STM HTH ADD CHG FUN use_func	addiction type
+	50,  0,  0,  0,  0,  0,  1,  -10,&iuse::none,	ADD_NULL, "\
+Water, the stuff of life, the best thirst-quencher available.\n\
+This water has been boiled, and tastes bad.");
+
 DRINK("sewage sample",	 5,  5, c_ltgreen, itm_bottle_plastic,
 	 5,  0,  0,  0,-10,  0,  1,-20,&iuse::sewage,	ADD_NULL, "\
 A sample of sewage from a treatment plant.  Gross.");
@@ -388,7 +395,7 @@ A large chunk of wax, filled with dense, dark honey.  Useful for curing all\n\
 sorts of afflictions.");
 
 FOOD("misshapen fetus",	 1,150,	c_magenta,	FLESH,	itm_null,
-    4,  4,  0,  8,  0,  0, -8,  0,  1,-60,	&iuse::mutagen, ADD_NULL, "\
+    4,  4,  0,  8,  0,  0, -8,  0,  1,-60,	&iuse::mutagen_2, ADD_NULL, "\
 Eating this is about the most disgusting thing you can imagine, and it will\n\
 cause your DNA to mutate as well.");
 
@@ -848,10 +855,11 @@ MELEE("combat knife",	14, 100,';', c_blue,	STEEL,  PLASTIC,
 Designed for combat, and deadly in the right hands.  Can be used to butcher\n\
 corpses.");
 
-MELEE("two by four", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
+MELEE("scrap wood", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
 	 6,  6, 14,  0,  1, 0, "\
-A plank of wood.  Makes a decent melee weapon, and can be used to board up\n\
-doors and windows if you have a hammer and nails.");
+A relatively plank shaped piece of wood, likely the best you're going to\n\
+get in these times, not a bad weapon, and useful for building things and\n\
+boarding up doors and windows");
 
 MELEE("muffler",	30,  30,'/', c_ltgray,	IRON,	MNULL,
 	20, 20, 19,  0, -3, 0, "\
@@ -965,7 +973,7 @@ A log, like the thing trees are made of.");
 
 MELEE("splintered wood", 0, 0, '/',  c_brown,   WOOD,   MNULL,
          4,   6,  7,  0,  -1,  0, "\
-Some splintered bits of wood, not much use as anything but firewood.");
+Ragged chunks of wood, not useful for anything but firewood.");
 
 MELEE("stone stake",     0, 0, ',',  c_ltgray,  STONE,  MNULL,
          1,   1,  0,  7,  0,   0, "\
@@ -973,7 +981,7 @@ A stone, hammered into a rough stake shape. Handy when nails are scarce.");
 
 MELEE("crossbar",        0, 0, '/',  c_brown,   WOOD,   MNULL,
          10,  10, 9,  0,  -1,  0, "\
-A hefty wooden crossbar, it can be used to hold a large\n\
+A hefty wooden crossbar, it could be used to hold a large\n\
 gate closed.");
 
 MELEE("hand of god",     0, 0, ';',  c_cyan,    STEEL,  IRON,
@@ -998,8 +1006,7 @@ A carving knife, used for carving.");
 
 MELEE("bellows",          0, 100, ';', c_ltgray, LEATHER, MNULL,
          10,  5, 0, 0, -2, 0, "\
-A large set of makeshift bellows, vital for\n\
-the post apocalyptic blacksmith.");
+A large set of makeshift bellows, vital for the post apocalyptic blacksmith.");
 
 MELEE("crucible",       0, 100, ';', c_ltgray, STONE, MNULL,
          15,  10,  3, 0, -2, 0, "\
@@ -1054,10 +1061,13 @@ MELEE("iron bar", 30, 10, ',', c_dkgray,	IRON,	MNULL,
 A large bar of iron");
 
 MELEE("wooden handle",	60, 160,'/', c_ltred,	WOOD,	MNULL,
-	12, 10, 15,  0,  3, 0, "\
+	12, 10, 15,  0,  2, 0, "\
 A sturdy wooden handle, useful in creation of tools, and not a\n\
 bad weapon, either.");
 
+MELEE("door",  60, 200,'#', c_ltred,   WOOD,   MNULL,
+        60, 20, 10,  0,  -5, 0, "\
+I'm not sure, but I think it's a door.");
 // ARMOR
 #define ARMOR(name,rarity,price,color,mat1,mat2,volume,wgt,dam,to_hit,\
 encumber,dmg_resist,cut_resist,env,warmth,storage,covers,des)\
@@ -1150,7 +1160,7 @@ ARMOR("deersuit",	50, 200,C_BODY,		COTTON,		PLASTIC,
     6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
                                                 mfb(bp_head), "\
 A thick cotton suit, covered in tawny fur and with\n\
-a while belly and a stubby tail. The head is a deer");
+a white belly and a stubby tail. The head is a deer");
 
 ARMOR("dress",		70, 180,C_BODY,		COTTON,		MNULL,
     8,  6, -5, -5,  3,  0,  1,  0,  2,  0,	mfb(bp_legs)|mfb(bp_torso), "\
@@ -1532,7 +1542,7 @@ A sharpened arrow carved from wood.  It's light-weight, does little damage,\n\
 and is so-so on accuracy.  Stands a good chance of remaining intact once\n\
 fired.",
 0);
-            
+
 AMMO("carbon fiber arrow",5,500,AT_ARROW,       c_green,        PLASTIC,
          2, 30, 24,  5, 15, 18,  0,  12, "\
 High-tech carbon fiber shafts and 100 grain broadheads. Very light weight,\n\
@@ -1895,7 +1905,7 @@ A bow with wheels that fires high velocity arrows.  Weaker people can use\n\
 compound bows more easily.  Arrows fired from this weapon have a good chance\n\
 of remaining intact for re-use.",
 mfb(IF_STR8_DRAW)|mfb(IF_RELOAD_AND_SHOOT));
-        
+
 GUN("longbow",           5, 400,c_yellow,       WOOD,   MNULL,
         sk_archery,     AT_ARROW,8, 4, 10,  0,  0, 12,  0,  6,  0,  1,  80, "\
 A six-foot wooden bow that fires feathered arrows.  This takes a fair amount\n\
@@ -1964,6 +1974,12 @@ A seven-round .38 revolver sold by Smith & Wesson.  It features a fixed rear\n\
 sight and a reinforced frame.",
 mfb(IF_RELOAD_ONE));
 
+GUN("Mateba Model 6", 4, 720, c_dkgray,    STEEL,  WOOD,
+        sk_pistol,      AT_38,   2,  8,  7,  1,  2, 23,  2,  8,  6,  6, 100, "\
+A rare semi-auto revolver, it uses the firing motion to rotate the cylinder and\n\
+cock the hammer.",
+mfb(IF_RELOAD_ONE));
+ 
 GUN("Taurus Pro .38",	 4, 760,c_dkgray,	STEEL,	PLASTIC,
 	sk_pistol,	AT_38,	 2,  6,  8,  1,  1, 22,  6,  7,  0, 10, 350, "\
 A popular .38 pistol.  Designed with numerous safety features and built from\n\
@@ -2860,7 +2876,7 @@ of dirt.");
 
 TOOL("shovel",		40, 100,'/', c_brown,	IRON,	WOOD,
    16, 18, 15,  5,  3,  0,  0,  0,  0, AT_NULL,	itm_null, &iuse::dig, 0, "\
-A digging tool.  Use it to dig pits adjacent to your location.");
+A digging tool.  Use it to find clay adjacent to your location.");
 
 TOOL("chainsaw (off)",	 7, 350,'/', c_red,	IRON,	PLASTIC,
    12, 40, 10,  0, -4, 400, 0,  0,  0, AT_GAS,	itm_null, &iuse::chainsaw_off,0,
@@ -3181,7 +3197,7 @@ TOOL("tent kit", 40, 400,';', c_green,  LEATHER, IRON,
 A tent, specially treated to resist environmental acids.");
 
 TOOL("wood saw", 60, 100,';', c_ltgray,   IRON,   PLASTIC,
-        12, 4,  0,  3,  -2,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::saw,0,"\
+        12, 4,  0,  3,  -2,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::axe,0,"\
 A flimsy saw, good for cutting up wooden objects.");
 
 TOOL("pickaxe",  60, 100,'/', c_brown,    STEEL,  MNULL,
@@ -3457,7 +3473,7 @@ GUN("fusion blaster",	 0,0,c_magenta,	STEEL,	PLASTIC,
    } while (namepart.find("-") == std::string::npos);
    art->name = namedata.str();
    start = true;
- 
+
    std::stringstream descdata;
    do {
     fin >> namepart;

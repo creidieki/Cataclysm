@@ -52,7 +52,7 @@ void game::init_mapitems()
    mapitems[mi_fridge],
 	itm_water, itm_oj, itm_cola, itm_rootbeer, itm_milk, itm_V8, itm_apple,
 	itm_sandwich_t, itm_mushroom, itm_blueberries, itm_strawberries, 
-	itm_tomato, itm_broccoli, itm_zucchini, itm_frozen_dinner, itm_vodka,
+	itm_tomato, itm_broccoli, itm_zucchini, itm_frozen_dinner, itm_beer,
 	itm_apple_cider, NULL);
 
  setvector(
@@ -222,6 +222,10 @@ void game::init_mapitems()
 	itm_whiskey, itm_vodka, itm_rum, itm_tequila, NULL);
 
  setvector(
+   mapitems[mi_bar],
+        itm_beer, itm_chips, itm_pretzels, itm_cola, itm_energy_drink, NULL);
+
+ setvector(
    mapitems[mi_trash],
 	itm_iodine, itm_meth, itm_heroin, itm_wrapper, itm_string_6, itm_chain,
 	itm_glass_sheet, itm_stick, itm_muffler, itm_pipe, itm_bag_plastic,
@@ -241,7 +245,7 @@ void game::init_mapitems()
    mapitems[mi_pistols],
 	itm_sig_mosquito, itm_sw_22, itm_glock_19, itm_usp_9mm, itm_sw_619,
 	itm_taurus_38, itm_sig_40, itm_sw_610, itm_ruger_redhawk, itm_deagle_44,
-	itm_usp_45, itm_m1911, itm_fn57, itm_hk_ucp, NULL);
+	itm_usp_45, itm_m1911, itm_fn57, itm_hk_ucp, itm_mateba, NULL);
 
  setvector(
    mapitems[mi_shotguns],
@@ -274,7 +278,7 @@ void game::init_mapitems()
 	itm_ruger_1022, itm_browning_blr, itm_remington_700, itm_sks,
 	itm_ruger_mini, itm_savage_111f, itm_hk_g3, itm_hk_g36, itm_ak47,
 	itm_fn_fal, itm_acr, itm_ar15, itm_scar_l, itm_scar_h, itm_steyr_aug,
-	itm_m249, NULL);
+	itm_m249, itm_mateba, NULL);
 
  setvector(
    mapitems[mi_gunxtras],

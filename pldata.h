@@ -42,7 +42,7 @@ enum dis_type {
 // Food & Drugs
  DI_PKILL1, DI_PKILL2, DI_PKILL3, DI_PKILL_L, DI_DRUNK, DI_CIG, DI_HIGH,
   DI_HALLU, DI_VISUALS, DI_IODINE, DI_TOOK_XANAX, DI_TOOK_PROZAC,
-  DI_TOOK_FLUMED, DI_ADRENALINE, DI_ASTHMA, DI_METH,
+  DI_TOOK_FLUMED, DI_ADRENALINE, DI_ASTHMA, DI_METH, DI_MUTATE,
 // Traps
  DI_BEARTRAP, DI_IN_PIT,
 // Other
@@ -177,6 +177,7 @@ enum pl_flag {
  PF_SLEEK_SCALES,//
  PF_CHAMELEON_SCALES,// TODO: balance effects...
  PF_LIGHT_BONES,//
+ PF_SKIN_BRISTLE,// Feathers needed a prereq
  PF_FEATHERS,//
  PF_LIGHTFUR,// TODO: Warmth effects
  PF_FUR,// TODO: Warmth effects
@@ -462,7 +463,8 @@ idea of whether you're in good condition or not."},
 When you try to tell a lie, you blush, stammer, and get all shifty-eyed.\n\
 Telling lies and otherwise bluffing will be much more difficult for you."},
 {"Soft Skin", -2, 0, -2, "\
-Your skin is smooth and pleasing to the eye, but cutting weapons can more easily penetrate it."},
+Your skin is smooth and pleasing to the eye,\n\
+but cutting weapons can more easily penetrate it."},
 {"Ugly", -1, 0, 2, "\
 You're not much to look at.  NPCs who care about such things will react\n\
 poorly to you."},
@@ -529,12 +531,14 @@ making you much harder to see."}, // not as ugly, pretty colours =), more notica
 Your bones are very light.  This enables you to run and attack 10%% faster,\n\
 but also reduces your carrying weight by 15%% and makes bashing attacks hurt\n\
 a little more."},
+{"Bristly Skin", 0, 2, 2, "\
+Your skin is covered by small, rough projections, this has no effect."},
 {"Feathers", 2, 10, 3, "\
 Iridescent feathers have grown to cover your entire body, providing a\n\
 marginal protection against attacks and minor protection from cold. They\n\
 also provide a natural waterproofing."},
 {"Lightly Furred", 1, 6, 2, "\
-Light fur has grown to cover your entire body, providing slight protection\n\
+Light black fur has grown to cover your entire body, providing slight protection\n\
 from cold."},
 {"Furry", 2, 10, 3, "\
 Thick black fur has grown to cover your entire body, providing a marginal\n\

@@ -2467,23 +2467,9 @@ void player::suffer(game *g)
   }
  }
 
- if (has_trait(PF_SLIMY) && !has_trait(PF_ACID_TRAIL)) {
+ if (has_trait(PF_SLIMY))  {
   if (g->m.field_at(posx, posy).type == fd_null)
    g->m.add_field(g, posx, posy, fd_slime, 1);
-  else if (g->m.field_at(posx, posy).type == fd_slime &&
-           g->m.field_at(posx, posy).density < 3)
-   g->m.field_at(posx, posy).density++;
- }
-
- if (has_trait(PF_ACID_TRAIL) && has_trait(PF_SLIMY)) {
-  if (g->m.field_at(posx, posy).type == fd_null || g->m.field_at(posx, posy).type == fd_slime)
-    if (one_in(5))
-   g->m.add_field(g, posx, posy, fd_acid, 1);
-  else if (g->m.field_at(posx, posy).type == fd_acid && one_in(5) &&
-           g->m.field_at(posx, posy).density < 3)
-   g->m.field_at(posx, posy).density++;
-    if (g->m.field_at(posx, posy).type == fd_null)
-     g->m.add_field(g, posx, posy, fd_slime, 1);
   else if (g->m.field_at(posx, posy).type == fd_slime &&
            g->m.field_at(posx, posy).density < 3)
    g->m.field_at(posx, posy).density++;
@@ -4088,6 +4074,8 @@ int player::armor_bash(body_part bp)
   ret += 6;
  if (has_trait(PF_PINCERS) && bp == bp_hands)
   ret += 2;
+ if (bp == bp_feet && has_trait(PF_HOOVES))
+  ret -= 2;
  return ret;
 }
 
@@ -4132,6 +4120,8 @@ int player::armor_cut(body_part bp)
   ret += 4;
  if (has_trait(PF_SKIN_SOFT))
   ret -= 1;
+ if (bp == bp_feet && has_trait(PF_HOOVES))
+  ret += 4;
  return ret;
 }
 

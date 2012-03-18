@@ -285,8 +285,8 @@ fin.open("data\\FONTDATA");
     halfheight=fontheight / 2;
     WindowWidth=80*fontwidth;
     WindowHeight=25*fontheight;
-    WindowX=(GetSystemMetrics(SM_CXSCREEN) / 2)-WindowWidth/2;    //center this
-    WindowY=(GetSystemMetrics(SM_CYSCREEN) / 2)-WindowHeight/2;   //sucker
+    WindowX=(GetSystemMetrics(SM_CXSCREEN)/2)-WindowWidth/2;    //center this
+    WindowY=(GetSystemMetrics(SM_CYSCREEN)/2)-WindowHeight/2;   //sucker
     WinCreate();    //Create the actual window, register it, etc
     CheckMessages();    //Let the message queue handle setting up the window
     WindowDC = GetDC(WindowHandle);

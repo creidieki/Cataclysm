@@ -53,7 +53,7 @@ void iuse::royal_jelly(game *g, player *p, item *it, bool t)
   g->add_msg(message.c_str());
 }
 
-void iuse::bandage(game *g, player *p, item *it, bool t) 
+void iuse::bandage(game *g, player *p, item *it, bool t)
 {
  int bonus = p->sklevel[sk_firstaid];
  hp_part healed;
@@ -72,7 +72,7 @@ void iuse::bandage(game *g, player *p, item *it, bool t)
    }
   }
  } else { // Player--present a menu
-   
+
   WINDOW* w = newwin(10, 20, 8, 1);
   wborder(w, LINE_XOXO, LINE_XOXO, LINE_OXOX, LINE_OXOX,
              LINE_OXXO, LINE_OOXX, LINE_XXOO, LINE_XOOX );
@@ -180,7 +180,7 @@ void iuse::bandage(game *g, player *p, item *it, bool t)
  p->heal(healed, dam);
 }
 
-void iuse::firstaid(game *g, player *p, item *it, bool t) 
+void iuse::firstaid(game *g, player *p, item *it, bool t)
 {
  int bonus = p->sklevel[sk_firstaid];
  hp_part healed;
@@ -199,7 +199,7 @@ void iuse::firstaid(game *g, player *p, item *it, bool t)
    }
   }
  } else { // Player--present a menu
-   
+
   WINDOW* w = newwin(10, 20, 8, 1);
   wborder(w, LINE_XOXO, LINE_XOXO, LINE_OXOX, LINE_OXOX,
              LINE_OXXO, LINE_OOXX, LINE_XXOO, LINE_XOOX );
@@ -516,14 +516,17 @@ void iuse::blech(game *g, player *p, item *it, bool t)
 
 void iuse::mutagen(game *g, player *p, item *it, bool t)
 {
- p->mutate(g);
+p->add_disease(DI_MUTATE,rng(3400, 3800), g);
+}
+
+void iuse::mutagen_2(game *g, player *p, item *it, bool t)
+{
+p->add_disease(DI_MUTATE,rng(6700, 7450), g);
 }
 
 void iuse::mutagen_3(game *g, player *p, item *it, bool t)
 {
- p->mutate(g);
- p->mutate(g);
- p->mutate(g);
+p->add_disease(DI_MUTATE,rng(10300, 11050), g);
 }
 
 void iuse::purifier(game *g, player *p, item *it, bool t)
@@ -632,8 +635,8 @@ void iuse::dogfood(game *g, player *p, item *it, bool t)
   g->add_msg("You spill the dogfood all over the ground.");
 
 }
-  
- 
+
+
 
 // TOOLS below this point!
 
@@ -909,7 +912,7 @@ void iuse::hammer(game *g, player *p, item *it, bool t)
   g->m.add_item(p->posx, p->posy, board);
  g->m.ter(dirx, diry) = newter;
 }
- 
+
 void iuse::light_off(game *g, player *p, item *it, bool t)
 {
  if (it->charges == 0)
@@ -920,7 +923,7 @@ void iuse::light_off(game *g, player *p, item *it, bool t)
   it->active = true;
  }
 }
- 
+
 void iuse::light_on(game *g, player *p, item *it, bool t)
 {
  if (t) {	// Normal use
@@ -1027,7 +1030,7 @@ void iuse::two_way_radio(game *g, player *p, item *it, bool t)
  delwin(w);
  refresh();
 }
- 
+
 void iuse::radio_off(game *g, player *p, item *it, bool t)
 {
  if (it->charges == 0)
@@ -1126,7 +1129,7 @@ void iuse::crowbar(game *g, player *p, item *it, bool t)
   } else {
    g->add_msg("You pry, but cannot open the crate.");
    p->moves -= 100;
-  } 
+  }
  } else {
   int nails = 0, boards = 0;
   ter_id newter;
@@ -1158,14 +1161,45 @@ void iuse::crowbar(game *g, player *p, item *it, bool t)
 
 void iuse::makemound(game *g, player *p, item *it, bool t)
 {
- if (g->m.has_flag(diggable, p->posx, p->posy)) {
+ if (g->m.has_flag(diggable, p->posx, p->posy) && (g->m.ter(p->posx, p->posy) != t_dirtmound)) {
   g->add_msg("You churn up the earth here.");
   p->moves = -300;
   g->m.ter(p->posx, p->posy) = t_dirtmound;
  } else
+ if (g->m.ter(p->posx, p->posy) = t_dirtmound) {
+  p->moves = -400;
+  g->add_msg("You smooth the earth here.");
+  g->m.ter(p->posx, p->posy) = t_dirt;
+ } else
   g->add_msg("You can't churn up this ground.");
 }
 
+/* //WIP (yes, I suck at C++)
+void iuse::makemound(game *g, player *p, item *it, bool t)
+{
+ int dirx, diry;
+ g->draw();
+ mvprintw(0, 0, "Churn/smooth earth where?");
+ get_direction(dirx, diry, input());
+ if (dirx == -2) {
+  g->add_msg("Invalid direction.");
+  return;
+ }
+ dirx += p->posx;
+ diry += p->posy;
+ ter_id type = g->m.ter(dirx, diry);
+ if (g->m.ter(dirx, diry)has_flag(diggable) && (g->m.ter(dirx, diry) != t_dirtmound)) {
+  g->add_msg("You churn up the earth here.");
+  p->moves = -300;
+  g->m.ter(p->posx, p->posy) = t_dirtmound;
+ } else {
+ if (g->m.ter(dirx, diry) = t_dirtmound) {
+  g->add_msg("You smooth the earth here.");
+  p->moves = -300;
+  g->m.ter(p->posx, p->posy) = t_dirt;
+   }
+  }
+*/
 void iuse::dig(game *g, player *p, item *it, bool t)
 {
  int dirx, diry;
@@ -1183,7 +1217,7 @@ void iuse::dig(game *g, player *p, item *it, bool t)
   if (!one_in(6)) {
     g->add_msg("You find no clay");
     p->moves -= 200;
-    g->m.ter(dirx, diry) = t_dirt;
+    g->m.ter(dirx, diry) = t_dirtmound;
  } else {
     p->moves -= 200;
     g->add_msg("You find some clay!");
@@ -1233,12 +1267,63 @@ void iuse::chainsaw_on(game *g, player *p, item *it, bool t)
   if (one_in(15))
    g->sound(p->posx, p->posy, 12, "Your chainsaw rumbles.");
  } else {	// Toggling
+ int ch = menu("Lumberjacking:", "Deactivate", "Fell Tree",
+                "Cancel", NULL);
+switch (ch) {
+if (ch == 3)
+break;
+case 1:
   g->add_msg("Your chainsaw dies.");
   it->make(g->itypes[itm_chainsaw_off]);
   it->active = false;
+break;
+case 2:{
+ int dirx, diry;
+ g->draw();
+ mvprintw(0, 0, "Fell which tree?");
+ get_direction(dirx, diry, input());
+ if (dirx == -2) {
+  g->add_msg("Invalid direction.");
+  return;
+ }
+ dirx += p->posx;
+ diry += p->posy;
+ ter_id type = g->m.ter(dirx, diry);
+ if (type == t_tree) {
+  g->add_msg("You chop down the tree.");
+  g->sound(p->posx, p->posy, 70, "GRRRNNNNDDD");
+   p->moves -= (1000 - (p->str_cur * 20));
+   g->m.ter(dirx, diry) = t_stump;
+    int logs = rng(2, 6);
+    item log(g->itypes[itm_log], 0, g->nextinv);
+    for (int i = 0; i < logs; i++)
+     g->m.add_item(dirx, diry, log);
+} else if (type == t_tree_young)
+ {
+  g->add_msg("The tree is felled in an instant.");
+  g->sound(p->posx, p->posy, 30, "GRND!");
+  p->moves -= (1);
+  g->m.ter(dirx, diry) = t_dirt;
+   int sticks = rng(1, 3);
+   item stick(g->itypes[itm_stick], 0, g->nextinv);
+   for (int i = 0; i < sticks; i++)
+    g->m.add_item(dirx, diry, stick);
+} else if (type == t_stump)
+ {
+  g->add_msg("You cut the stump into splinters");
+  g->sound(p->posx, p->posy, 30, "GRRRNND");
+  p->moves -= (1000);
+  g->m.ter(dirx, diry) = t_dirt;
+   int splinters = rng(1, 3);
+   item splinter(g->itypes[itm_splinter], 0, g->nextinv);
+   for (int i = 0; i < splinters; i++)
+    g->m.add_item(dirx, diry, splinter);
+    }
+break;
+   }
+  }
  }
 }
-
 void iuse::jackhammer(game *g, player *p, item *it, bool t)
 {
  int dirx, diry;
@@ -1300,7 +1385,7 @@ void iuse::set_trap(game *g, player *p, item *it, bool t)
             query_yn("Bury the beartrap?"));
   type = (buried ? tr_beartrap_buried : tr_beartrap);
   message << "You " << (buried ? "bury" : "set") << " the beartrap.";
-  practice = (buried ? 7 : 4); 
+  practice = (buried ? 7 : 4);
   break;
  case itm_board_trap:
   message << "You set the board trap on the " << g->m.tername(posx, posy) <<
@@ -1516,7 +1601,7 @@ void iuse::pipebomb_act(game *g, player *p, item *it, bool t)
    g->explosion(pos.x, pos.y, rng(6, 14), rng(0, 4), false);
  }
 }
- 
+
 void iuse::grenade(game *g, player *p, item *it, bool t)
 {
  g->add_msg("You pull the pin on the grenade.");
@@ -1671,7 +1756,7 @@ void iuse::acidbomb(game *g, player *p, item *it, bool t)
  it->bday = int(g->turn);
  it->active = true;
 }
- 
+
 void iuse::acidbomb_act(game *g, player *p, item *it, bool t)
 {
  if (!p->has_item(it)) {
@@ -1700,7 +1785,7 @@ void iuse::molotov(game *g, player *p, item *it, bool t)
  it->bday = int(g->turn);
  it->active = true;
 }
- 
+
 void iuse::molotov_lit(game *g, player *p, item *it, bool t)
 {
  int age = int(g->turn) - it->bday;
@@ -1806,7 +1891,7 @@ void iuse::pheromone(game *g, player *p, item *it, bool t)
    g->add_msg("...and several nearby zombies turn friendly!");
  }
 }
- 
+
 
 void iuse::portal(game *g, player *p, item *it, bool t)
 {
@@ -1877,7 +1962,7 @@ void iuse::UPS_off(game *g, player *p, item *it, bool t)
   it->active = true;
  }
 }
- 
+
 void iuse::UPS_on(game *g, player *p, item *it, bool t)
 {
  if (t) {	// Normal use
@@ -1931,7 +2016,7 @@ void iuse::tazer(game *g, player *p, item *it, bool t)
    g->kill_mon(mondex);
   return;
  }
- 
+
  if (npcdex != -1) {
   npc *foe = dynamic_cast<npc*>(&g->active_npc[npcdex]);
   if (foe->attitude != NPCATT_FLEE)
@@ -2077,8 +2162,14 @@ void iuse::vacutainer(game *g, player *p, item *it, bool t)
  it->put_in(blood);
 }
 
-void iuse::axe(game *g, player *p, item *it, bool t)
-{
+void iuse::axe(game *g, player *p, item *it, bool t) {
+ int ch = menu("Lumberjacking:", "Fell tree", "Make planks",
+                "Cancel", NULL);
+switch (ch) {
+if (ch == 3)
+break;
+
+case 1:{
  int dirx, diry;
  g->draw();
  mvprintw(0, 0, "Fell which tree?");
@@ -2101,8 +2192,8 @@ void iuse::axe(game *g, player *p, item *it, bool t)
      g->m.add_item(dirx, diry, log);
 } else if (type == t_tree_young)
  {
-  g->add_msg("A single swing and the sapling falls to the ground.");
-  g->sound(p->posx, p->posy, 5, "CHNK");
+  g->add_msg("The tree is felled in an instant.");
+  g->sound(p->posx, p->posy, 5, "THUD!");
   p->moves -= (100);
   g->m.ter(dirx, diry) = t_dirt;
    int sticks = rng(1, 3);
@@ -2111,9 +2202,9 @@ void iuse::axe(game *g, player *p, item *it, bool t)
     g->m.add_item(dirx, diry, stick);
 } else if (type == t_stump)
  {
-  g->add_msg("You hack the stump into splinters");
-  g->sound(p->posx, p->posy, 5, "THUNK, THUNK, THUNK");
-  p->moves -= (2000);
+  g->add_msg("You cut the stump into splinters");
+  g->sound(p->posx, p->posy, 5, " ");
+  p->moves -= (1000);
   g->m.ter(dirx, diry) = t_dirt;
    int splinters = rng(1, 3);
    item splinter(g->itypes[itm_splinter], 0, g->nextinv);
@@ -2121,7 +2212,41 @@ void iuse::axe(game *g, player *p, item *it, bool t)
     g->m.add_item(dirx, diry, splinter);
  }
 }
-
+ break;
+case 2:{
+ char ch = g->inv("Chop up what?");
+ item* cut = &(p->i_at(ch));
+ if (cut->type->id == 0) {
+  g->add_msg("You do not have that item!");
+  return;
+ }
+ if (cut->type->id == itm_log) {
+  p->moves -= 5000;
+  g->add_msg("You cut the log into planks.");
+  int planks = rng(3, 7);
+  item plank(g->itypes[itm_2x4], int(g->turn), g->nextinv);
+  p->i_rem(ch);
+  bool drop = false;
+  for (int i = 0; i < planks; i++) {
+   int iter = 0;
+   while (p->has_item(plank.invlet)) {
+    plank.invlet = g->nextinv;
+    g->advance_nextinv();
+    iter++;
+   }
+   if (!drop && (iter == 52 || p->volume_carried() >= p->volume_capacity()))
+    drop = true;
+   if (drop)
+    g->m.add_item(p->posx, p->posy, plank);
+   else
+    p->i_add(plank);
+  }} else {
+  g->add_msg("You can't cut that!");
+  }
+ }
+ break;
+ }
+}
 void iuse::tent(game *g, player *p, item *it, bool t)
 {
  int dirx, diry;
@@ -2220,39 +2345,6 @@ void iuse::fish(game *g, player *p, item *it, bool t)
   g->add_msg("Nothing!");
   }
  }
-}
-void iuse::saw(game *g, player *p, item *it, bool t)
-{
- char ch = g->inv("Chop up what?");
- item* cut = &(p->i_at(ch));
- if (cut->type->id == 0) {
-  g->add_msg("You do not have that item!");
-  return;
- }
- if (cut->type->id == itm_log) {
-  p->moves -= 5000;
-  g->add_msg("You saw the log into planks.");
-  int planks = rng(8, 20);
-  item plank(g->itypes[itm_2x4], int(g->turn), g->nextinv);
-  p->i_rem(ch);
-  bool drop = false;
-  for (int i = 0; i < planks; i++) {
-   int iter = 0;
-   while (p->has_item(plank.invlet)) {
-    plank.invlet = g->nextinv;
-    g->advance_nextinv();
-    iter++;
-   }
-   if (!drop && (iter == 52 || p->volume_carried() >= p->volume_capacity()))
-    drop = true;
-   if (drop)
-    g->m.add_item(p->posx, p->posy, plank);
-   else
-    p->i_add(plank);
-  }} else {
-  g->add_msg("You can't cut that!");
-  }
-  return;
 }
 
 void iuse::pickaxe(game *g, player *p, item *it, bool t)
@@ -2675,7 +2767,7 @@ void iuse::artifact(game *g, player *p, item *it, bool t)
     }
    }
   } break;
-    
+
 
   case AEA_RADIATION:
    g->add_msg("Horrible gasses are emitted!");
