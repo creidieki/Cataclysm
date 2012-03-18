@@ -2521,6 +2521,29 @@ void iuse::ingotmold(game *g, player *p, item *it, bool t)
    it->invlet = 0;
 }
 
+void iuse::torch_off(game *g, player *p, item *it, bool t)
+{
+ if (p->has_charges(itm_lighter, 1)) {
+  g->add_msg("You light the torch");
+  it->make(g->itypes[itm_torch]);
+  it->active = true;
+ } else {
+ g->add_msg("You need a lighter to use that!");
+ }
+}
+
+void iuse::torch_on(game *g, player *p, item *it, bool t)
+{
+ if (t) {	// Normal use
+// Do nothing... game::light_level() handles this
+ } else {	// Turning it off
+  g->add_msg("You wave the torch around and extinguish it");
+  it->make(g->itypes[itm_torch_unlit]);
+  it->charges--;
+  it->active = false;
+ }
+}
+
 /* MACGUFFIN FUNCTIONS
  * These functions should refer to it->associated_mission for the particulars
  */

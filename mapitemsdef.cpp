@@ -77,6 +77,10 @@ void game::init_mapitems()
         itm_fur1, itm_fur2, NULL);
 
  setvector(
+   mapitems[mi_fur],
+        itm_fur1, itm_fur2, NULL);
+
+ setvector(
    mapitems[mi_homeguns],
 	itm_22_lr, itm_9mm, itm_crossbow, itm_sig_mosquito, itm_sw_22,
 	itm_glock_19, itm_usp_9mm, itm_sw_619, itm_taurus_38, itm_sig_40,

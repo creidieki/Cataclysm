@@ -166,7 +166,7 @@ itm_lighter, itm_sewing_kit, itm_scissors, itm_hammer, itm_smith_hammer, itm_ext
  itm_mp3_on, itm_vortex_stone, itm_dogfood, itm_boobytrap, itm_c4,  itm_c4armed,
  itm_dog_whistle, itm_vacutainer, itm_welder, itm_ax, itm_tent, itm_saw, itm_pickaxe,
  itm_barricade, itm_awning, itm_fishingrod, itm_electricfence, itm_cot,
- itm_dredge, itm_anvil_mobile, itm_ingot_mold,
+ itm_dredge, itm_anvil_mobile, itm_ingot_mold, itm_torch_unlit, itm_torch,
 // Bionics containers
 itm_bionics_battery,       itm_bionics_power,   itm_bionics_tools,
  itm_bionics_neuro,        itm_bionics_sensory, itm_bionics_aquatic,

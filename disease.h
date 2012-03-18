@@ -1169,12 +1169,8 @@ You're stuck in a pit.  Sight distance is limited and you have to climb out.";
 
  case DI_MUTATE:
   stream  << "You feel ";
-  if (dis.duration > 3800)
-  stream  << "quite";
   if (dis.duration > 6700)
   stream  << "very";
-    if (dis.duration > 11050)
-  stream  << "extremely";
   stream  << " strange and require more food and water\n\
   than usual.";
   return stream.str();

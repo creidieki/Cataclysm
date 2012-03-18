@@ -268,7 +268,7 @@ FLAGS(MF_SEES, MF_HEARS, MF_SMELLS, MF_STUMBLES, MF_WARM, MF_BASHES, MF_POISON);
 
 mon("zombie hulk",species_zombie, 'Z',	c_blue,		MS_HUGE,	FLESH,
 //	frq dif agr mor spd msk mdi m## cut dge bsh cut itm  HP special freq
-	  1, 50,150,100,130,  9,  4,  8,  0,  0, 12,  8, 80,260,  0,
+	  1, 50,120,100,130,  9,  4,  8,  0,  0, 12,  8, 80,260,  0,
 	&mdeath::normal,	&mattack::none, "\
 A zombie that has somehow grown to the size of\n\
 6 men, with arms as wide as a trash can."
@@ -325,6 +325,7 @@ eyes.  As you look at it, you're gripped by a\n\
 feeling of dread and terror."
 );
 FLAGS(MF_SEES, MF_HEARS, MF_SMELLS, MF_STUMBLES, MF_WARM, MF_BASHES, MF_POISON);
+ANGER(MTRIG_PLAYER_CLOSE, MTRIG_PLAYER_WEAK);
 
 mon("zombie scientist",species_zombie, 'Z',c_ltgray,	MS_MEDIUM,	FLESH,
 //	frq dif agr mor spd msk mdi m## cut dge bsh cut itm  HP special freq
@@ -369,6 +370,7 @@ has not yet developed bark, but its sting\n\
 is still sharp and deadly."
 );
 FLAGS(MF_HEARS, MF_SMELLS, MF_NOHEAD);
+ANGER(MTRIG_HURT);
 
 mon("queen triffid",species_plant, 'F',	c_red,		MS_LARGE,	VEGGY,
 //	frq dif agr mor spd msk mdi m## cut dge bsh cut itm  HP special freq
@@ -921,7 +923,7 @@ FLAGS(MF_SEES, MF_HEARS, MF_GOODHEARING, MF_ELECTRONIC);
 mon("secubot",	species_robot, 'R',	c_dkgray,	MS_SMALL,	STEEL,
 //	frq dif agr mor spd msk mdi m## cut dge bsh cut itm  HP special freq
 	  7, 19,100,100, 70,  0,  0,  0,  0,  0,  0, 14, 80, 80, 8,
-	&mdeath::explode,	&mattack::smg, "\
+	&mdeath::explode,	&mattack::multi_robot, "\
 A boxy robot about four feet high.  It moves\n\
 slowly on a set of treads, and is armed with\n\
 a large machine gun type weapon.  It is\n\

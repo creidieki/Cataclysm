@@ -1266,7 +1266,7 @@ ARMOR("jumpsuit",	20, 200,C_BODY,		COTTON,		PLASTIC,
 A full-body jumpsuit with many pockets.");
 
 //     NAME		RAR PRC	COLOR		MAT1		MAT2
-ARMOR("wolfsuit",	50, 200,C_BODY,		COTTON,		PLASTIC,
+ARMOR("wolfsuit",	15, 200,C_BODY,		COTTON,		PLASTIC,
 // VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
     6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
                                                 mfb(bp_head), "\
@@ -1274,7 +1274,7 @@ A thick cotton suit, covered in shaggy grey fur, and with a thick tail.\n\
 The head is a wolf");
 
 //     NAME		RAR PRC	COLOR		MAT1		MAT2
-ARMOR("deersuit",	50, 200,C_BODY,		COTTON,		PLASTIC,
+ARMOR("deersuit",	15, 200,C_BODY,		COTTON,		PLASTIC,
 // VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
     6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
                                                 mfb(bp_head), "\
@@ -3364,6 +3364,19 @@ TOOL("ingot mold", 30, 10, ',', c_dkgray,	STONE,	MNULL,
 	 4,  6,  12, 0,  -2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::ingotmold,0, "\
 A clay mold with a large, bar shaped, depression in it\n\
 for pouring molten metal into");
+
+
+TOOL("torch (unlit)",40, 380,';', c_brown, WOOD, MNULL,
+         6,  2,  3,  0,  2, 50,50, 0,  0, AT_NULL, itm_stick, &iuse::torch_off,0,"\
+Using this torch with a lighter in your inventory will light it, a lit torch\n\
+will provide light at night and underground, when the head has burned out you\n\
+will be able to reuse the stick.");
+
+
+TOOL("torch (lit)",40, 380,';', c_brown, WOOD, MNULL,
+         6,  2,  6,  0,  2, 50,50, 0,  1, AT_NULL, itm_stick, &iuse::torch_on,0,"\
+This torch is burning brightly, and will provide light as long as it is held,\n\
+You will need to put it out to return it to your inventory, obviously.");
 
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
