@@ -741,8 +741,6 @@ bool map::is_outside(int x, int y)
          ter(x, y        ) != t_awnfloor  &&
          ter(x, y        ) != t_support);
 
-}
-
  if (out)
  {
      int vpart;
@@ -751,7 +749,7 @@ bool map::is_outside(int x, int y)
          out = false;
  }
  return out;
-
+}
 bool map::flammable_items_at(int x, int y)
 {
  for (int i = 0; i < i_at(x, y).size(); i++) {
