@@ -395,7 +395,7 @@ A large chunk of wax, filled with dense, dark honey.  Useful for curing all\n\
 sorts of afflictions.");
 
 FOOD("misshapen fetus",	 1,150,	c_magenta,	FLESH,	itm_null,
-    4,  4,  0,  8,  0,  0, -8,  0,  1,-60,	&iuse::mutagen, ADD_NULL, "\
+    4,  4,  0,  8,  0,  0, -8,  0,  1,-60,	&iuse::mutagen_2, ADD_NULL, "\
 Eating this is about the most disgusting thing you can imagine, and it will\n\
 cause your DNA to mutate as well.");
 
@@ -1974,6 +1974,12 @@ A seven-round .38 revolver sold by Smith & Wesson.  It features a fixed rear\n\
 sight and a reinforced frame.",
 mfb(IF_RELOAD_ONE));
 
+GUN("Mateba Model 6", 4, 720, c_dkgray,    STEEL,  WOOD,
+        sk_pistol,      AT_38,   2,  8,  7,  1,  2, 23,  2,  8,  6,  6, 100, "\
+A rare semi-auto revolver, it uses the firing motion to rotate the cylinder and\n\
+cock the hammer.",
+mfb(IF_RELOAD_ONE));
+ 
 GUN("Taurus Pro .38",	 4, 760,c_dkgray,	STEEL,	PLASTIC,
 	sk_pistol,	AT_38,	 2,  6,  8,  1,  1, 22,  6,  7,  0, 10, 350, "\
 A popular .38 pistol.  Designed with numerous safety features and built from\n\
