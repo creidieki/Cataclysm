@@ -839,7 +839,7 @@ void game::craft()
    mvwprintz(w_data, 20, 0, c_white, "\
 Press ? to describe object.  Press <ENTER> to attempt to craft object.");
   wrefresh(w_data);
-  for (int i = 0; i < current.size() && i < 23; i++) {
+  for (int i = 0; i < current.size() && i < 26; i++) {
    if (i == line)
     mvwprintz(w_data, i, 0, (available[i] ? h_white : h_dkgray),
               itypes[current[i]->result]->name.c_str());
@@ -1145,7 +1145,7 @@ void game::pick_recipes(std::vector<recipe*> &current,
   current.push_back(recipes[i]);
   available.push_back(false);
  }
- for (int i = 0; i < current.size() && i < 22; i++) {
+ for (int i = 0; i < current.size() && i < 28; i++) {
 //Check if we have the requisite tools and components
   for (int j = 0; j < 5; j++) {
    have_tool[j] = false;

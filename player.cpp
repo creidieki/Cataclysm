@@ -4121,7 +4121,7 @@ int player::armor_cut(body_part bp)
  if (has_trait(PF_SKIN_SOFT))
   ret -= 1;
  if (bp == bp_feet && has_trait(PF_HOOVES))
-  ret -= 4;
+  ret += 4;
  return ret;
 }
 

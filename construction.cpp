@@ -157,7 +157,7 @@ void game::init_construction()
    COMP(itm_nail, 10, NULL);
   STAGE(t_door_c, 15);
    TOOL(itm_hammer, itm_hatchet, NULL);
-   COMP(itm_door, NULL);
+   COMP(itm_door, 1, NULL);
    COMP(itm_nail, 4, NULL);
 
 /*  Removed until we have some way of auto-aligning fences!
