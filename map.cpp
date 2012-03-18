@@ -735,7 +735,14 @@ bool map::is_outside(int x, int y)
          ter(x    , y + 1) != t_floor_wax &&
          ter(x + 1, y - 1) != t_floor_wax &&
          ter(x + 1, y    ) != t_floor_wax &&
-         ter(x + 1, y + 1) != t_floor_wax   );
+         ter(x + 1, y + 1) != t_floor_wax &&
+         ter(x, y        ) != t_groundsheet &&
+         ter(x, y        ) != t_awnsheet  &&
+         ter(x, y        ) != t_awnfloor  &&
+         ter(x, y        ) != t_support);
+
+}
+
  if (out)
  {
      int vpart;
@@ -744,7 +751,6 @@ bool map::is_outside(int x, int y)
          out = false;
  }
  return out;
-}
 
 bool map::flammable_items_at(int x, int y)
 {
@@ -815,6 +821,20 @@ bool map::bash(int x, int y, int str, std::string &sound, int *res)
    int num_boards = rng(8, 20);
    for (int i = 0; i < num_boards; i++)
     add_item(x, y, (*itypes)[itm_2x4], 0);
+   return true;
+  } else {
+   sound += "whump!";
+   return true;
+  }
+  break;
+ case t_palisade:
+ case t_palgate_c:
+  if (!(one_in(20)) && (str >= rng(0, 120))) {
+   sound += "crash!";
+   ter(x, y) = t_dirt;
+   int num_logs = rng(1, 2);
+   for (int i = 0; i < num_logs; i++)
+    add_item(x, y, (*itypes)[itm_log], 0);
    return true;
   } else {
    sound += "whump!";
@@ -894,6 +914,8 @@ bool map::bash(int x, int y, int str, std::string &sound, int *res)
   }
   break;
  case t_paper:
+ case t_tent:
+ case t_flap_c:
   result = dice(2, 6) - 2;
   if (res) *res = result;
   if (str >= result) {
@@ -914,6 +936,48 @@ bool map::bash(int x, int y, int str, std::string &sound, int *res)
    return true;
   } else {
    sound += "whunk!";
+   return true;
+  }
+  break;
+ case t_counter:
+  if (str >= dice(3, 16)) {
+   sound += "smash!";
+   ter(x, y) = t_floor;
+   int num_boards = rng(1, 5);
+   for (int i = 0; i < num_boards; i++)
+    add_item(x, y, (*itypes)[itm_2x4], 0);
+   return true;
+  } else {
+   sound += "whump.";
+   return true;
+  }
+  break;
+ case t_bed:
+ case t_cot:
+  if (str >= dice(6, 45)) {
+   sound += "smash!";
+   ter(x, y) = t_floor;
+    add_item(x, y, (*itypes)[itm_sheet], 0);
+   int num_planks = rng(2, 8);
+   for (int i = 0; i < num_planks; i++)
+    add_item(x, y, (*itypes)[itm_2x4], 0);
+   return true;
+  } else {
+   sound += "whump.";
+   return true;
+  }
+  break;
+
+ case t_rack:
+  if (str >= dice(6, 45)) {
+   sound += "skree!";
+   ter(x, y) = t_floor;
+   int num_pipes = rng(0, 2);
+   for (int i = 0; i < num_pipes; i++)
+    add_item(x, y, (*itypes)[itm_pipe], 0);
+   return true;
+  } else {
+   sound += "whump.";
    return true;
   }
   break;
@@ -1314,6 +1378,12 @@ bool map::open_door(int x, int y, bool inside)
             (ter(x, y) == t_door_locked || ter(x, y) == t_door_locked_alarm)) {
   ter(x, y) = t_door_o;
   return true;
+ } else if (ter(x, y) == t_flap_c) {
+  ter(x, y) = t_flap_o;
+  return true;
+ } else if (ter(x, y) == t_palgate_c) {
+  ter(x, y) = t_palgate_o;
+  return true;
  }
  return false;
 }
@@ -1343,6 +1413,12 @@ bool map::close_door(int x, int y)
   return true;
  } else if (ter(x, y) == t_door_glass_o) {
   ter(x, y) = t_door_glass_c;
+  return true;
+ } else if (ter(x, y) == t_flap_o) {
+  ter(x, y) = t_flap_c;
+  return true;
+ } else if (ter(x, y) == t_palgate_o) {
+  ter(x, y) = t_palgate_c;
   return true;
  }
  return false;
