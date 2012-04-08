@@ -1621,9 +1621,10 @@ void game::debug()
                    "Check game state...",    // 7
                    "Kill NPCs",              // 8
                    "Mutate",                 // 9
-                   "Spawn a vehicle",        // 10
-                   "Increase all skills",    // 11
-                   "Cancel",                 // 12
+                   "Spawn a vehicle",        // 0
+                   "Increase all skills",    // a
+                   "Increase all stats",     // b
+                   "Cancel",                 // c
                    NULL);
  int veh_num;
  std::vector<std::string> opts;
@@ -1711,6 +1712,11 @@ int(turn), int(nextspawn), z.size(), events.size());
    for (int i = 0; i < num_skill_types; i++)
        u.sklevel[i]++;
    break;
+  case 12:
+       u.str_cur++  && u.str_max++;
+       u.per_cur++  && u.per_max++;
+       u.dex_cur++  && u.dex_max++;
+       u.int_cur++  && u.int_max++;
 
  }
  erase();

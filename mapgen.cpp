@@ -2174,7 +2174,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
                ((i < SEEX - 1 || i > SEEX) && (j == SEEY - 2 || j == SEEY + 1)))
        ter(i, j) = t_wall_h;
       else
-       ter(i, j) = t_floor;
+       ter(i, j) = t_metal_floor;
      }
     }
     if (t_above == ot_lab_stairs)

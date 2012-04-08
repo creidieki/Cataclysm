@@ -3693,22 +3693,22 @@ bool player::wear(game *g, char let)
                  (has_trait(PF_ARM_TENTACLES_4) ? "tentacles" : "tentacles"))))));
   return false;
  }
- if (armor->covers & mfb(bp_mouth) && has_trait(PF_BEAK) || has_trait(PF_MANDIBLES) || has_trait(PF_TUSKS)) {
+ if (armor->covers & mfb(bp_mouth) && (has_trait(PF_BEAK) || has_trait(PF_MANDIBLES) || has_trait(PF_TUSKS))) {
   g->add_msg("You cannot put a %s over your %s.", armor->name.c_str(),
               (has_trait(PF_BEAK) ? "beak" :
                (has_trait(PF_MANDIBLES) ? "mandibles" : "tusks")));
   return false;
  }
- if (armor->covers & mfb(bp_feet) && has_trait(PF_HOOVES) || has_trait(PF_LEG_TENTACLES)) {
+ if (armor->covers & mfb(bp_feet) && (has_trait(PF_HOOVES) || has_trait(PF_LEG_TENTACLES))) {
   g->add_msg("You cannot wear footwear on your %s.",
              (has_trait(PF_HOOVES) ? "hooves" : "tentacles"));
   return false;
  }
- if (armor->covers & mfb(bp_head) && has_trait(PF_HORNS_CURLED)) {
+ if (armor->covers & mfb(bp_head) && (has_trait(PF_HORNS_CURLED))) {
   g->add_msg("You cannot wear headgear over your horns.");
   return false;
  }
- if (armor->covers & mfb(bp_torso) && has_trait(PF_SHELL)) {
+ if (armor->covers & mfb(bp_torso) && (has_trait(PF_SHELL))) {
   g->add_msg("You cannot wear anything over your shell.");
   return false;
  }
