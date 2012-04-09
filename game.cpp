@@ -4088,20 +4088,10 @@ void game::examine()
    add_msg("You can find nothing of use");
    m.ter(examx, examy) = t_dirt;
   }
- } else if (m.ter(examx, examy) == t_post && query_yn("Remove that fencepost?")) {
-  if (u.has_amount(itm_shovel, 1)) {
-  m.ter(examx, examy) = t_dirtmound;
-  u.moves -= 100;
-  item post(itypes[itm_fpost], turn);
-  m.add_item(u.posx, u.posy, post);
-  add_msg("You dig out the fence posts");
- } else {
-  add_msg("You need a shovel to dig that out!"); 
- }
-} else if (query_yn("Make a fence?")) {
+ } else if (m.ter(examx, examy) == t_post && query_yn("Make a fence")) {
   int ch = menu(
   "Choose Fence Material:", "Rope", "Wire", "Barbed Wire", "Cancel",
-  NULL); 
+  NULL);
   switch (ch) {
   if (ch == 4)
   break;
@@ -4120,26 +4110,44 @@ void game::examine()
     if (u.has_amount(itm_wire, 2)) {
    m.ter(examx, examy) = t_wirefence;
    u.moves -= 100;
-   u.use_amount(itm_wire, 2);
+   u.use_amount(itm_wire, 1);
    add_msg("You loop the wire around the posts, top and bottom,\n\
 making a relatively decent fence");
   break;
  } else {
-   add_msg("You need 2 lengths of wire!");
+   add_msg("You need a length of wire!");
   break;
  }
   case 3: {
     if (u.has_amount(itm_barbwire, 2)) {
    m.ter(examx, examy) = t_barbfence;
    u.moves -= 100;
-   u.use_amount(itm_barbwire, 2);
+   u.use_amount(itm_barbwire, 1);
    add_msg("You loop the barbed wire around the fence posts,\n\
 making a vicious barbed wire fence");
   break;
  } else {
-   add_msg("You need two lengths of barbed wire!");
+   add_msg("You need a length of barbed wire!");
   break;
   }}}
+ } else if (m.ter(examx, examy) == t_ropefence && query_yn("Remove rope?")) {
+    m.ter(examx, examy) = t_post;
+    u.moves -= 100;
+    item rope(itypes[itm_rope_6], turn);
+    m.add_item(u.posx, u.posy, rope);
+    add_msg("You remove the rope");
+ } else if (m.ter(examx, examy) == t_wirefence && query_yn("Remove wire?")) {
+    m.ter(examx, examy) = t_post;
+    u.moves -= 100;
+    item wire(itypes[itm_wire], turn);
+    m.add_item(u.posx, u.posy, wire);
+    add_msg("You remove the wire");
+ } else if (m.ter(examx, examy) == t_ropefence && query_yn("Remove barbed wire?")) {
+    m.ter(examx, examy) = t_post;
+    u.moves -= 100;
+    item wire(itypes[itm_barbwire], turn);
+    m.add_item(u.posx, u.posy, wire);
+    add_msg("You remove the barbed wire");
  } else if (m.ter(examx, examy) == t_groundsheet &&
             query_yn("Take down tent?")) {
    add_msg("You take down your tent.");

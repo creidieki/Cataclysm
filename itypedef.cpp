@@ -3448,7 +3448,7 @@ This torch is burning brightly, and will provide light as long as it is held,\n\
 You will need to put it out to return it to your inventory, obviously.");
 
 TOOL("fence posts",40, 380,';', c_brown, WOOD, MNULL,
-         9,  2,  6,  0,  -4, 50,50, 0,  1, AT_NULL, itm_null, &iuse::fpost,0,"\
+         9,  2,  6,  0,  -4, 0,0, 0,  0, AT_NULL, itm_null, &iuse::fpost,0,"\
 This is a pair of fence posts, you could entrench them in the ground with a shovel\n\
 or hammer them in with a sledge hammer, and then string up a decent fence between\n\
 them");

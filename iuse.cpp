@@ -1219,8 +1219,8 @@ void iuse::dig(game *g, player *p, item *it, bool t)
 {
  int dirx, diry;
  g->draw();
- mvprintw(0, 0, "Prospect for clay where??");
- get_direction(dirx, diry, input());
+ mvprintw(0, 0, "Dig where?");
+ get_direction(g, dirx, diry, input());
  if (dirx == -2) {
   g->add_msg("Invalid direction.");
   return;
@@ -1228,7 +1228,15 @@ void iuse::dig(game *g, player *p, item *it, bool t)
  dirx += p->posx;
  diry += p->posy;
  ter_id type = g->m.ter(dirx, diry);
-  if (g->m.ter(dirx, diry) == t_claydirt) {
+  if (g->m.ter(dirx, diry) == t_post) {
+   int posts = 1;
+   item post(g->itypes[itm_fpost], 0, g->nextinv);
+    for (int i = 0; i < posts; i++)
+    g->m.add_item(dirx, diry, post);
+    g->m.ter(dirx, diry) = t_claydirt;
+    p->moves -= 100;
+    g->add_msg("You dig the posts out");
+  } else if (g->m.ter(dirx, diry) == t_claydirt) {
   if (!one_in(6)) {
     g->add_msg("You find no clay");
     p->moves -= 200;
@@ -1297,7 +1305,7 @@ case 2:{
  int dirx, diry;
  g->draw();
  mvprintw(0, 0, "Fell which tree?");
- get_direction(dirx, diry, input());
+ get_direction(g, dirx, diry, input());
  if (dirx == -2) {
   g->add_msg("Invalid direction.");
   return;
