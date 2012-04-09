@@ -10,7 +10,7 @@
 #include "artifact.h"
 #include <sstream>
 #include <stdlib.h>
-//timefixing
+//timefixing more
 #if (defined _WIN32 || defined WINDOWS)
 	#include "catacurse.h"
 #else
@@ -260,7 +260,7 @@ void player::update_morale(game * g)
      //   morale[i].bonus++;
      // else if (morale[i].bonus > 0)
      //   morale[i].bonus--;
-     
+
      if (morale[i].bonus == 0) {
        morale.erase(morale.begin() + i);
        i--;
@@ -777,8 +777,8 @@ Strength - 4;    Dexterity - 4;    Intelligence - 4;    Dexterity - 4");
    status = c_ltgreen;
  else
    status = c_green;
- mvwprintz(w_stats,  6, 2, status, "Health:%s%d", 
-	   abs(health) >= 100 ? "      " : 
+ mvwprintz(w_stats,  6, 2, status, "Health:%s%d",
+	   abs(health) >= 100 ? "      " :
 	   abs(health) >= 10 ? "       " : "        ",
 	   health);
 
@@ -2619,11 +2619,15 @@ void player::suffer(game *g)
    g->m.radiation(posx, posy)++;
  }
 
- if (has_trait(PF_UNSTABLE) && one_in(28800))	// Average once per 2 days
+ if (has_trait(PF_UNSTABLE) && one_in(28800)) {	// Average once per 2 days
+  g->add_msg("You feel your body changing.");
   mutate(g);
- if (has_artifact_with(AEP_MUTAGENIC) && one_in(28800))
+ }
+ if (has_artifact_with(AEP_MUTAGENIC) && one_in(28800)) {
+  g->add_msg("You feel your body changing.");
   mutate(g);
-
+  g->add_msg("You feel your body changing.");
+ }
  if (is_wearing(itm_hazmat_suit)) {
   if (radiation < 100 * int(g->m.radiation(posx, posy) / 12))
    radiation += rng(0, g->m.radiation(posx, posy) / 12);
@@ -2631,6 +2635,21 @@ void player::suffer(game *g)
   radiation += rng(0, g->m.radiation(posx, posy) / 4);
 
  if (rng(1, 1000) < radiation && (int(g->turn) % 150 == 0 || radiation > 2000)){
+  if (one_in(4)) {
+  g->add_msg("You feel sick.");
+ vomit(g);
+  } else if (one_in(10)) {
+  g->add_msg("You suddenly collapse onto the ground and spasm uncontrollably!");
+ moves -= 800;
+ if (one_in(3)) {
+    g->add_msg("You hurt yourself during the convlusions!");
+    g->u.hit(g, bp_legs, 1, 0, rng(0,  5));
+     g->u.hit(g, bp_arms, 1, 0, rng(0,  5));
+      g->u.hit(g, bp_torso, 1, 0, rng(0,  3));
+       g->u.hit(g, bp_head, 1, 0, rng(0,  5));
+ }
+  }
+  g->add_msg("You feel your body changing.");
   mutate(g);
   if (radiation > 2000)
    radiation = 2000;
@@ -2858,7 +2877,7 @@ void player::sort_inv()
 void player::i_add(item it)
 {
  last_item = itype_id(it.type->id);
- if (it.is_food() || it.is_ammo() || it.is_gun()  || it.is_armor() || 
+ if (it.is_food() || it.is_ammo() || it.is_gun()  || it.is_armor() ||
      it.is_book() || it.is_tool() || it.is_weap() || it.is_food_container())
   inv_sorted = false;
  if (it.is_ammo()) {	// Possibly combine with other ammo
@@ -3526,7 +3545,7 @@ bool player::eat(game *g, int index)
   }
 // At this point, we've definitely eaten the item, so use up some turns.
   if (has_trait(PF_GOURMAND))
-   moves -= 150; 
+   moves -= 150;
   else
    moves -= 250;
 // If it's poisonous... poison us.  TODO: More several poison effects

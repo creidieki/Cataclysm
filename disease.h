@@ -595,8 +595,36 @@ void dis_effect(game *g, player &p, disease &dis)
   if (rng(30, 100) < rng(0, dis.duration) && one_in(3))
    p.vomit(g);
   if (rng(0, 100) < rng(0, dis.duration))
+  if (one_in(4)) {
+  g->add_msg("You feel sick.");
+ p.vomit(g);
+  } else if (one_in(10)) {
+  g->add_msg("You suddenly collapse onto the ground and spasm uncontrollably!");
+ p.moves -= 800;
+ if (one_in(3)) {
+    g->add_msg("You hurt yourself during the convlusions!");
+    g->u.hit(g, bp_legs, 1, 0, rng(0,  5));
+     g->u.hit(g, bp_arms, 1, 0, rng(0,  5));
+      g->u.hit(g, bp_torso, 1, 0, rng(0,  3));
+       g->u.hit(g, bp_head, 1, 0, rng(0,  5));
+ }
+  }
    p.mutation_category_level[MUTCAT_RAT]++;
   if (rng(50, 500) < rng(0, dis.duration))
+  if (one_in(4)) {
+  g->add_msg("You feel sick.");
+ p.vomit(g);
+  } else if (one_in(10)) {
+  g->add_msg("You suddenly collapse onto the ground and spasm uncontrollably!");
+ p.moves -= 800;
+ if (one_in(3)) {
+    g->add_msg("You hurt yourself during the convlusions!");
+    g->u.hit(g, bp_legs, 1, 0, rng(0,  5));
+     g->u.hit(g, bp_arms, 1, 0, rng(0,  5));
+      g->u.hit(g, bp_torso, 1, 0, rng(0,  3));
+       g->u.hit(g, bp_head, 1, 0, rng(0,  5));
+ }
+  }
    p.mutate(g);
   break;
 

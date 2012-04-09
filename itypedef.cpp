@@ -2,7 +2,7 @@
 #include "game.h"
 #include <fstream>
 
-// Armor colors
+// Armor colors /
 #define C_SHOES  c_blue
 #define C_PANTS  c_brown
 #define C_BODY   c_yellow
@@ -1490,6 +1490,10 @@ ARMOR("fire gauntlets",	 5,  95,C_GLOVES,	LEATHER,	MNULL,
     3,  5, -2,  2,  6,  1,  2,  5,  4,  0,	mfb(bp_hands), "\
 A heavy pair of leather gloves, used by firefighters for heat protection.");
 
+ARMOR("wristwatch", 25,  20,C_GLOVES,	PLASTIC,	MNULL,
+    1,  1, -5,  -5,  0,  0,  0,  0,  0,  0,	mfb(bp_hands), "\
+A lightweight instrument used to keep time.");
+
 //     NAME		RAR PRC	COLOR		MAT1		MAT2
 ARMOR("dust mask",	65,  20,C_MOUTH,	COTTON,		IRON,
 // VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
@@ -2171,7 +2175,7 @@ GUN("Mateba Model 6", 4, 720, c_dkgray,    STEEL,  WOOD,
 A rare semi-auto revolver, it uses the firing motion to rotate the cylinder and\n\
 cock the hammer.",
 mfb(IF_RELOAD_ONE));
- 
+
 GUN("Taurus Pro .38",	 4,1500,c_dkgray,	STEEL,	PLASTIC,
 	sk_pistol,	AT_38,	 2,  6,  8,  1,  1, 22,  6,  7,  0, 10, 350, "\
 A popular .38 pistol.  Designed with numerous safety features and built from\n\

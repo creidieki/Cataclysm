@@ -17,7 +17,10 @@ void iuse::sewage(game *g, player *p, item *it, bool t)
 {
  p->vomit(g);
  if (one_in(4))
-  p->mutate(g);
+    if (!p->has_disease(DI_MUTATE)) {
+p->add_disease(DI_MUTATE,rng(900, 1200), g);
+    } else
+p->add_disease(DI_MUTATE,rng(1100, 1300), g);
 }
 
 void iuse::royal_jelly(game *g, player *p, item *it, bool t)
@@ -601,7 +604,22 @@ void iuse::marloss(game *g, player *p, item *it, bool t)
  int effect = rng(1, 9);
  if (effect <= 3) {
   g->add_msg("This berry tastes extremely strange!");
-  p->mutate(g);
+  if (one_in(4)) {
+  g->add_msg("You feel sick.");
+   p->vomit(g);
+  } else if (one_in(10)) {
+  g->add_msg("You suddenly collapse onto the ground and spasm uncontrollably!");
+   p->moves -= 800;
+ if (one_in(3)) {
+    g->add_msg("You hurt yourself during the convlusions!");
+    g->u.hit(g, bp_legs, 1, 0, rng(0,  5));
+     g->u.hit(g, bp_arms, 1, 0, rng(0,  5));
+      g->u.hit(g, bp_torso, 1, 0, rng(0,  3));
+       g->u.hit(g, bp_head, 1, 0, rng(0,  5));
+ }
+  }
+  g->add_msg("You feel your body changing.");
+   p->mutate(g);
  } else if (effect <= 6) { // Radiation cleanse is below
   g->add_msg("This berry makes you feel better all over.");
   p->pkill += 30;

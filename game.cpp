@@ -2191,7 +2191,7 @@ void game::draw()
  if (tername.length() > 14)
   tername = tername.substr(0, 14);
  mvwprintz(w_status, 0,  0, oterlist[cur_ter].color, tername.c_str());
- if (levz < 0)
+ if ((levz < 0) && (u.is_wearing(itm_wristwatch)))
   mvwprintz(w_status, 0, 18, c_ltgray, "Underground");
  else
   mvwprintz(w_status, 0, 18, weather_data[weather].color,
