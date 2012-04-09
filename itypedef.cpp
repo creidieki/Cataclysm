@@ -547,7 +547,7 @@ MED("Dayquil",		70, 75,	c_yellow,	itm_null,
 Daytime flu medication.  Will halt all flu symptoms for a while.");
 
 MED("Nyquil",		70, 85,	c_blue,		itm_null,
-	PLASTIC, -7,  1,  0, 10,  0,&iuse::flusleep,	ADD_NULL, "\
+	PLASTIC, -7,  1,  30, 10,  0,&iuse::flusleep,	ADD_SLEEP, "\
 Nighttime flu medication.  Will halt all flu symptoms for a while, plus make\n\
 you sleepy.");
 
@@ -1325,15 +1325,15 @@ ARMOR("wolfsuit",	15, 200,C_BODY,		COTTON,		PLASTIC,
     6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
                                                 mfb(bp_head), "\
 A thick cotton suit, covered in shaggy grey fur, and with a thick tail.\n\
-The head is a wolf");
+It has a wolf mask attached");
 
 //     NAME		RAR PRC	COLOR		MAT1		MAT2
 ARMOR("deersuit",	15, 200,C_BODY,		COTTON,		PLASTIC,
 // VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
     6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
                                                 mfb(bp_head), "\
-A thick cotton suit, covered in tawny fur and with\n\
-a white belly and a stubby tail. The head is a deer");
+A thick cotton suit, covered in tawny brown fur and whit a white belly and\n\
+stubby tail, it has a deer mask attached");
 
 ARMOR("dress",		70, 180,C_BODY,		COTTON,		MNULL,
     8,  6, -5, -5,  3,  0,  1,  0,  2,  0,	mfb(bp_legs)|mfb(bp_torso), "\

@@ -44,6 +44,7 @@ player::player()
  recoil = 0;
  driving_recoil = 0;
  scent = 500;
+ health = 0;
  name = "";
  male = true;
  inv_sorted = true;
@@ -53,6 +54,7 @@ player::player()
  in_vehicle = false;
  xp_pool = 0;
  last_item = itype_id(itm_null);
+
  for (int i = 0; i < num_skill_types; i++) {
   sklevel[i] = 0;
   skexercise[i] = 0;
@@ -102,6 +104,7 @@ player& player::operator= (player rhs)
  inv_sorted = rhs.inv_sorted;
  moves = rhs.moves;
  oxygen = rhs.oxygen;
+ health = rhs.health;
  active_mission = rhs.active_mission;
  xp_pool = rhs.xp_pool;
  for (int i = 0; i < num_skill_types; i++) {
@@ -752,6 +755,22 @@ Strength - 4;    Dexterity - 4;    Intelligence - 4;    Dexterity - 4");
  else
   status = c_green;
  mvwprintz(w_stats,  5, (per_cur < 10 ? 17 : 16), status, "%d", per_cur);
+
+ if (health <= -20)
+   status = c_red;
+ else if (health <= -5)
+   status = c_ltred;
+ else if (health <= 5)
+   status = c_white;
+ else if (health <= 30)
+   status = c_ltgreen;
+ else
+   status = c_green;
+ mvwprintz(w_stats,  6, 2, status, "Health:%s%d", 
+	   abs(health) >= 100 ? "      " : 
+	   abs(health) >= 10 ? "       " : "        ",
+	   health);
+
 
  wrefresh(w_stats);
 
@@ -2497,8 +2516,10 @@ void player::suffer(game *g)
    g->add_msg("Your asthma wakes you up!");
    auto_use = false;
   }
-  if (auto_use)
+  if (auto_use) {
+   g->add_msg("You take a puff of your inhaler.");
    use_charges(itm_inhaler, 1);
+  }
   else {
    add_disease(DI_ASTHMA, 50 * rng(1, 4), g);
    g->cancel_activity_query("You have an asthma attack!");
@@ -2804,10 +2825,10 @@ void player::sort_inv()
    types[1].push_back(tmp);
   else if (tmp[0].is_armor())
    types[3].push_back(tmp);
-  else if (tmp[0].is_tool() || tmp[0].is_gunmod())
-   types[5].push_back(tmp);
   else if (tmp[0].is_food() || tmp[0].is_food_container())
    types[4].push_back(tmp);
+  else if (tmp[0].is_tool() || tmp[0].is_gunmod())
+   types[5].push_back(tmp);
   else if (tmp[0].is_book())
    types[6].push_back(tmp);
   else if (tmp[0].is_weap())
@@ -2845,6 +2866,24 @@ void player::i_add(item it)
   }
   if (it.charges > 0)
    inv.push_back(it);
+  return;
+ }
+ if (it.is_food() && it.charges != -1) {	// Possibly combine with other food
+   for (int i = 0; i < inv.size(); i++) {
+     if (inv[i].type->id == it.type->id) {
+       it_comest* food = dynamic_cast<it_comest*>(inv[i].type);
+       if (inv[i].charges < food->charges) {
+	 inv[i].charges += it.charges;
+	 if (inv[i].charges > food->charges) {
+	   it.charges = inv[i].charges - food->charges;
+	   inv[i].charges = food->charges;
+	 } else
+	   it.charges = 0;
+       }
+     }
+   }
+  if (it.charges > 0)
+    inv.push_back(it);
   return;
  }
   inv.push_back(it);
@@ -4057,6 +4096,11 @@ void player::read(game *g, char ch)
 
 void player::try_to_sleep(game *g)
 {
+  if (g->m.ter(posx, posy) == t_bed)
+    g->add_msg("This bed is a comfortable place to sleep.");
+  else if (g->m.ter(posx, posy) != t_floor)
+    g->add_msg("It's %shard to get to sleep on this %s.", terlist[g->m.ter(posx, posy)].movecost <= 2 ? "a little " : "",  terlist[g->m.ter(posx, posy)].name.c_str());
+
  add_disease(DI_LYING_DOWN, 300, g);
 }
 

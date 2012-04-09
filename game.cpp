@@ -364,7 +364,7 @@ fivedozenwhales@gmail.com.");
     mvwprintz(w_open, 6, 12, c_red, "No templates found!");
    else {
     int tempstart = (sel1 < 6 ?  0 : sel1 - 6),
-        tempend   = (sel1 < 6 ? 14 : sel1 + 6);
+        tempend   = (sel1 < 6 ? 14 : sel1 + 8);
     for (int i = tempstart; i < tempend; i++) {
      int line = 6 + i - tempstart;
      mvwprintz(w_open, line, 29, c_black, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -386,16 +386,16 @@ fivedozenwhales@gmail.com.");
      sel1++;
     else
      sel1 = 0;
-   } else if (ch == 'h' || ch == '<' || ch == KEY_ESCAPE) {
+   } else if (ch == 'h' || ch == '<' || ch == KEY_ESCAPE || templates.size() == 0) {
     sel1 = 1;
     layer = 2;
-    for (int i = 0; i < templates.size() && i < 21; i++)
+    for (int i = 0; i+6 < 21; i++)
      mvwprintz(w_open, 6 + i, 12, c_black, "                                 ");
     for (int i = 22; i < 25; i++)
      mvwprintw(w_open, i, 0, "                                                 \
                                 ");
    }
-   if (ch == 'l' || ch == '\n' || ch == '>') {
+   else if (ch == 'l' || ch == '\n' || ch == '>') {
     if (!u.create(this, PLTYPE_TEMPLATE, templates[sel1])) {
      u = player();
      delwin(w_open);
@@ -546,13 +546,15 @@ bool game::do_turn()
   if ((!u.has_trait(PF_LIGHTEATER) || !one_in(3)) &&
       (!u.has_bionic(bio_recycler) || turn % 300 == 0))
    u.hunger++;
-  if (!u.has_bionic(bio_recycler) || turn % 100 == 0)
+  if ((!u.has_bionic(bio_recycler) || turn % 100 == 0) &&
+      (!u.has_trait(PF_PLANTSKIN) || !one_in(4)))
    u.thirst++;
   u.fatigue++;
   if (u.fatigue == 192 && !u.has_disease(DI_LYING_DOWN) &&
       !u.has_disease(DI_SLEEP)) {
+   cancel_activity_query("You're feeling tired.");
    add_msg("You're feeling tired.  Press '$' to lie down for sleep.");
-   u.activity.type = ACT_NULL;
+   // u.activity.type = ACT_NULL;
   }
   if (u.stim < 0)
    u.stim++;
@@ -1618,6 +1620,9 @@ void game::load(std::string name)
     u.inv.push_back(item(itemdata, this));
    else if (item_place == 'C')
     u.inv[u.inv.size() - 1].contents.push_back(item(itemdata, this));
+   // Preceding line is what confuses containers.  We're assuming that
+   // the most recently-added item is at position (size - 1), but that's not
+   // true if the empty container stacked with a previous container.
    else if (item_place == 'W')
     u.worn.push_back(item(itemdata, this));
    else if (item_place == 'w')
@@ -1803,11 +1808,13 @@ void game::debug()
 
   case 7:
    popup_top("\
-Location %d:%d in %d:%d, %s\n\
+Location %d:%d in %d:%d in %d:%d, %s\n\
+Global Location %d:%d\n\
 Current turn: %d; Next spawn %d.\n\
 %d monsters exist.\n\
-%d events planned.", u.posx, u.posy, levx, levy,
+%d events planned.", u.posx, u.posy, levx, levy, cur_om.posx, cur_om.posy,
 oterlist[cur_om.ter(levx / 2, levy / 2)].name.c_str(),
+	     global_location().x, global_location().y,
 int(turn), int(nextspawn), z.size(), events.size());
    if (!active_npc.empty())
     popup_top("\%s: %d:%d (you: %d:%d)", active_npc[0].name.c_str(),
@@ -3123,7 +3130,7 @@ void game::explosion(int x, int y, int power, int shrapnel, bool fire)
     m.destroy(this, i, j, false);
 
    int mon_hit = mon_at(i, j), npc_hit = npc_at(i, j);
-   if (mon_hit != -1 && z[mon_hit].hurt(rng(dam / 2, dam * 1.5))) {
+   if (mon_hit != -1 && !z[mon_hit].dead && z[mon_hit].hurt(rng(dam / 2, dam * 1.5))) {
     if (z[mon_hit].hp < 0 - 1.5 * z[mon_hit].type->hp)
      explode_mon(mon_hit); // Explode them if it was big overkill
     else
@@ -6404,6 +6411,14 @@ point game::om_location()
  ret.x = int( (levx + int(MAPSIZE / 2)) / 2);
  ret.y = int( (levy + int(MAPSIZE / 2)) / 2);
  return ret;
+}
+
+point game::global_location()
+{
+  point ret;
+  ret.x = cur_om.posx*OMAPX + om_location().x;
+  ret.y = cur_om.posy*OMAPY + om_location().y;
+  return ret;
 }
 
 void game::replace_stair_monsters()
