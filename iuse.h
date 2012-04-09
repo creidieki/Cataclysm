@@ -105,13 +105,13 @@ class iuse
   void barricade        (game *g, player *p, item *it, bool t);
   void awning           (game *g, player *p, item *it, bool t);
   void fish             (game *g, player *p, item *it, bool t);
-  void efence           (game *g, player *p, item *it, bool t);
   void cot              (game *g, player *p, item *it, bool t);
   void dredge           (game *g, player *p, item *it, bool t);
   void anvil            (game *g, player *p, item *it, bool t);
   void ingotmold        (game *g, player *p, item *it, bool t);
   void torch_on         (game *g, player *p, item *it, bool t);
   void torch_off        (game *g, player *p, item *it, bool t);
+  void fpost            (game *g, player *p, item *it, bool t);
 // MACGUFFINS
   void mcg_note		(game *g, player *p, item *it, bool t);
 // ARTIFACTS

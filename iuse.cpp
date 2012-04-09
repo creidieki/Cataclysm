@@ -1153,6 +1153,12 @@ void iuse::crowbar(game *g, player *p, item *it, bool t)
    boards = 3;
    newter = t_door_b;
    break;
+  case t_fence_v:
+  case t_fence_h:
+   nails = rng(1, 8);
+   boards= 2;
+   newter = t_post;
+   break;
   default:
    g->add_msg("There's nothing to pry there.");
    return;
@@ -2349,6 +2355,7 @@ void iuse::fish(game *g, player *p, item *it, bool t)
    int fish = rng(1, 3);
    item fishies(g->itypes[itm_fish], 0, g->nextinv);
    for (int i = 0; i < fish; i++)
+    fishies.bday = int(g->turn);
     g->m.add_item(p->posx, p->posy, fishies);
     g->add_msg("You catch some fish!");
  } else {
@@ -2411,7 +2418,7 @@ void iuse::barricade(game *g, player *p, item *it, bool t)
  if (!p->has_amount(itm_shovel, 1)) {
   g->add_msg("You need a shovel to dig that in");
  } else {
- if (type == t_dirt|| type == t_grass) {
+ if (type == t_dirt|| type == t_grass || type == t_claydirt) {
   g->add_msg("You stake your barricade in");
    p->moves -= (1000);
    g->m.ter(dirx, diry) = t_spikebar;
@@ -2419,29 +2426,6 @@ void iuse::barricade(game *g, player *p, item *it, bool t)
  } else {
   g->add_msg("You can only place this in dirt or grass");
   }
- }
-}
-
-void iuse::efence(game *g, player *p, item *it, bool t)
-{
- int dirx, diry;
- g->draw();
- mvprintw(0, 0, "Embed your fence where?");
- get_direction(g, dirx, diry, input());
- if (dirx == -2) {
-  g->add_msg("Invalid direction.");
-  return;
- }
- dirx += p->posx;
- diry += p->posy;
- ter_id type = g->m.ter(dirx, diry);
- if (type == t_dirt|| type == t_grass) {
-  g->add_msg("You stake your fence in and wire it up");
-   p->moves -= (1000);
-   g->m.ter(dirx, diry) = t_fence_electric;
-   it->invlet = 0;
- } else {
-  g->add_msg("You can only place this in dirt or grass");
  }
 }
 
@@ -2551,6 +2535,33 @@ void iuse::torch_on(game *g, player *p, item *it, bool t)
   it->make(g->itypes[itm_torch_unlit]);
   it->charges--;
   it->active = false;
+ }
+}
+
+void iuse::fpost(game *g, player *p, item *it, bool t)
+{
+ int dirx, diry;
+ g->draw();
+ mvprintw(0, 0, "Embed your fence posts where?");
+ get_direction(g, dirx, diry, input());
+ if (dirx == -2) {
+  g->add_msg("Invalid direction.");
+  return;
+ }
+ dirx += p->posx;
+ diry += p->posy;
+ ter_id type = g->m.ter(dirx, diry);
+ if (!p->has_amount(itm_shovel, 1 && !p->has_amount(itm_hammer_sledge, 1))) {
+  g->add_msg("You need a shovel or sledge hammer to embed that");
+ } else {
+ if (type == t_dirt|| type == t_grass || type == t_claydirt) {
+  g->add_msg("You embed the fence posts in the ground securely");
+   p->moves -= (1000);
+   g->m.ter(dirx, diry) = t_post;
+   it->invlet = 0;
+ } else {
+  g->add_msg("You can only place this in dirt or grass");
+  }
  }
 }
 

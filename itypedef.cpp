@@ -998,6 +998,10 @@ MELEE("wire",            70, 100, ';', c_ltgray, IRON, MNULL,
          5, 2,    0,  2, -1, 0, "\
 A length of tough wire, could be handy for crafting.");
 
+MELEE("barb wire",            70, 100, ';', c_ltgray, IRON, MNULL,
+         5, 2,    0,  2, -1, 0, "\
+A length of tough barbed wire, could be handy for crafting.");
+
 MELEE("bedsheet",        72, 10, ';', c_dkgray,	COTTON,	MNULL,
 	 10,  2,-10,  0,  0, 0, "\
 A large bedsheet.");
@@ -3412,10 +3416,6 @@ TOOL("composite fishing rod", 20, 1000,';', c_brown,  PLASTIC, IRON,
         6, 4, 1,  0,  -4,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::fish,0,"\
 An expensive fishing rod, perfect for the aspiring angler");
 
-TOOL("electric fence",        0, 1000,';',  c_cyan,   STEEL, MNULL,
-        10,10,0, 4,   -5,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::efence,0,"\
-An electric fence, stake it into the ground and stand well back.");
-
 TOOL("cot",                   80, 1000,';',  c_green,   STEEL, MNULL,
         15,7,0, 4,   -5,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::cot,0,"\
 A military style cot, folded up for transportation");
@@ -3446,6 +3446,12 @@ TOOL("torch (lit)",40, 380,';', c_brown, WOOD, MNULL,
          6,  2,  6,  0,  2, 50,50, 0,  1, AT_NULL, itm_stick, &iuse::torch_on,0,"\
 This torch is burning brightly, and will provide light as long as it is held,\n\
 You will need to put it out to return it to your inventory, obviously.");
+
+TOOL("fence posts",40, 380,';', c_brown, WOOD, MNULL,
+         9,  2,  6,  0,  -4, 50,50, 0,  1, AT_NULL, itm_null, &iuse::fpost,0,"\
+This is a pair of fence posts, you could entrench them in the ground with a shovel\n\
+or hammer them in with a sledge hammer, and then string up a decent fence between\n\
+them");
 
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
