@@ -1200,7 +1200,10 @@ void game::get_input()
    break;
 
   case ACTION_SMASH:
-   smash();
+   if (veh_ctrl)
+    handbrake();
+   else
+    smash();
    break;
 
   case ACTION_EXAMINE:
