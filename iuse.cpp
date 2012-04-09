@@ -1220,6 +1220,7 @@ void iuse::dig(game *g, player *p, item *it, bool t)
     g->m.ter(dirx, diry) = t_dirtmound;
  } else {
     p->moves -= 200;
+    g->m.ter(dirx, diry) = t_dirtmound;
     g->add_msg("You find some clay!");
      int clays = rng(2, 10);
      item clay(g->itypes[itm_clay], 0, g->nextinv);

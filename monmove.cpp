@@ -573,7 +573,7 @@ void monster::move_to(game *g, int x, int y)
   moves -= 100;
   }
   if (g->m.has_flag(electric, x, y)); {
-  hurt(rng(20, 30));
+  hurt(rng(15, 25));
   moves -= 400;
    }
   }

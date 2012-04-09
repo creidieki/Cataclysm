@@ -10,7 +10,7 @@
 #include "artifact.h"
 #include <sstream>
 #include <stdlib.h>
-
+//timefixing
 #if (defined _WIN32 || defined WINDOWS)
 	#include "catacurse.h"
 #else
@@ -3957,7 +3957,7 @@ void player::read(game *g, char ch)
   return;
  }
 // Check if reading is okay
- if (g->light_level() < 8) {
+ if (g->light_level() < 8 && (!has_trait(PF_BIO_LUM))) {
   g->add_msg("It's too dark to read!");
   return;
  }
@@ -4419,19 +4419,22 @@ std::string player::weapname(bool charges)
   std::stringstream dump;
   dump << weapon.tname().c_str() << " (" << weapon.charges << ")";
   return dump.str();
- } else if (weapon.is_null() && (!has_trait(PF_CLAWS)) && (!has_trait(PF_TALONS)) && (!has_trait(PF_ARM_TENTACLES))
+ } else if (!weapon.is_null()) {
+      return weapon.tname();
+ } else
+ if (!has_trait(PF_CLAWS) && (!has_trait(PF_TALONS)) && (!has_trait(PF_ARM_TENTACLES))
             && (!has_trait(PF_ARM_TENTACLES_4)) && (!has_trait(PF_ARM_TENTACLES_8) && (!has_trait(PF_PINCERS))))
    return "fists";
-  else if (weapon.is_null() && (has_trait(PF_CLAWS)))
+  else if (has_trait(PF_NAILS))
+  return "nails";
+  else if (has_trait(PF_CLAWS))
   return "claws";
-  else if (weapon.is_null() && (has_trait(PF_TALONS)))
+  else if (has_trait(PF_TALONS))
   return "talons";
-  else if (weapon.is_null() && (has_trait(PF_ARM_TENTACLES)) || (has_trait(PF_ARM_TENTACLES_4)) || (has_trait(PF_ARM_TENTACLES_8)))
+  else if (has_trait(PF_ARM_TENTACLES) || (has_trait(PF_ARM_TENTACLES_4)) || (has_trait(PF_ARM_TENTACLES_8)))
   return "tentacles";
-  else if (weapon.is_null() && (has_trait(PF_PINCERS)))
+  else if (has_trait(PF_PINCERS))
   return "pincers";
- else
-  return weapon.tname();
 }
 
 nc_color encumb_color(int level)

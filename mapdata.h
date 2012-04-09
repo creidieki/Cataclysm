@@ -36,8 +36,8 @@ enum t_flag {
  container,    // Items on this square are hidden until looted by the player
  door,         // Can be opened--used for NPC pathfinding.
  flammable,    // May be lit on fire, burns to rubble.
- inflammable,  // May be lit on fire, burns to ash.
- meltable,     // Burns into "twisted metal" under enough heat.
+ inflammable,  // No longer does anything
+ meltable,     // No longer does anything
  explodes,     // Explodes when on fire
  diggable,     // Digging monsters, seeding monsters, digging w/ shovel, etc.
  swimmable,    // You (and monsters) swim here

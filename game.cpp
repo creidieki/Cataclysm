@@ -800,7 +800,7 @@ void game::process_activity()
    case ACT_BUILD:
     complete_construction();
     break;
-    
+
    case ACT_VEHICLE:
     complete_vehicle (this);
     break;
@@ -1621,10 +1621,9 @@ void game::debug()
                    "Check game state...",    // 7
                    "Kill NPCs",              // 8
                    "Mutate",                 // 9
-                   "Spawn a vehicle",        // 0
-                   "Increase all skills",    // a
-                   "Increase all stats",     // b
-                   "Cancel",                 // c
+                   "Spawn a vehicle",        // 10
+                   "Increase all skills",    // 11
+                   "Cancel",                 // 12
                    NULL);
  int veh_num;
  std::vector<std::string> opts;
@@ -1712,11 +1711,6 @@ int(turn), int(nextspawn), z.size(), events.size());
    for (int i = 0; i < num_skill_types; i++)
        u.sklevel[i]++;
    break;
-  case 12:
-       u.str_cur++  && u.str_max++;
-       u.per_cur++  && u.per_max++;
-       u.dex_cur++  && u.dex_max++;
-       u.int_cur++  && u.int_max++;
 
  }
  erase();
@@ -2377,7 +2371,7 @@ unsigned char game::light_level()
   ret = 8;
  if (ret < 4 && u.has_artifact_with(AEP_GLOW))
   ret = 4;
- if (ret < 4 && u.has_trait(PF_BIO_LUM))
+ if (ret < 6 && u.has_trait(PF_BIO_LUM))
   ret = 6;
  if (ret < 1)
   ret = 1;
@@ -2923,12 +2917,12 @@ void game::sound(int x, int y, int vol, std::string description)
 
  if (u.has_bionic(bio_ears))
   vol *= 3.5;
- if (u.has_trait(PF_BADHEARING))
-  vol *= .5;
  if (u.has_trait(PF_CANINE_EARS))
   vol *= 1.5;
- if (u.has_trait(PF_EAR_HOLES))
-  vol *= .7;
+ if (u.has_trait(PF_EAR_HOLES) || (u.has_item(itm_mp3_on)))
+  vol *= 0.7;
+ if (u.has_trait(PF_BADHEARING))
+  vol *= 0.5;
  int dist = rl_dist(x, y, u.posx, u.posy);
  if (dist > vol)
   return;	// Too far away, we didn't hear it!
@@ -5800,13 +5794,13 @@ void game::plmove(int x, int y)
   if (m.has_flag(razor, x, y) && !one_in(2) && !one_in(80 - int(u.dex_cur/2))) {
    if (!u.has_trait(PF_PARKOUR) || one_in(3)) {
     add_msg("You badly cut yourself on the %s!", m.tername(x, y).c_str());
-    u.hit(this, bp_torso, 0, 0, rng(10, 20));
+    u.hit(this, bp_torso, 0, 0, rng(6, 15));
    }
   }
   if (m.has_flag(electric, x, y)) {
     add_msg("The %s electrocutes you!", m.tername(x, y).c_str());
-    u.hit(this, bp_torso, 0, 0, rng(10, 20));
-    u.moves -= 400;
+    u.hit(this, bp_torso, 0, 0, rng(6, 15));
+    u.moves -= 200;
    }
   if (!u.has_artifact_with(AEP_STEALTH) && !u.has_trait(PF_LEG_TENTACLES)) {
    if (u.has_trait(PF_LIGHTSTEP))
