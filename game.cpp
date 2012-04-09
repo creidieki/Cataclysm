@@ -4088,7 +4088,17 @@ void game::examine()
    add_msg("You can find nothing of use");
    m.ter(examx, examy) = t_dirt;
   }
- } else if (m.ter(examx, examy) == t_post && query_yn("Make a fence?")) {
+ } else if (m.ter(examx, examy) == t_post && query_yn("Remove that fencepost?")) {
+  if (u.has_amount(itm_shovel, 1)) {
+  m.ter(examx, examy) = t_dirtmound;
+  u.moves -= 100;
+  item post(itypes[itm_fpost], turn);
+  m.add_item(u.posx, u.posy, post);
+  add_msg("You dig out the fence posts");
+ } else {
+  add_msg("You need a shovel to dig that out!"); 
+ }
+} else if (query_yn("Make a fence?")) {
   int ch = menu(
   "Choose Fence Material:", "Rope", "Wire", "Barbed Wire", "Cancel",
   NULL); 
@@ -4118,19 +4128,18 @@ making a relatively decent fence");
    add_msg("You need 2 lengths of wire!");
   break;
  }
-  case 3:
+  case 3: {
     if (u.has_amount(itm_barbwire, 2)) {
    m.ter(examx, examy) = t_barbfence;
    u.moves -= 100;
    u.use_amount(itm_barbwire, 2);
-   add_msg("You loop the barbed wire around the fence posts, top\n\
-and bottom, making a vicious barbed wire fence");
+   add_msg("You loop the barbed wire around the fence posts,\n\
+making a vicious barbed wire fence");
   break;
  } else {
    add_msg("You need two lengths of barbed wire!");
   break;
-   }
-  }
+  }}}
  } else if (m.ter(examx, examy) == t_groundsheet &&
             query_yn("Take down tent?")) {
    add_msg("You take down your tent.");
