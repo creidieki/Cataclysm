@@ -490,19 +490,18 @@ void map::vehmove(game *g)
                             }
 
                         int last_turn_dec = 1;
-                        if (veh.last_turn != 0)
-                            if (veh.last_turn < 0)
-                            {
-                                veh.last_turn += last_turn_dec;
-                                if (veh.last_turn > -last_turn_dec)
-                                    veh.last_turn = 0;
-                            }
-                            else
-                            {
-                                veh.last_turn -= last_turn_dec;
-                                if (veh.last_turn < last_turn_dec)
-                                    veh.last_turn = 0;
-                            }
+                        if (veh.last_turn != 0) {
+			  if (veh.last_turn < 0) {
+			    veh.last_turn += last_turn_dec;
+			    if (veh.last_turn > -last_turn_dec)
+			      veh.last_turn = 0;
+			  }
+			  else {
+			    veh.last_turn -= last_turn_dec;
+			    if (veh.last_turn < last_turn_dec)
+			      veh.last_turn = 0;
+			  }
+			}
                         int slowdown = veh.skidding? 200 : 20; // mph lost per tile when rolling free
                         float kslw = (0.1 + veh.k_dynamics()) / ((0.1) + veh.k_mass());
                         slowdown = (int) (slowdown * kslw);

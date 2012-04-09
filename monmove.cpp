@@ -567,17 +567,18 @@ void monster::move_to(game *g, int x, int y)
     trapfuncm f;
     (f.*(tr->actm))(g, this, posx, posy);
   }
-  if (g->m.has_flag(sharp, x, y)); {
-  hurt(rng(1, 5));
+  } // trap
+
+  if (g->m.has_flag(sharp, x, y) && !has_flag(MF_FLIES)) {
+    hurt(rng(1, 5));
   }
-  if (g->m.has_flag(razor, x, y)); {
-  hurt(rng(10, 20));
-  moves -= 100;
+  if (g->m.has_flag(razor, x, y) && !has_flag(MF_FLIES)) {
+    hurt(rng(10, 20));
+    moves -= 100;
   }
-  if (g->m.has_flag(electric, x, y)); {
-  hurt(rng(15, 25));
-  moves -= 400;
-   }
+  if (g->m.has_flag(electric, x, y) && !has_flag(MF_FLIES)) {
+    hurt(rng(15, 25));
+    moves -= 400;
   }
 // Diggers turn the dirt into dirtmound
   if (has_flag(MF_DIGS))

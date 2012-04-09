@@ -6033,11 +6033,12 @@ void game::fling_player_or_monster(player *p, monster *zz, int dir, int flvel)
         }
         else
             zz->hurt (dam1);
-        if (is_u)
-            if (dam1 > 0)
-                add_msg ("You fall on the ground for %d damage.", dam1);
-            else
-                add_msg ("You fall on the ground.");
+        if (is_u) {
+	  if (dam1 > 0)
+	    add_msg ("You fall on the ground for %d damage.", dam1);
+	  else
+	    add_msg ("You fall on the ground.");
+	}
     }
     else
     if (is_u)
