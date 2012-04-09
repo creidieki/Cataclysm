@@ -1115,6 +1115,15 @@ MELEE("sword blade",	30,1200,'/',c_cyan,	IRON,	MNULL,
 	 7, 11,  8, 20, -5, mfb(IF_STAB), "\
 A long broad blade, add a handle, and you'd have a formidable weapon");
 
+MELEE("mace head",		20,1000,'/',c_black,	IRON,	WOOD,
+	10, 18, 36,  0,  -5, 0, "\
+A large lump of shaped iron, it just needs to be affixed to a handle.");
+
+MELEE("morningstar head",	20,1000,'/',c_black,	IRON,	WOOD,
+	11, 20, 32,  4,  -5, mfb(IF_SPEAR), "\
+A large lump of shaped iron, viciously studded with nails,\n\
+ it just needs to be affixed to a handle.");
+
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ',', c_cyan,  STEEL,   MNULL,
 //  VOL WGT DAM CUT HIT FLAGS

@@ -2463,6 +2463,16 @@ unsigned char game::light_level()
   if (ret > 10)
    ret = 10;
  }
+ int torch = u.active_item_charges(itm_torch);
+ //int light = u.light_items();
+ if (ret < 10 && torch > 0) {
+/* additive so that low battery flashlights still increase the light level 
+	rather than decrease it 						*/
+  ret += torch;
+  if (ret > 10)
+   ret = 10;
+ }
+
  if (ret < 8 && u.has_active_bionic(bio_flashlight))
   ret = 8;
  if (ret < 4 && u.has_artifact_with(AEP_GLOW))

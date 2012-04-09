@@ -613,6 +613,29 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   COMP(itm_leather, 2, NULL);
   COMP(itm_sword_blade, 1, NULL); 
  
+ RECIPE(itm_mace_head, CC_SMITH, sk_smithing,    sk_null, 2, 100000);
+  TOOL(itm_forge, -1, NULL);
+  TOOL(itm_smith_hammer, -1, NULL);
+  COMP(itm_iron_ingot, 2, NULL);
+
+ RECIPE(itm_mace, CC_SMITH,      sk_smithing,    sk_null, 2, 100000);
+  TOOL(itm_forge, -1, NULL);
+  TOOL(itm_smith_hammer, -1, NULL);
+  COMP(itm_handle, 1, NULL);
+  COMP(itm_mace_head, 1, NULL);
+
+ RECIPE(itm_mstar_head, CC_SMITH,sk_smithing,    sk_null, 2, 100000);
+  TOOL(itm_forge, -1, NULL);
+  TOOL(itm_smith_hammer, -1, NULL);
+  COMP(itm_iron_ingot, 2, itm_mace_head, 1, NULL);
+  COMP(itm_nail, 50, NULL);
+
+ RECIPE(itm_morningstar, CC_SMITH,sk_smithing,   sk_null, 2, 100000);
+  TOOL(itm_forge, -1, NULL);
+  TOOL(itm_smith_hammer, -1, NULL);
+  COMP(itm_mstar_head, 1, NULL);
+  COMP(itm_handle, 1, NULL);
+
  RECIPE(itm_crucible,  CC_SMITH, sk_smithing,    sk_null, 0, 10000);
   TOOL(itm_fire, -1, NULL);
   COMP(itm_clay,  10, NULL);
@@ -649,7 +672,7 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   COMP(itm_knife_butcher, 2, itm_knife_combat, 2, NULL);
   COMP(itm_charcoal, 1, NULL);
 
- RECIPE(itm_steel_chunk, CC_SMITH, sk_smithing,   sk_null, 0, 7000);
+ RECIPE(itm_steel_chunk, CC_SMITH2, sk_smithing,   sk_null, 0, 7000);
   TOOL(itm_hot_crucible, -1, NULL);
   TOOL(itm_lighter, 1, NULL);
   TOOL(itm_forge, -1, NULL);
@@ -659,7 +682,7 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
        itm_pickaxe, 1, itm_shovel, 1, itm_hoe, 1, itm_hammer_sledge, 1,
        itm_wire, 5, NULL);
 
- RECIPE(itm_ingot_mold, CC_SMITH, sk_smithing, sk_null, 0, 5000);
+ RECIPE(itm_ingot_mold, CC_SMITH2, sk_smithing, sk_null, 0, 5000);
   TOOL(itm_fire, -1, NULL);
   TOOL(itm_knife_steak, -1, itm_knife_combat, -1, itm_knife_butcher, -1,
        itm_knife_butter, -1, itm_carving_knife, -1, NULL);
@@ -667,21 +690,21 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   COMP(itm_2x4, 6, NULL);
   COMP(itm_nail, 20, itm_stake, 2, NULL);
 
- RECIPE(itm_iron_ingot,   CC_SMITH, sk_smithing, sk_null, 0, 10000);
+ RECIPE(itm_iron_ingot,   CC_SMITH2, sk_smithing, sk_null, 0, 10000);
   TOOL(itm_ingotmold, -1, NULL);
   TOOL(itm_hot_crucible, -1, NULL);
   TOOL(itm_lighter, 1, NULL);
   COMP(itm_iron, 2, NULL);
   COMP(itm_charcoal, 1, NULL);
 
- RECIPE(itm_carbon_steel, CC_SMITH, sk_smithing, sk_null, 1, 20000);
+ RECIPE(itm_carbon_steel, CC_SMITH2, sk_smithing, sk_null, 1, 20000);
   TOOL(itm_ingotmold, -1, NULL);
   TOOL(itm_hot_crucible, -1, NULL);
   TOOL(itm_lighter, 1, NULL);
   COMP(itm_iron_ingot, 2, NULL);
   COMP(itm_charcoal, 6, NULL);
 
- RECIPE(itm_ax, CC_SMITH, sk_smithing, sk_null, 1, 20000);
+ RECIPE(itm_ax, CC_SMITH2, sk_smithing, sk_null, 1, 20000);
   TOOL(itm_smith_hammer, -1, NULL);
   TOOL(itm_forge, -1, NULL);
   TOOL(itm_lighter, 1, NULL);
@@ -1118,6 +1141,17 @@ void draw_recipe_tabs(WINDOW *w, craft_cat tab)
   mvwputch(w, 1,  2, h_ltgray, '<');
   mvwputch(w, 1, 16, h_ltgray, '>');
   break;
+
+ case CC_SMITH2:
+  for (int i = 5; i < 14; i++)
+   mvwputch(w, 2, i, c_black, ' ');
+  mvwprintz(w, 1, 5, h_ltgray, "METALWORK");
+  mvwputch(w, 2,  4, c_ltgray, LINE_XOOX);
+  mvwputch(w, 2, 14, c_ltgray, LINE_XXOO);
+  mvwputch(w, 1,  2, h_ltgray, '<');
+  mvwputch(w, 1, 16, h_ltgray, '>');
+  break;
+
  case CC_WOOD:
   for (int i = 5; i < 14; i++)
    mvwputch(w, 2, i, c_black, ' ');
