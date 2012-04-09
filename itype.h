@@ -69,7 +69,7 @@ itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_crucible, itm_clay, itm_shears, itm_vice, itm_anvilmold,
  itm_iron, itm_charcoal, itm_coalchunk, itm_carbon_steel,
  itm_iron_ingot, itm_handle, itm_door, itm_pike, itm_broadsword, itm_mace,
- itm_morningstar, itm_pool_cue, itm_pool_ball, itm_candlestick,
+ itm_morningstar, itm_pool_cue, itm_pool_ball, itm_candlestick, itm_sword_blade,
 // Vehicle parts
  itm_frame, itm_wheel, itm_big_wheel, itm_seat, itm_vehicle_controls,
  itm_combustion_small, itm_combustion, itm_combustion_large,

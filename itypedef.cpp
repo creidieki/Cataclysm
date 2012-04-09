@@ -1111,6 +1111,10 @@ MELEE("candlestick",	20,100,'/', c_yellow,	SILVER,	MNULL,
 	 1,  5, 12,  0,  1,  0, "\
 A gold candlestick.");
 
+MELEE("sword blade",	30,1200,'/',c_cyan,	IRON,	MNULL,
+	 7, 11,  8, 20, -5, mfb(IF_STAB), "\
+A long broad blade, add a handle, and you'd have a formidable weapon");
+
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ',', c_cyan,  STEEL,   MNULL,
 //  VOL WGT DAM CUT HIT FLAGS
