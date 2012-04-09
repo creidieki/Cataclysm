@@ -954,9 +954,9 @@ std::string dis_name(disease dis)
  case DI_IN_PIT:	return "Stuck in Pit";
  default:		return "";
  case DI_MUTATE:
-  if (dis.duration > 11050) return "Feeling Extremely Strange";
-  if (dis.duration > 6700) return "Feeling Very Strange";
-  if (dis.duration > 3400)  return "Feeling Quite Strange";
+  if (dis.duration > 4100) return "Feeling Extremely Strange";
+  if (dis.duration > 2800) return "Feeling Very Strange";
+  if (dis.duration > 1200) return "Feeling Quite Strange";
                            return "Feeling Strange";
 
  }
