@@ -1,5 +1,4 @@
 # comment these to toggle them as one sees fit.
-# doing this to fix my time
 # WARNINGS will spam hundreds of warnings, mostly safe, if turned on
 # DEBUG is best turned on if you plan to debug in gdb -- please do!
 # PROFILE is for use with gprof or a similar program -- don't bother generally

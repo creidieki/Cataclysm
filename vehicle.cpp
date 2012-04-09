@@ -10,7 +10,7 @@
 #else
     #include <curses.h>
 #endif
-
+//
 vehicle::vehicle(game *ag, vhtype_id type_id): g(ag), type(type_id)
 {
     posx = 0;
@@ -19,6 +19,7 @@ vehicle::vehicle(game *ag, vhtype_id type_id): g(ag), type(type_id)
     turn_dir = 0;
     last_turn = 0;
     moves = 0;
+    turret_mode = 0;
     cruise_velocity = 0;
     skidding = false;
     cruise_on = true;
@@ -65,6 +66,7 @@ void vehicle::load (std::ifstream &stin)
         velocity >>
         cruise_velocity >>
         cr_on >>
+        turret_mode >>
         skd >>
         moves >>
         prts;
@@ -127,6 +129,7 @@ void vehicle::save (std::ofstream &stout)
         velocity << " " <<
         cruise_velocity << " " <<
         (cruise_on? 1 : 0) << " " <<
+        turret_mode << " " <<
         (skidding? 1 : 0) << " " <<
         moves << " " <<
         parts.size() << std::endl;
@@ -1360,6 +1363,12 @@ bool vehicle::add_item (int part, item itm)
 {
     if (!part_flag(part, vpf_cargo) || parts[part].items.size() >= 26)
         return false;
+    it_ammo *ammo = dynamic_cast<it_ammo*> (itm.type);
+    if (part_flag(part, vpf_turret))
+        if (!ammo || (ammo->type != part_info(part).fuel_type ||
+                 ammo->type == AT_GAS ||
+                 ammo->type == AT_PLASMA))
+            return false;
     parts[part].items.push_back (itm);
     return true;
 }
@@ -1414,6 +1423,10 @@ void vehicle::gain_moves (int mp)
                 if (!rng(0, 2))
                     g->m.add_field(g, x + ix, y + iy, fd_smoke, rng(2, 4));
     }
+
+    if (turret_mode) // handle turrets
+        for (int p = 0; p < parts.size(); p++)
+            fire_turret (p);
 }
 
 void vehicle::find_external_parts ()
@@ -1526,13 +1539,26 @@ void vehicle::unboard_all ()
         g->m.unboard_vehicle (g, global_x() + parts[bp[i]].precalc_dx[0], global_y() + parts[bp[i]].precalc_dy[0]);
 }
 
-int vehicle::damage (int p, int dmg, int type)
+int vehicle::damage (int p, int dmg, int type, bool aimed)
 {
     if (dmg < 1)
         return dmg;
 
     std::vector<int> pl = internal_parts (p);
     pl.insert (pl.begin(), p);
+    if (!aimed)
+    {
+        bool found_obs = false;
+        for (int i = 0; i < pl.size(); i++)
+            if (part_flag (pl[i], vpf_obstacle) &&
+                (!part_flag (pl[i], vpf_openable) || !parts[pl[i]].open))
+            {
+                found_obs = true;
+                break;
+            }
+        if (!found_obs) // not aimed at this tile and no obstacle here -- fly through
+            return dmg;
+    }
     int parm = part_with_feature (p, vpf_armor);
     int pdm = pl[rng (0, pl.size()-1)];
     int dres;
@@ -1636,5 +1662,115 @@ void vehicle::leak_fuel (int p)
                 }
     }
     parts[p].amount = 0;
+}
+
+void vehicle::fire_turret (int p, bool burst)
+{
+    if (!part_flag (p, vpf_turret))
+        return;
+    it_gun *gun = dynamic_cast<it_gun*> (g->itypes[part_info(p).item]);
+    if (!gun)
+        return;
+    int charges = burst? gun->burst : 1;
+    if (!charges)
+        charges = 1;
+    int amt = part_info (p).fuel_type;
+    if (amt == AT_GAS || amt == AT_PLASMA)
+    {
+        if (amt == AT_GAS)
+            charges = 20; // hacky
+        int fleft = fuel_left (amt);
+        if (fleft < 1)
+            return;
+        it_ammo *ammo = dynamic_cast<it_ammo*>(g->itypes[amt == AT_GAS? itm_gasoline : itm_plasma]);
+        if (!ammo)
+            return;
+        if (fire_turret_internal (p, *gun, *ammo, charges))
+        { // consume fuel
+            if (amt == AT_PLASMA)
+                charges *= 10; // hacky, too
+            for (int p = 0; p < parts.size(); p++)
+            {
+                if (part_flag(p, vpf_fuel_tank) &&
+                    part_info(p).fuel_type == amt &&
+                    parts[p].amount > 0)
+                {
+                    parts[p].amount -= charges;
+                    if (parts[p].amount < 0)
+                        parts[p].amount = 0;
+                }
+            }
+        }
+    }
+    else
+    {
+        if (parts[p].items.size() > 0)
+        {
+            it_ammo *ammo = dynamic_cast<it_ammo*> (parts[p].items[0].type);
+            if (!ammo || ammo->type != amt ||
+                parts[p].items[0].charges < 1)
+                return;
+            if (charges > parts[p].items[0].charges)
+                charges = parts[p].items[0].charges;
+            if (fire_turret_internal (p, *gun, *ammo, charges))
+            { // consume ammo
+                if (charges >= parts[p].items[0].charges)
+                    parts[p].items.erase (parts[p].items.begin());
+                else
+                    parts[p].items[0].charges -= charges;
+            }
+        }
+    }
+}
+
+bool vehicle::fire_turret_internal (int p, it_gun &gun, it_ammo &ammo, int charges)
+{
+    int x = global_x() + parts[p].precalc_dx[0];
+    int y = global_y() + parts[p].precalc_dy[0];
+    // code copied form mattack::smg, mattack::flamethrower
+    int t, j, fire_t;
+    monster *target = 0;
+    int range = ammo.type == AT_GAS? 5 : 12;
+    int closest = range + 1;
+    for (int i = 0; i < g->z.size(); i++)
+    {
+        int dist = rl_dist(x, y, g->z[i].posx, g->z[i].posy);
+        if (g->z[i].friendly == 0 && dist < closest &&
+            g->m.sees(x, y, g->z[i].posx, g->z[i].posy, range, t))
+        {
+            target = &(g->z[i]);
+            closest = dist;
+            fire_t = t;
+        }
+    }
+    if (!target)
+        return false;
+
+    std::vector<point> traj = line_to(x, y, target->posx, target->posy, fire_t);
+    for (int i = 0; i < traj.size(); i++)
+        if (traj[i].x == g->u.posx && traj[i].y == g->u.posy)
+            return false; // won't shoot at player
+    if (g->u_see(x, y, t))
+        g->add_msg("The %s fires its %s!", name.c_str(), part_info(p).name);
+    player tmp;
+    tmp.name = std::string("The ") + part_info(p).name;
+    tmp.sklevel[gun.skill_used] = 1;
+    tmp.sklevel[sk_gun] = 0;
+    tmp.recoil = 0;
+    tmp.posx = x;
+    tmp.posy = y;
+    tmp.str_cur = 16;
+    tmp.dex_cur =  6;
+    tmp.per_cur =  8;
+    tmp.weapon = item(&gun, 0);
+    it_ammo curam = ammo;
+    tmp.weapon.curammo = &curam;
+    tmp.weapon.charges = charges;
+    g->fire(tmp, target->posx, target->posy, traj, true);
+    if (ammo.type == AT_GAS)
+    {
+        for (int i = 0; i < traj.size(); i++)
+            g->m.add_field(g, traj[i].x, traj[i].y, fd_fire, 1);
+    }
 }
 

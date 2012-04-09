@@ -100,6 +100,11 @@ void game::init_mapitems()
 	itm_glasses_monocle, NULL);
 
  setvector(
+   mapitems[mi_dining],
+	itm_wrapper, itm_knife_butter, itm_knife_steak, itm_bottle_glass,
+	NULL);
+
+ setvector(
    mapitems[mi_snacks],
 	itm_chips, itm_pretzels, itm_chocolate, itm_jerky, itm_candy, itm_tea_raw,
 	itm_coffee_raw, NULL);
@@ -191,7 +196,7 @@ void game::init_mapitems()
         itm_amplifier, itm_antenna, itm_battery, itm_soldering_iron,
         itm_screwdriver, itm_processor, itm_RAM, itm_mp3, itm_flashlight,
         itm_radio, itm_hotplate, itm_receiver, itm_transponder, itm_tazer,
-	itm_two_way_radio, itm_usb_drive, NULL);
+	itm_two_way_radio, itm_usb_drive, itm_manual_electronics, NULL);
 
  setvector(
    mapitems[mi_sports],
@@ -229,8 +234,8 @@ void game::init_mapitems()
 	itm_whiskey, itm_vodka, itm_rum, itm_tequila, NULL);
 
  setvector(
-   mapitems[mi_bar],
-        itm_beer, itm_chips, itm_pretzels, itm_cola, itm_energy_drink, NULL);
+   mapitems[mi_pool_table],
+	itm_pool_cue, itm_pool_ball, NULL);
 
  setvector(
    mapitems[mi_trash],
@@ -396,6 +401,11 @@ void game::init_mapitems()
 	itm_gold, itm_bionics_super, itm_plasma_engine, itm_minireactor, itm_alloy_plate, NULL);
 
  setvector(
+   mapitems[mi_art],
+	itm_fur, itm_katana, itm_petrified_eye, itm_spiral_stone, itm_rapier,
+	itm_cane, itm_candlestick, itm_heels, itm_ring, itm_necklace, NULL);
+
+ setvector(
    mapitems[mi_pawn],
 	itm_cigar, itm_katana, itm_gold, itm_rapier, itm_cane, itm_suit,
 	itm_mask_gas, itm_goggles_welding, itm_goggles_nv, itm_glasses_monocle,
@@ -413,6 +423,7 @@ void game::init_mapitems()
 	itm_SICP, itm_textbook_robots, itm_extinguisher, itm_radio,
 	itm_chainsaw_off, itm_jackhammer, itm_ring, itm_necklace, itm_usb_drive,
         itm_dredge, itm_pickaxe, itm_clay, itm_iron, itm_carving_knife,
+	itm_broadsword, itm_morningstar, itm_helmet_plate,
 	NULL);
 
  setvector(

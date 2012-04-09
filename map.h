@@ -44,6 +44,8 @@ class map
  virtual void load(game *g, int wx, int wy);
  void shift(game *g, int wx, int wy, int x, int y);
  void spawn_monsters(game *g);
+ void clear_spawns();
+ void clear_traps();
 
 // Movement and LOS
  int move_cost(int x, int y); // Cost to move through; 0 = impassible
@@ -143,6 +145,8 @@ class map
  vehicle *add_vehicle(game *g, vhtype_id type, int x, int y, int dir);
  computer* add_computer(int x, int y, std::string name, int security);
  
+ std::vector <itype*> *itypes;
+
 protected:
  void saven(overmap *om, unsigned int turn, int x, int y, int gridx, int gridy);
  bool loadn(game *g, int x, int y, int gridx, int gridy);
@@ -165,7 +169,6 @@ protected:
  vehicle nulveh; // Returned when &veh_at() is asked for an OOB value
  int nulrad;	// OOB &radiation()
 
- std::vector <itype*> *itypes;
  std::vector <trap*> *traps;
  std::vector <itype_id> (*mapitems)[num_itloc];
 

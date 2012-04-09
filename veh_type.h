@@ -59,6 +59,9 @@ enum vpart_id
     vp_muffler,
     vp_seatbelt,
     vp_solar_panel,
+    vp_m249,
+    vp_flamethrower,
+    vp_plasmagun,
 
 // plating -- special case. mounted as internal, work as first line
 // of defence and gives color to external part
@@ -96,6 +99,7 @@ enum vpart_flags
     vpf_muffler,            // is muffler
     vpf_seatbelt,           // is seatbelt
     vpf_solar_panel,        // is solar panel
+    vpf_turret,             // is turret
     vpf_armor,              // is armor plating
     vpf_func_begin  = vpf_over,
     vpf_func_end    = vpf_armor,
@@ -224,8 +228,15 @@ const vpart_info vpart_list[num_vparts] =
         mfb(vpf_internal)  | mfb(vpf_muffler) },
     { "seatbelt",   ',', c_ltgray,  ',', c_red,     10, 200, 25, 0, itm_rope_6, 1,
         mfb(vpf_internal)  | mfb(vpf_seatbelt) },
-    { "solar panel", '#', c_yellow,  'x', c_yellow,    10, 20, 30, 0, itm_solar_panel, 6,
+    { "solar panel", '#', c_yellow,  'x', c_yellow, 10, 20, 30, 0, itm_solar_panel, 6,
         mfb(vpf_over)  | mfb(vpf_solar_panel) },
+
+    { "mounted M249",         't', c_cyan,    '#', c_cyan,    80, 400, 0, AT_223, itm_m249, 7,
+        mfb(vpf_over)  | mfb(vpf_turret) | mfb(vpf_cargo) },
+    { "mounted flamethrower", 't', c_dkgray,  '#', c_dkgray,  80, 400, 0, AT_GAS, itm_flamethrower, 8,
+        mfb(vpf_over)  | mfb(vpf_turret) },
+    { "mounted plasma gun", 't', c_ltblue,    '#', c_ltblue,    80, 400, 0, AT_PLASMA, itm_plasma_rifle, 9,
+        mfb(vpf_over)  | mfb(vpf_turret) },
 
     { "steel plating",     ')', c_ltcyan, ')', c_ltcyan, 100, 1000, 0, 0, itm_steel_plate, 3,
         mfb(vpf_internal) | mfb(vpf_armor) },

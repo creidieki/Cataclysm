@@ -1,6 +1,6 @@
 #include "vehicle.h"
 #include "game.h"
-
+//
 // GENERAL GUIDELINES
 // When adding a new vehicle, you MUST REMEMBER to insert it in the vhtype_id enum
 //  at the bottom of veh_type.h!

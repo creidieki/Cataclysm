@@ -285,7 +285,7 @@ public:
     // must exceed certain threshold to be substracted from hp
     // (a lot light collisions will not destroy parts)
     // returns damage bypassed
-    int damage (int p, int dmg, int type = 1);
+    int damage (int p, int dmg, int type = 1, bool aimed = true);
 
     // damage all parts (like shake from strong collision), range from dmg1 to dmg2
     void damage_all (int dmg1, int dmg2, int type = 1);
@@ -295,6 +295,12 @@ public:
     int damage_direct (int p, int dmg, int type = 1);
 
     void leak_fuel (int p);
+
+    // fire the turret which is part p
+    void fire_turret (int p, bool burst = true);
+
+    // internal procedure of turret firing
+    bool fire_turret_internal (int p, it_gun &gun, it_ammo &ammo, int charges);
 
     // upgrades/refilling/etc. see veh_interact.cpp
     void interact ();
@@ -322,6 +328,7 @@ public:
     bool skidding;      // skidding mode
     int last_turn;      // amount of last turning (for calculate skidding due to handbrake)
     int moves;
+    int turret_mode;    // turret firing mode: 0 = off, 1 = burst fire
 };
 
 #endif

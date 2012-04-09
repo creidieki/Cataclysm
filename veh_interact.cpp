@@ -5,7 +5,7 @@
 #include "game.h"
 #include "output.h"
 #include "crafting.h"
-
+//
 
 veh_interact::veh_interact ()
 {
