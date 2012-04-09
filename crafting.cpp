@@ -602,6 +602,17 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   TOOL(itm_anvil, -1, NULL);
   COMP(itm_steel_chunk, 3, NULL);
 
+ RECIPE(itm_sword_blade, CC_SMITH, sk_smithing,   sk_null, 2, 100000);
+  TOOL(itm_forge, -1, NULL);
+  TOOL(itm_smith_hammer, -1, NULL);
+  COMP(itm_carbon_steel, 3, NULL);
+
+ RECIPE(itm_broadsword, CC_SMITH, sk_smithing,   sk_null, 2, 100000);
+  TOOL(itm_forge, -1, NULL);
+  TOOL(itm_smith_hammer, -1, NULL);
+  COMP(itm_leather, 2, NULL);
+  COMP(itm_sword_blade, 1, NULL); 
+ 
  RECIPE(itm_crucible,  CC_SMITH, sk_smithing,    sk_null, 0, 10000);
   TOOL(itm_fire, -1, NULL);
   COMP(itm_clay,  10, NULL);

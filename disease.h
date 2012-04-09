@@ -694,15 +694,17 @@ void dis_effect(game *g, player &p, disease &dis)
   break;
 
  case DI_MUTATE:
-  if (one_in(3300)) {	// Average once per about 3 hours.
+  if (one_in(1150)) {	// Average once per about 1,5 hours.
       if (p.has_disease(DI_SLEEP)) {
    p.rem_disease(DI_SLEEP);
       }
   if (one_in(4)) {
   g->add_msg("You feel sick.");
  p.vomit(g);
+ if (one_in(6))
+    p.mutate(g);
   }
-  if (one_in(12)) {
+  if (one_in(10)) {
   g->add_msg("You suddenly collapse onto the ground and spasm uncontrollably!");
  p.moves -= 800;
  if (one_in(3)) {
@@ -711,13 +713,15 @@ void dis_effect(game *g, player &p, disease &dis)
      g->u.hit(g, bp_arms, 1, 0, rng(0,  5));
       g->u.hit(g, bp_torso, 1, 0, rng(0,  3));
        g->u.hit(g, bp_head, 1, 0, rng(0,  5));
+    if (one_in(2))
+p.mutate(g);
   }
   }
   g->add_msg("You feel your body changing.");
  p.mutate(g);
  p.moves -= 100;
   }
-  if (one_in(300)) {
+  if (one_in(250)) {
   p.hunger++;
   p.thirst++;
   }
