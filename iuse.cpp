@@ -16,11 +16,12 @@
 void iuse::sewage(game *g, player *p, item *it, bool t)
 {
  p->vomit(g);
- if (one_in(4))
-    if (!p->has_disease(DI_MUTATE)) {
-p->add_disease(DI_MUTATE,rng(900, 1200), g);
-    } else
-p->add_disease(DI_MUTATE,rng(1100, 1300), g);
+ if (one_in(4)) {
+   if (!p->has_disease(DI_MUTATE)) {
+     p->add_disease(DI_MUTATE,rng(900, 1200), g);
+   } else
+     p->add_disease(DI_MUTATE,rng(1100, 1300), g);
+ }
 }
 
 void iuse::royal_jelly(game *g, player *p, item *it, bool t)
@@ -1199,7 +1200,7 @@ void iuse::makemound(game *g, player *p, item *it, bool t)
   p->moves = -300;
   g->m.ter(p->posx, p->posy) = t_dirtmound;
  } else
- if (g->m.ter(p->posx, p->posy) = t_dirtmound) {
+ if (g->m.ter(p->posx, p->posy) == t_dirtmound) {
   p->moves = -400;
   g->add_msg("You smooth the earth here.");
   g->m.ter(p->posx, p->posy) = t_dirt;
