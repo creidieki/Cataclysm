@@ -67,6 +67,7 @@ enum oter_id {
  ot_s_gas_north, ot_s_gas_east, ot_s_gas_south, ot_s_gas_west,
  ot_s_pharm_north, ot_s_pharm_east, ot_s_pharm_south, ot_s_pharm_west,
  ot_s_grocery_north, ot_s_grocery_east, ot_s_grocery_south, ot_s_grocery_west,
+ot_workshop_north, ot_workshop_east, ot_workshop_south, ot_workshop_west,
  ot_s_hardware_north, ot_s_hardware_east, ot_s_hardware_south,
   ot_s_hardware_west,
  ot_s_electronics_north, ot_s_electronics_east, ot_s_electronics_south,
@@ -194,6 +195,10 @@ const oter_t oterlist[num_ter_types] = {
 {"grocery store",	'>',	c_green,	5, build_extras, false, false},
 {"grocery store",	'v',	c_green,	5, build_extras, false, false},
 {"grocery store",	'<',	c_green,	5, build_extras, false, false},
+{"workshop"     ,	'^',	c_yellow,	5, build_extras, false, false},
+{"workshop"     ,	'>',	c_yellow,	5, build_extras, false, false},
+{"workshop"     ,	'v',	c_yellow,	5, build_extras, false, false},
+{"workshop"     ,	'<',	c_yellow,	5, build_extras, false, false},
 {"hardware store",	'^',	c_cyan,		5, build_extras, false, false},
 {"hardware store",	'>',	c_cyan,		5, build_extras, false, false},
 {"hardware store",	'v',	c_cyan,		5, build_extras, false, false},
@@ -333,6 +338,7 @@ const oter_t oterlist[num_ter_types] = {
 {"cavern",		'0',	c_ltgray,	5, no_extras, false, false},
 {"tutorial room",	'O',	c_cyan,		5, no_extras, false, false}
 };
+
 
 // Overmap specials--these are "special encounters," dungeons, nests, etc.
 // This specifies how often and where they may be placed.

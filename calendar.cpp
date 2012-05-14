@@ -97,7 +97,7 @@ calendar& calendar::operator =(int rhs)
  year = seasons / 4;
  return *this;
 }
- 
+
 calendar& calendar::operator -=(calendar &rhs)
 {
  second -= rhs.second;

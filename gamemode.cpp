@@ -8,7 +8,7 @@ std::string special_game_name(special_game_id id)
   case NUM_SPECIAL_GAMES:	return "nethack (this is a bug)";
   case SGAME_TUTORIAL:		return "Tutorial";
   case SGAME_DEFENSE:		return "Defense";
- case SGAME_WEST:  return "Journey to the West";
+ case SGAME_WEST:  return "Journey to the East";
   default:			return "Uncoded (this is a bug)";
  }
 }

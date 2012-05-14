@@ -22,9 +22,10 @@ enum itype_id {
 itm_null = 0,
 itm_corpse,
 // Special pseudoitems
-itm_fire, itm_toolset,
+itm_fire, itm_toolset, itm_forge, itm_grindstone, itm_forgewater, itm_hot_crucible,
+itm_anvil, itm_ingotmold,
 // Drinks
-itm_water, itm_sewage, itm_salt_water, itm_oj, itm_apple_cider,
+itm_water, itm_water_boiled, itm_sewage, itm_salt_water, itm_oj, itm_apple_cider,
  itm_energy_drink, itm_cola, itm_rootbeer, itm_milk, itm_V8, itm_broth,
  itm_soup, itm_whiskey, itm_vodka, itm_rum, itm_tequila, itm_beer, itm_bleach,
  itm_ammonia, itm_mutagen, itm_purifier, itm_tea, itm_coffee, itm_blood,
@@ -42,7 +43,8 @@ itm_apple, itm_orange, itm_lemon, itm_chips, itm_pretzels, itm_chocolate,
  itm_can_tuna, itm_can_catfood, itm_honeycomb, itm_royal_jelly, itm_fetus,
  itm_arm, itm_leg, itm_ant_egg, itm_marloss_berry, itm_flour, itm_sugar,
  itm_salt, itm_potato_raw, itm_potato_baked, itm_bread, itm_pie, itm_pizza,
- itm_mre_beef, itm_mre_veggy, itm_tea_raw, itm_coffee_raw,
+ itm_mre_beef, itm_mre_veggy, itm_tea_raw, itm_coffee_raw, itm_fish,
+ itm_cleaned_fish, itm_roast_fish, itm_salted_fish,
 // Medication
 itm_bandages, itm_1st_aid, itm_vitamins, itm_aspirin, itm_caffeine,
  itm_pills_sleep, itm_iodine, itm_dayquil, itm_nyquil, itm_inhaler, itm_codeine,
@@ -53,26 +55,37 @@ itm_bandages, itm_1st_aid, itm_vitamins, itm_aspirin, itm_caffeine,
 itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_id_science, itm_id_military, itm_electrohack, itm_string_6, itm_string_36,
  itm_rope_6, itm_rope_30, itm_chain, itm_processor, itm_RAM, itm_power_supply,
- itm_amplifier, itm_transponder, itm_receiver, itm_antenna, itm_steel_chunk,
- itm_motor, itm_hose, itm_glass_sheet, itm_manhole_cover, itm_rock, itm_stick,
- itm_broom, itm_mop, itm_screwdriver, itm_wrench, itm_saw, itm_hacksaw,
- itm_hammer_sledge, itm_hatchet, itm_ax, itm_nailboard, itm_xacto, itm_scalpel,
+ itm_amplifier, itm_transponder, itm_receiver, itm_antenna, itm_steel_chunk, itm_steel_lump,
+ itm_hose, itm_glass_sheet, itm_manhole_cover, itm_rock, itm_stick,
+ itm_broom, itm_mop, itm_screwdriver, itm_wrench, itm_hacksaw,
+ itm_hammer_sledge, itm_hatchet, itm_nailboard, itm_xacto, itm_scalpel,
  itm_pot, itm_pan, itm_knife_butter, itm_knife_steak, itm_knife_butcher,
  itm_knife_combat, itm_2x4, itm_muffler, itm_pipe, itm_bat, itm_machete,
  itm_katana, itm_spear_wood, itm_spear_knife, itm_baton, itm_bee_sting,
  itm_wasp_sting, itm_chitin_piece, itm_biollante_bud, itm_canister_empty,
  itm_gold, itm_coal, itm_petrified_eye, itm_spiral_stone, itm_rapier, itm_cane,
- itm_binoculars, itm_usb_drive, itm_pike, itm_broadsword, itm_mace,
- itm_morningstar, itm_pool_cue, itm_pool_ball, itm_candlestick,
+ itm_binoculars, itm_usb_drive, itm_log, itm_splinter, itm_stake, itm_crossbar,
+ itm_hog, itm_carbattery, itm_wire, itm_barbwire, itm_sheet, itm_carving_knife,
+ itm_bellows,  itm_crucible, itm_clay, itm_shears, itm_vice, itm_anvilmold,
+ itm_iron, itm_charcoal, itm_coalchunk, itm_carbon_steel,
+ itm_iron_ingot, itm_handle, itm_door, itm_pike, itm_broadsword, itm_mace,
+ itm_morningstar, itm_pool_cue, itm_pool_ball, itm_candlestick, itm_sword_blade,
+ itm_mace_head, itm_mstar_head,
+// Vehicle parts
+ itm_frame, itm_wheel, itm_big_wheel, itm_seat, itm_vehicle_controls,
+ itm_combustion_small, itm_combustion, itm_combustion_large,
+ itm_motor, itm_motor_large, itm_plasma_engine,
+ itm_metal_tank, itm_storage_battery, itm_minireactor, itm_solar_panel,
+ itm_steel_plate, itm_alloy_plate, itm_spiked_plate, itm_hard_plate,
 // Footwear
 itm_sneakers, itm_boots, itm_boots_steel, itm_boots_winter, itm_mocassins,
- itm_flip_flops, itm_dress_shoes, itm_heels, 
+ itm_flip_flops, itm_dress_shoes, itm_heels,
 // Legwear
 itm_jeans, itm_pants, itm_pants_leather, itm_pants_cargo, itm_pants_army,
  itm_skirt,
 // Full-body clothing
-itm_jumpsuit, itm_dress, itm_armor_chitin, itm_suit, itm_hazmat_suit,
- itm_armor_plate,
+itm_jumpsuit, itm_fur1, itm_fur2,
+ itm_dress, itm_armor_chitin, itm_suit, itm_hazmat_suit, itm_armor_plate,
 // Torso clothing
 itm_tshirt, itm_polo_shirt, itm_dress_shirt, itm_tank_top, itm_sweatshirt,
  itm_sweater, itm_hoodie, itm_jacket_light, itm_jacket_jean, itm_blazer,
@@ -81,7 +94,7 @@ itm_tshirt, itm_polo_shirt, itm_dress_shirt, itm_tank_top, itm_sweatshirt,
 // Gloves
 itm_gloves_light, itm_mittens, itm_gloves_wool, itm_gloves_winter,
  itm_gloves_leather, itm_gloves_fingerless, itm_gloves_rubber,
- itm_gloves_medical, itm_fire_gauntlets,
+ itm_gloves_medical, itm_fire_gauntlets, itm_wristwatch,
 // Masks
 itm_mask_dust, itm_bandana, itm_scarf, itm_mask_filter, itm_mask_gas,
 // Eyewear
@@ -110,7 +123,7 @@ itm_battery, itm_plut_cell, itm_nail, itm_bb, itm_arrow_wood, itm_arrow_cf,
 // Guns
 itm_nailgun, itm_bbgun, itm_crossbow, itm_compbow, itm_longbow, itm_rifle_22,
  itm_rifle_9mm, itm_smg_9mm, itm_smg_45, itm_sig_mosquito, itm_sw_22,
- itm_glock_19, itm_usp_9mm, itm_sw_619, itm_taurus_38, itm_sig_40, itm_sw_610,
+ itm_glock_19, itm_usp_9mm, itm_sw_619, itm_mateba, itm_taurus_38, itm_sig_40, itm_sw_610,
  itm_ruger_redhawk, itm_deagle_44, itm_usp_45, itm_m1911, itm_fn57, itm_hk_ucp,
  itm_shotgun_sawn, itm_shotgun_s, itm_shotgun_d,  itm_remington_870,
  itm_mossberg_500, itm_saiga_12, itm_american_180, itm_uzi, itm_tec9,
@@ -140,7 +153,7 @@ itm_mag_porn, itm_mag_tv, itm_mag_news, itm_mag_cars, itm_mag_cooking,
 itm_bag_plastic, itm_bottle_plastic, itm_bottle_glass,
  itm_can_drink, itm_can_food, itm_box_small,
 // Tools
-itm_lighter, itm_sewing_kit, itm_scissors, itm_hammer, itm_extinguisher,
+itm_lighter, itm_sewing_kit, itm_scissors, itm_hammer, itm_smith_hammer, itm_extinguisher,
  itm_flashlight, itm_flashlight_on, itm_hotplate, itm_soldering_iron,
  itm_water_purifier, itm_two_way_radio, itm_radio, itm_radio_on, itm_crowbar,
  itm_hoe, itm_shovel, itm_chainsaw_off, itm_chainsaw_on, itm_jackhammer,
@@ -149,12 +162,13 @@ itm_lighter, itm_sewing_kit, itm_scissors, itm_hammer, itm_extinguisher,
  itm_teleporter, itm_canister_goo, itm_pipebomb, itm_pipebomb_act, itm_grenade,
  itm_grenade_act, itm_flashbang, itm_flashbang_act, itm_EMPbomb,
  itm_EMPbomb_act, itm_gasbomb, itm_gasbomb_act, itm_smokebomb,
- itm_smokebomb_act, itm_molotov, itm_molotov_lit, itm_acidbomb,
- itm_acidbomb_act, itm_dynamite, itm_dynamite_act, itm_mininuke,
- itm_mininuke_act, itm_pheromone, itm_portal, itm_bot_manhack, itm_bot_turret,
- itm_UPS_off, itm_UPS_on, itm_tazer, itm_mp3, itm_mp3_on, itm_vortex_stone,
- itm_dogfood, itm_boobytrap, itm_c4, itm_c4armed, itm_dog_whistle,
- itm_vacutainer,
+ itm_smokebomb_act, itm_molotov, itm_molotov_lit, itm_dynamite, itm_acidbomb,
+ itm_acidbomb_act, itm_dynamite_act, itm_mininuke, itm_mininuke_act, itm_pheromone, itm_portal,
+ itm_bot_manhack, itm_bot_turret, itm_UPS_off, itm_UPS_on, itm_tazer, itm_mp3,
+ itm_mp3_on, itm_vortex_stone, itm_dogfood, itm_boobytrap, itm_c4,  itm_c4armed,
+ itm_dog_whistle, itm_vacutainer, itm_welder, itm_ax, itm_tent, itm_saw, itm_pickaxe,
+ itm_barricade, itm_awning, itm_fishingrod, itm_cot,
+ itm_dredge, itm_anvil_mobile, itm_ingot_mold, itm_torch_unlit, itm_torch, itm_fpost,
 // Bionics containers
 itm_bionics_battery,       itm_bionics_power,   itm_bionics_tools,
  itm_bionics_neuro,        itm_bionics_sensory, itm_bionics_aquatic,
@@ -247,26 +261,26 @@ struct itype
  			// Used for save files; aligns to itype_id above.
  unsigned char rarity;	// How often it's found
  unsigned int  price;	// Its value
- 
+
  std::string name;	// Proper name
  std::string description;// Flavor text
- 
+
  char sym;		// Symbol on the map
  nc_color color;	// Color on the map (color.h)
- 
+
  material m1;		// Main material
  material m2;		// Secondary material -- MNULL if made of just 1 thing
- 
- unsigned char volume;	// Space taken up by this item
- unsigned char weight;	// Weight in quarter-pounds; is 64 lbs max ok?
+
+ unsigned short volume;	// Space taken up by this item
+ unsigned short weight;	// Weight in quarter-pounds; is 64 lbs max ok?
  			// Also assumes positive weight.  No helium, guys!
- 
+
  signed char melee_dam;	// Bonus for melee damage; may be a penalty
  signed char melee_cut;	// Cutting damage in melee
  signed char m_to_hit;	// To-hit bonus for melee combat; -5 to 5 is reasonable
 
  unsigned item_flags : NUM_ITEM_FLAGS;
- 
+
  virtual bool is_food()          { return false; }
  virtual bool is_ammo()          { return false; }
  virtual bool is_gun()           { return false; }
@@ -296,11 +310,11 @@ struct itype
   m_to_hit = 0;
   item_flags = 0;
  }
- 
+
  itype(int pid, unsigned char prarity, unsigned int pprice,
        std::string pname, std::string pdes,
        char psym, nc_color pcolor, material pm1, material pm2,
-       unsigned char pvolume, unsigned char pweight,
+       unsigned short pvolume, unsigned short pweight,
        signed char pmelee_dam, signed char pmelee_cut, signed char pm_to_hit,
        unsigned pitem_flags) {
   id          = pid;
@@ -346,15 +360,15 @@ struct it_comest : public itype
  it_comest(int pid, unsigned char prarity, unsigned int pprice,
            std::string pname, std::string pdes,
            char psym, nc_color pcolor, material pm1,
-           unsigned char pvolume, unsigned char pweight,
+           unsigned short pvolume, unsigned short pweight,
            signed char pmelee_dam, signed char pmelee_cut,
-           signed char pm_to_hit, unsigned pitem_flags, 
+           signed char pm_to_hit, unsigned pitem_flags,
 
            signed char pquench, unsigned char pnutr, signed char pspoils,
            signed char pstim, signed char phealthy, unsigned char paddict,
            unsigned char pcharges, signed char pfun, itype_id pcontainer,
            itype_id ptool, void (iuse::*puse)(game *, player *, item *, bool),
-           add_type padd) 
+           add_type padd)
 :itype(pid, prarity, pprice, pname, pdes, psym, pcolor, pm1, MNULL,
        pvolume, pweight, pmelee_dam, pmelee_cut, pm_to_hit, pitem_flags) {
   quench = pquench;
@@ -388,7 +402,7 @@ struct it_ammo : public itype
  it_ammo(int pid, unsigned char prarity, unsigned int pprice,
         std::string pname, std::string pdes,
         char psym, nc_color pcolor, material pm1,
-        unsigned char pvolume, unsigned char pweight,
+        unsigned short pvolume, unsigned short pweight,
         signed char pmelee_dam, signed char pmelee_cut, signed char pm_to_hit,
         unsigned pitem_flags,
 
@@ -424,7 +438,7 @@ struct it_gun : public itype
  it_gun(int pid, unsigned char prarity, unsigned int pprice,
         std::string pname, std::string pdes,
         char psym, nc_color pcolor, material pm1, material pm2,
-        unsigned char pvolume, unsigned char pweight,
+        unsigned short pvolume, unsigned short pweight,
         signed char pmelee_dam, signed char pmelee_cut, signed char pm_to_hit,
         unsigned pitem_flags,
 
@@ -460,7 +474,7 @@ struct it_gunmod : public itype
  it_gunmod(int pid, unsigned char prarity, unsigned int pprice,
            std::string pname, std::string pdes,
            char psym, nc_color pcolor, material pm1, material pm2,
-           unsigned char pvolume, unsigned char pweight,
+           unsigned short pvolume, unsigned short pweight,
            signed char pmelee_dam, signed char pmelee_cut,
            signed char pm_to_hit, unsigned pitem_flags,
 
@@ -515,7 +529,7 @@ struct it_armor : public itype
  it_armor(int pid, unsigned char prarity, unsigned int pprice,
           std::string pname, std::string pdes,
           char psym, nc_color pcolor, material pm1, material pm2,
-          unsigned char pvolume, unsigned char pweight,
+          unsigned short pvolume, unsigned short pweight,
           signed char pmelee_dam, signed char pmelee_cut, signed char pm_to_hit,
           unsigned pitem_flags,
 
@@ -548,7 +562,7 @@ struct it_book : public itype
  it_book(int pid, unsigned char prarity, unsigned int pprice,
          std::string pname, std::string pdes,
          char psym, nc_color pcolor, material pm1, material pm2,
-         unsigned char pvolume, unsigned char pweight,
+         unsigned short pvolume, unsigned short pweight,
          signed char pmelee_dam, signed char pmelee_cut, signed char pm_to_hit,
          unsigned pitem_flags,
 
@@ -563,8 +577,8 @@ struct it_book : public itype
   intel = pintel;
   time = ptime;
  }
-}; 
- 
+};
+
 enum container_flags {
  con_rigid,
  con_wtight,
@@ -580,7 +594,7 @@ struct it_container : public itype
  it_container(int pid, unsigned char prarity, unsigned int pprice,
               std::string pname, std::string pdes,
               char psym, nc_color pcolor, material pm1, material pm2,
-              unsigned char pvolume, unsigned char pweight,
+              unsigned short pvolume, unsigned short pweight,
               signed char pmelee_dam, signed char pmelee_cut,
               signed char pm_to_hit, unsigned pitem_flags,
 
@@ -620,7 +634,7 @@ struct it_tool : public itype
  it_tool(int pid, unsigned char prarity, unsigned int pprice,
          std::string pname, std::string pdes,
          char psym, nc_color pcolor, material pm1, material pm2,
-         unsigned char pvolume, unsigned char pweight,
+         unsigned short pvolume, unsigned short pweight,
          signed char pmelee_dam, signed char pmelee_cut, signed char pm_to_hit,
          unsigned pitem_flags,
 
@@ -639,7 +653,7 @@ struct it_tool : public itype
   use = puse;
  }
 };
-        
+
 struct it_bionic : public itype
 {
  std::vector<bionic_id> options;
@@ -650,7 +664,7 @@ struct it_bionic : public itype
  it_bionic(int pid, unsigned char prarity, unsigned int pprice,
            std::string pname, std::string pdes,
            char psym, nc_color pcolor, material pm1, material pm2,
-           unsigned char pvolume, unsigned char pweight,
+           unsigned short pvolume, unsigned short pweight,
            signed char pmelee_dam, signed char pmelee_cut,
            signed char pm_to_hit, unsigned pitem_flags,
 
@@ -671,13 +685,13 @@ struct it_macguffin : public itype
 {
  bool readable; // If true, activated with 'R'
  void (iuse::*use)(game *, player *, item *, bool);
- 
+
  virtual bool is_macguffin() { return true; }
 
  it_macguffin(int pid, unsigned char prarity, unsigned int pprice,
               std::string pname, std::string pdes,
               char psym, nc_color pcolor, material pm1, material pm2,
-              unsigned char pvolume, unsigned char pweight,
+              unsigned short pvolume, unsigned short pweight,
               signed char pmelee_dam, signed char pmelee_cut,
               signed char pm_to_hit, unsigned pitem_flags,
 
@@ -700,7 +714,7 @@ struct it_software : public itype
  it_software(int pid, unsigned char prarity, unsigned int pprice,
              std::string pname, std::string pdes,
              char psym, nc_color pcolor, material pm1, material pm2,
-             unsigned char pvolume, unsigned char pweight,
+             unsigned short pvolume, unsigned short pweight,
              signed char pmelee_dam, signed char pmelee_cut,
              signed char pm_to_hit, unsigned pitem_flags,
 
@@ -764,7 +778,7 @@ struct it_artifact_tool : public it_tool
 
  it_artifact_tool(int pid, unsigned int pprice, std::string pname,
                   std::string pdes, char psym, nc_color pcolor, material pm1,
-                  material pm2, unsigned char pvolume, unsigned char pweight,
+                  material pm2, unsigned short pvolume, unsigned short pweight,
                   signed char pmelee_dam, signed char pmelee_cut,
                   signed char pm_to_hit, unsigned pitem_flags)
 
@@ -813,7 +827,7 @@ struct it_artifact_armor : public it_armor
 
  it_artifact_armor(int pid, unsigned int pprice, std::string pname,
                    std::string pdes, char psym, nc_color pcolor, material pm1,
-                   material pm2, unsigned char pvolume, unsigned char pweight,
+                   material pm2, unsigned short pvolume, unsigned short pweight,
                    signed char pmelee_dam, signed char pmelee_cut,
                    signed char pm_to_hit, unsigned pitem_flags,
 

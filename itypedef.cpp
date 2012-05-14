@@ -2,7 +2,7 @@
 #include "game.h"
 #include <fstream>
 
-// Armor colors
+// Armor colors /
 #define C_SHOES  c_blue
 #define C_PANTS  c_brown
 #define C_BODY   c_yellow
@@ -38,8 +38,38 @@ void game::init_itypes ()
   new itype(3, 0, 0, "integrated toolset",
             "A fake item.  If you are reading this it's a bug!",
             '$', c_red, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
- int index = 3;
- 
+
+ itypes.push_back(
+  new itype(4, 0, 0, "forge",
+            "A fake item.  If you are reading this it's a bug!",
+            '&', c_dkgray, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+
+ itypes.push_back(
+  new itype(5, 0, 0, "grindstone",
+            "A fake item.  If you are reading this it's a bug!",
+            '&', c_dkgray, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+
+ itypes.push_back(
+  new itype(6, 0, 0, "water",
+            "A fake item.  If you are reading this it's a bug!",
+            '&', c_dkgray, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+
+ itypes.push_back(
+  new itype(7, 0, 0, "crucible",
+            "A fake item.  If you are reading this it's a bug!",
+            '&', c_dkgray, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+
+ itypes.push_back(
+  new itype(8, 0, 0, "anvil",
+            "A fake item.  If you are reading this it's a bug!",
+            '&', c_dkgray, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+
+ itypes.push_back(
+  new itype(9, 0, 0, "ingot mold",
+            "A fake item.  If you are reading this it's a bug!",
+            '#', c_dkgray, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+ int index = 9;
+
 // Drinks
 // Stim should be -8 to 8.
 // quench MAY be less than zero--salt water and liquor make you thirstier.
@@ -56,6 +86,13 @@ DRINK("water",		90, 50,	c_ltcyan, itm_bottle_plastic,
 //	QUE NUT SPO STM HTH ADD CHG FUN use_func	addiction type
 	50,  0,  0,  0,  0,  0,  1,  0,&iuse::none,	ADD_NULL, "\
 Water, the stuff of life, the best thirst-quencher available.");
+
+//     NAME		RAR PRC	COLOR     CONTAINER
+DRINK("boiled water",	90, 50,	c_ltcyan, itm_bottle_plastic,
+//	QUE NUT SPO STM HTH ADD CHG FUN use_func	addiction type
+	50,  0,  0,  0,  0,  0,  1,  -10,&iuse::none,	ADD_NULL, "\
+Water, the stuff of life, the best thirst-quencher available.\n\
+This water has been boiled, and tastes bad.");
 
 DRINK("sewage sample",	 5,  5, c_ltgreen, itm_bottle_plastic,
 	 5,  0,  0,  0,-10,  0,  1,-20,&iuse::sewage,	ADD_NULL, "\
@@ -358,7 +395,7 @@ A large chunk of wax, filled with dense, dark honey.  Useful for curing all\n\
 sorts of afflictions.");
 
 FOOD("misshapen fetus",	 1,150,	c_magenta,	FLESH,	itm_null,
-    4,  4,  0,  8,  0,  0, -8,  0,  1,-60,	&iuse::mutagen, ADD_NULL, "\
+    4,  4,  0,  8,  0,  0, -8,  0,  1,-60,	&iuse::mutagen_2, ADD_NULL, "\
 Eating this is about the most disgusting thing you can imagine, and it will\n\
 cause your DNA to mutate as well.");
 
@@ -442,6 +479,27 @@ FOOD("coffee powder",	15, 13,	c_brown,	VEGGY,	itm_bag_plastic,
     2,  1, 0,  0,  0,  8,  0,  0,  4, -5,	&iuse::caff, ADD_CAFFEINE, "\
 Ground coffee beans. You can boil it into a mediocre stimulant,\n\
 or swallow it raw for a lesser stimulative boost.");
+
+//   NAME	RAR PRC	COLOR		MAT1	CONTAINER
+FOOD("fish",	50, 50,	c_red,		FLESH,  itm_null,
+// VOL WGT QUE NUT SPO STM HTH ADD CHG FUN	 use_func    addiction type
+    1,  2,  2,  7, 12,  0, -1,  0,  1,-10,	&iuse::none, ADD_NULL, "\
+Freshly caught fish, not cleaned, you could eat it as-is,\n\
+but cooking it is better.");
+
+FOOD("cleaned fish", 0, 100, c_red,     FLESH,  itm_null,
+    1,  1,  1,  10, 16, 0,  0,  0,  1, -5,      &iuse::none, ADD_NULL, "\
+Freshly gutted and scaled fish, not the best food\n\
+but not bad.");
+
+FOOD("cooked fish",	 0, 75, c_red,		FLESH,	itm_null,
+    1,  1,  0, 50, 24,  0,  0,  0,  1,  6,	&iuse::none,	ADD_NULL, "\
+Delicious roasted fish");
+
+FOOD("salted fish",	 0, 75, c_red,		FLESH,	itm_null,
+    1,  2,  -6, 20, 48,  0,  0,  0,  1,  -2,	&iuse::none,	ADD_NULL, "\
+Salted fish, it'll last for a long time, but it isn't\n\
+going to taste great.");
 
 // MEDS
 #define MED(name,rarity,price,color,tool,mat,stim,healthy,addict,\
@@ -689,9 +747,11 @@ MELEE("chunk of steel", 30, 10, ',', c_ltblue,	STEEL,	MNULL,
 A misshapen chunk of steel.  Makes a decent weapon in a pinch, and is also\n\
 useful for some crafting recipes.");
 
-MELEE("electric motor",  2,120, ',', c_ltcyan,	IRON,	MNULL,
-	 4,  6,  4,  0,  0, 0, "\
-A powerful electric motor.  Useful for crafting.");
+//    NAME      RAR PRC SYM COLOR   MAT1    MAT2
+MELEE("lump of steel", 30, 20, ',', c_ltblue,  STEEL,  MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+     2,  80, 18,  0, -4, 0, "\
+A misshapen heavy piece of steel.  Useful for some crafting recipes.");
 
 MELEE("rubber hose",	15, 80, ',', c_green,	PLASTIC,MNULL,
 	 3,  2,  4,  0,  3, mfb(IF_WRAP), "\
@@ -738,10 +798,6 @@ MELEE("wrench",		30, 86, ';', c_ltgray,	IRON,	MNULL,
 An adjustable wrench.  Makes a decent melee weapon, and is used in many\n\
 mechanics crafting recipes.");
 
-MELEE("wood saw",	15, 40, ';', c_cyan,	IRON,	WOOD,
-	 7,  3, -6,  1, -2, 0, "\
-A flimsy saw, useful for cutting through wood objects.");
-
 MELEE("hack saw",	17, 65, ';', c_ltcyan,	IRON,	MNULL,
 	 4,  2,  1,  1, -1, 0, "\
 A sturdy saw, useful for cutting through metal objects.");
@@ -755,12 +811,6 @@ MELEE("hatchet",	10,  95,';', c_ltgray,	IRON,	WOOD,
 	 6,  7, 12, 12,  1, 0, "\
 A one-handed hatchet.  Makes a great melee weapon, and is useful both for\n\
 cutting wood, and for use as a hammer.");
-
-//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
-MELEE("wood ax",	 8, 105,'/', c_ltgray,	WOOD,	IRON,
-//	VOL WGT DAM CUT HIT FLAGS
-	17, 15, 24, 18,  1, 0, "\
-A large two-handed axe.  Makes a good melee weapon, but is a bit slow.");
 
 MELEE("nail board",	 5,  80,'/', c_ltred,	WOOD,	MNULL,
 	 6,  6, 16,  6,  1, mfb(IF_STAB), "\
@@ -807,10 +857,11 @@ MELEE("combat knife",	14, 100,';', c_blue,	STEEL,  PLASTIC,
 Designed for combat, and deadly in the right hands.  Can be used to butcher\n\
 corpses.");
 
-MELEE("two by four", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
+MELEE("scrap wood", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
 	 6,  6, 14,  0,  1, 0, "\
-A plank of wood.  Makes a decent melee weapon, and can be used to board up\n\
-doors and windows if you have a hammer and nails.");
+A relatively plank shaped piece of wood, likely the best you're going to\n\
+get in these times, not a bad weapon, and useful for building things and\n\
+boarding up doors and windows");
 
 MELEE("muffler",	30,  30,'/', c_ltgray,	IRON,	MNULL,
 	20, 20, 19,  0, -3, 0, "\
@@ -918,6 +969,113 @@ MELEE("USB drive",	 5, 100,',', c_white,	PLASTIC,MNULL,
 	  0,  0,  0,  0,  0, 0, "\
 A USB thumb drive.  Useful for holding software.");
 
+MELEE("log",             0, 100,'/', c_brown,   WOOD,   MNULL,
+         50,  40, 40, 0,  -20, 0, "\
+A log, like the thing trees are made of.");
+
+MELEE("splintered wood", 0, 0, '/',  c_brown,   WOOD,   MNULL,
+         4,   6,  7,  0,  -1,  0, "\
+Ragged chunks of wood, not useful for anything but firewood.");
+
+MELEE("stone stake",     0, 0, ',',  c_ltgray,  STONE,  MNULL,
+         1,   1,  0,  7,  0,   0, "\
+A stone, hammered into a rough stake shape. Handy when nails are scarce.");
+
+MELEE("crossbar",        0, 0, '/',  c_brown,   WOOD,   MNULL,
+         10,  10, 9,  0,  -1,  0, "\
+A hefty wooden crossbar, it could be used to hold a large\n\
+gate closed.");
+
+MELEE("hand of god",     0, 0, ';',  c_cyan,    STEEL,  IRON,
+         0,    0, 100, 100, 100, 0,"\
+Zombie goasts leave this place!");
+
+MELEE("car battery",     50, 100, ';', c_ltred, IRON,   MNULL,
+         3,    4, 0,  5, -2, 0, "\
+A car battery, tons of uses for it.");
+
+MELEE("wire",            70, 100, ';', c_ltgray, IRON, MNULL,
+         5, 2,    0,  2, -1, 0, "\
+A length of tough wire, could be handy for crafting.");
+
+MELEE("barb wire",            70, 100, ';', c_ltgray, IRON, MNULL,
+         5, 2,    0,  2, -1, 0, "\
+A length of tough barbed wire, could be handy for crafting.");
+
+MELEE("bedsheet",        72, 10, ';', c_dkgray,	COTTON,	MNULL,
+	 10,  2,-10,  0,  0, 0, "\
+A large bedsheet.");
+
+MELEE("carving knife",   90, 100, ';', c_ltcyan, STEEL, MNULL,
+         4,   2, 0, 9, -1, 0, "\
+A carving knife, used for carving.");
+
+MELEE("bellows",          0, 100, ';', c_ltgray, LEATHER, MNULL,
+         10,  5, 0, 0, -2, 0, "\
+A large set of makeshift bellows, vital for the post apocalyptic blacksmith.");
+
+MELEE("crucible",       0, 100, ';', c_ltgray, STONE, MNULL,
+         15,  10,  3, 0, -2, 0, "\
+A large clay crucible, ready to be set up for smithing");
+
+MELEE("clay",       10, 100, ';', c_ltgray, STONE, MNULL,
+         2,  3,  3, 0, -2, 0, "\
+A lump of clay");
+
+MELEE("shears",     10, 100, ';', c_ltgray, STEEL, MNULL,
+         4, 3,   0, 0,  -1, 0, "\
+A pair of sharp, sturdy, steel shears, for cutting metal.");
+
+MELEE("vise",       10, 100, ',', c_brown,  STEEL, MNULL,
+         2, 1,   1, 0,  -1, 0, "\
+A makeshift vise, used to hold things in place.");
+
+MELEE("anvil mould", 0, 1000, ';', c_dkgray, STONE, MNULL,
+         20, 6,  9, 0,  -5, 0, "\
+An anvil mould made of clay, fill it up with\n\
+molten metal and you'll have an anvil.");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("chunk of iron", 30, 10, ',', c_ltgray,	IRON,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  6, 12,  0, -2, 0, "\
+A lump of iron, melt it down, hammer it, whatever");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("charcoal", 30, 10, ',', c_dkgray,	WOOD,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 5,  2, 0,  0, -2, 0, "\
+A large lump of charcoal, useful for heating during smithing");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("chunk of coal", 30, 10, ',', c_dkgray,	WOOD,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 4,  6, 12,  0, -2, 0, "\
+A very large chunk of coal, useful for heating during smithing");
+
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("carbon steel", 30, 10, ',', c_dkgray,	STEEL,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  10, 14,  0, -2, 0, "\
+A bar of carbon steel");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("iron bar", 30, 10, ',', c_dkgray,	IRON,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  10, 14,  0, -2, 0, "\
+A large bar of iron");
+
+MELEE("wooden handle",	60, 160,'/', c_ltred,	WOOD,	MNULL,
+	12, 10, 15,  0,  2, 0, "\
+A sturdy wooden handle, useful in creation of tools, and not a\n\
+bad weapon, either.");
+
+MELEE("door",  60, 200,'#', c_ltred,   WOOD,   MNULL,
+        60, 20, 10,  0,  -5, 0, "\
+I'm not sure, but I think it's a door.");
+
+
 //    NAME		RAR PRC SYM COLOR	MAT1	MAT2
 MELEE("awl pike",        5,2000,'/', c_ltcyan,	IRON,	WOOD,
 //	VOL WGT DAM CUT HIT FLAGS
@@ -956,6 +1114,136 @@ A colorful, hard ball.  Essentially a rock.");
 MELEE("candlestick",	20,100,'/', c_yellow,	SILVER,	MNULL,
 	 1,  5, 12,  0,  1,  0, "\
 A gold candlestick.");
+
+MELEE("sword blade",	30,1200,'/',c_cyan,	IRON,	MNULL,
+	 7, 11,  8, 20, -5, mfb(IF_STAB), "\
+A long broad blade, add a handle, and you'd have a formidable weapon");
+
+MELEE("mace head",		20,1000,'/',c_black,	IRON,	WOOD,
+	10, 18, 36,  0,  -5, 0, "\
+A large lump of shaped iron, it just needs to be affixed to a handle.");
+
+MELEE("morningstar head",	20,1000,'/',c_black,	IRON,	WOOD,
+	11, 20, 32,  4,  -5, mfb(IF_SPEAR), "\
+A large lump of shaped iron, viciously studded with nails,\n\
+ it just needs to be affixed to a handle.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("steel frame",  25, 35, ',', c_cyan,  STEEL,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    60,  240,  20,  0,  -5, 0, "\
+A large frame made of steel.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("wheel",  15, 50, '0', c_black,  STEEL,   PLASTIC,
+//  VOL WGT DAM CUT HIT FLAGS
+    10,  80,  8,  0,  -4, 0, "\
+A wheel, perhaps from some car.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("large wheel",  6, 80, '0', c_black,  STEEL,   PLASTIC,
+//  VOL WGT DAM CUT HIT FLAGS
+    20,  200,  12,  0,  -5, 0, "\
+A large wheel, from some big car.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("seat",  8, 250, '0', c_red,  PLASTIC,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    30,  80,  4,  0,  -4, 0, "\
+A soft car seat covered with leather.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("vehicle controls",  3, 400, '$', c_ltcyan,  PLASTIC,   STEEL,
+//  VOL WGT DAM CUT HIT FLAGS
+    12,  30,  2,  0,  -4, 0, "\
+A set of various vehicle controls.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("1L combustion engine",  5, 150, ',', c_ltcyan,  IRON,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    6,  160,  8,  0,  -2, 0, "\
+A small, yet powerful 2-cylinder combustion engine.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("2.5L combustion engine",  4, 180, ',', c_ltcyan,  IRON,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    14,  400,  12,  0,  -3, 0, "\
+A powerful 4-cylinder combustion engine.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("6L combustion engine",  2, 250, ',', c_ltcyan,  IRON,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    25,  1100,  15,  0,  -5, 0, "\
+A large and very powerful 8-cylinder combustion engine.  Useful for\n\
+crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("electric motor",  2,120, ',', c_ltcyan,  IRON,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    6,  80,  4,  0,  0, 0, "\
+A powerful electric motor.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("large electric motor",  1,220, ',', c_ltcyan,  IRON,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    15,  650,  9,  0,  -3, 0, "\
+A large and very powerful electric motor.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("plasma engine",  1, 900, ',', c_ltcyan,  STEEL,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    12,  350,  7,  0,  -2, 0, "\
+High technology engine, working on hydrgen fuel.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("metal tank",  10, 40, '{', c_ltcyan,  STEEL,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    18,  25,  3,  0,  -2, 0, "\
+A metal tank for holding liquids.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("storage battery",  6, 80, ',', c_ltcyan,  IRON,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    8,  220,  6,  0,  -2, 0, "\
+A large storage battery.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("minireactor",  1, 900, ',', c_ltcyan,  STEEL,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    6,  250,  11,  0,  -4, 0, "\
+A small portable plutonium reactor. Handle with great care!");
+
+//      NAME          RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("solar panel",  3, 900, '#', c_yellow,  GLASS,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    12,  4,  1,  0,  -4, 0, "\
+Electronic device which can convert solar radiation into electric\n\
+power.  Useful for crafting.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("steel plating",  30, 120, ',', c_ltcyan,  STEEL,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    12,  600,  6,  0,  -1, 0, "\
+A piece of armor plating made of steel.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("superalloy plating",  10, 185, ',', c_ltcyan,  STEEL,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    12,  350,  6,  0,  -1, 0, "\
+A piece of armor plating made of sturdy superalloy.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("spiked plating",  15, 185, ',', c_ltcyan,  STEEL,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    14,  600,  6,  3,  -1, 0, "\
+A piece of armor plating made of steel. It is covered by menacing\n\
+spikes.");
+
+//      NAME           RAR PRC SYM COLOR        MAT1    MAT2
+MELEE("hard plating",  30, 160, ',', c_ltcyan,  STEEL,   MNULL,
+//  VOL WGT DAM CUT HIT FLAGS
+    12,  1800,  6,  0,  -1, 0, "\
+A piece of very thick armor plating made of steel.");
 
 // ARMOR
 #define ARMOR(name,rarity,price,color,mat1,mat2,volume,wgt,dam,to_hit,\
@@ -1034,6 +1322,22 @@ ARMOR("jumpsuit",	20, 200,C_BODY,		COTTON,		PLASTIC,
 // VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
     6,  6, -3, -3,  1,  0,  1,  0,  3, 16,	mfb(bp_legs)|mfb(bp_torso), "\
 A full-body jumpsuit with many pockets.");
+
+//     NAME		RAR PRC	COLOR		MAT1		MAT2
+ARMOR("wolfsuit",	15, 200,C_BODY,		COTTON,		PLASTIC,
+// VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
+    6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
+                                                mfb(bp_head), "\
+A thick cotton suit, covered in shaggy grey fur, and with a thick tail.\n\
+It has a wolf mask attached");
+
+//     NAME		RAR PRC	COLOR		MAT1		MAT2
+ARMOR("deersuit",	15, 200,C_BODY,		COTTON,		PLASTIC,
+// VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
+    6,  6, -3, -3,  2,  4,  8,  4,  3, 0,	mfb(bp_legs)|mfb(bp_torso)|
+                                                mfb(bp_head), "\
+A thick cotton suit, covered in tawny brown fur and whit a white belly and\n\
+stubby tail, it has a deer mask attached");
 
 ARMOR("dress",		70, 180,C_BODY,		COTTON,		MNULL,
     8,  6, -5, -5,  3,  0,  1,  0,  2,  0,	mfb(bp_legs)|mfb(bp_torso), "\
@@ -1185,6 +1489,10 @@ A pair of thin latex gloves, designed to limit the spread of disease.");
 ARMOR("fire gauntlets",	 5,  95,C_GLOVES,	LEATHER,	MNULL,
     3,  5, -2,  2,  6,  1,  2,  5,  4,  0,	mfb(bp_hands), "\
 A heavy pair of leather gloves, used by firefighters for heat protection.");
+
+ARMOR("wristwatch", 25,  20,C_GLOVES,	PLASTIC,	MNULL,
+    1,  1, -5,  -5,  0,  0,  0,  0,  0,  0,	mfb(bp_hands), "\
+A lightweight instrument used to keep time.");
 
 //     NAME		RAR PRC	COLOR		MAT1		MAT2
 ARMOR("dust mask",	65,  20,C_MOUTH,	COTTON,		IRON,
@@ -1429,7 +1737,7 @@ A sharpened arrow carved from wood.  It's light-weight, does little damage,\n\
 and is so-so on accuracy.  Stands a good chance of remaining intact once\n\
 fired.",
 0);
-            
+
 AMMO("carbon fiber arrow",5,300,AT_ARROW,       c_green,        PLASTIC,
          2, 30, 24,  2, 15, 18,  0,  12, "\
 High-tech carbon fiber shafts and 100 grain broadheads. Very light weight,\n\
@@ -1792,7 +2100,8 @@ A bow with wheels that fires high velocity arrows.  Weaker people can use\n\
 compound bows more easily.  Arrows fired from this weapon have a good chance\n\
 of remaining intact for re-use.",
 mfb(IF_STR8_DRAW)|mfb(IF_RELOAD_AND_SHOOT));
-        
+
+
 GUN("longbow",           5, 800,c_yellow,       WOOD,   MNULL,
         sk_archery,     AT_ARROW,8, 4, 10,  0,  0, 12,  0,  6,  0,  1,  80, "\
 A six-foot wooden bow that fires feathered arrows.  This takes a fair amount\n\
@@ -1859,6 +2168,12 @@ GUN("S&W 619",		 4,1450,c_dkgray,	STEEL,	PLASTIC,
 	sk_pistol,	AT_38,	 2,  9,  9,  1,  2, 23,  4,  8,  0,  7, 75, "\
 A seven-round .38 revolver sold by Smith & Wesson.  It features a fixed rear\n\
 sight and a reinforced frame.",
+mfb(IF_RELOAD_ONE));
+
+GUN("Mateba Model 6", 4, 720, c_dkgray,    STEEL,  WOOD,
+        sk_pistol,      AT_38,   2,  8,  7,  1,  2, 23,  2,  8,  6,  6, 100, "\
+A rare semi-auto revolver, it uses the firing motion to rotate the cylinder and\n\
+cock the hammer.",
 mfb(IF_RELOAD_ONE));
 
 GUN("Taurus Pro .38",	 4,1500,c_dkgray,	STEEL,	PLASTIC,
@@ -2689,6 +3004,10 @@ TOOL("hammer",		35, 70, ';', c_brown,	IRON,	WOOD,
 Use a hammer, with nails and two by fours in your inventory, to board up\n\
 adjacent doors and windows.");
 
+TOOL("smithing hammer",		35, 70, ';', c_brown,	IRON,	WOOD,
+    4,  6, 22,  0,  1,   0,  0, 0,  0, AT_NULL, itm_null, &iuse::none, 0, "\
+A large hammer with a long handle and a flat face, perfect for smithing");
+
 //	NAME		RAR PRC	SYM  COLOR	MAT1	MAT
 TOOL("fire extinguisher",20,700,';', c_red,	IRON,	MNULL,
 // VOL WGT DAM CUT HIT MAX DEF USE SEC FUEL	REVERT	  FUNCTION
@@ -2753,7 +3072,7 @@ of dirt.");
 
 TOOL("shovel",		40, 100,'/', c_brown,	IRON,	WOOD,
    16, 18, 15,  5,  3,  0,  0,  0,  0, AT_NULL,	itm_null, &iuse::dig, 0, "\
-A digging tool.  Use it to dig pits adjacent to your location.");
+A digging tool.  Use it to find clay adjacent to your location.");
 
 TOOL("chainsaw (off)",	 7, 350,'/', c_red,	IRON,	PLASTIC,
    12, 40, 10,  0, -4, 400, 0,  0,  0, AT_GAS,	itm_null, &iuse::chainsaw_off,0,
@@ -3064,6 +3383,80 @@ A tool for drawing blood, including a vacuum-sealed test tube for holding the\n\
 sample.  Use this tool to draw blood, either from yourself or from a corpse\n\
 you are standing on.");
 
+//  NAME        RAR PRC SYM  COLOR  MAT1    MAT
+TOOL("welder",   10,900,';', c_ltred,  IRON,MNULL,
+// VOL WGT DAM CUT HIT   MAX    DEF  USE SEC   FUEL    REVERT    FUNCTION
+     6,  24,  7,  0, -1,  1000,  300,  50,  0, AT_BATT, itm_null, &iuse::none,
+0, "\
+A tool for welding metal pieces together.  Useful for construction.");
+
+TOOL("wood ax",	 60, 105,'/', c_ltgray,	WOOD,	IRON,
+     17, 15, 24, 18,  1,  0,  0,  0,  0, AT_NULL, itm_null, &iuse::axe,0, "\
+A good weapon for felling both trees and zombies\n\
+a bit on the slow side, however");
+
+TOOL("tent kit", 40, 400,';', c_green,  LEATHER, IRON,
+        30, 10, 1,  0,  -4,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::tent,0,"\
+A tent, specially treated to resist environmental acids.");
+
+TOOL("wood saw", 60, 100,';', c_ltgray,   IRON,   PLASTIC,
+        12, 4,  0,  3,  -2,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::axe,0,"\
+A flimsy saw, good for cutting up wooden objects.");
+
+TOOL("pickaxe",  60, 100,'/', c_brown,    STEEL,  MNULL,
+        20, 15, 10, 20, -3, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::pickaxe,0,"\
+Pickaxes, an essential tool for the old school miner.");
+
+TOOL("spiked barricade", 0, 100,';', c_brown, WOOD, MNULL,
+        20, 10, 0,  0,  -20,0, 0, 0, 0, AT_NULL, itm_null, &iuse::barricade,0,"\
+A vicious spiked barricade");
+
+TOOL("deployable awning", 40, 400,';', c_green,  LEATHER, IRON,
+        30, 10, 1,  0,  -4,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::awning,0,"\
+It unpacks into a relatively large awning, perfect\n\
+for a spot of tea on a rainy day.");
+
+TOOL("composite fishing rod", 20, 1000,';', c_brown,  PLASTIC, IRON,
+        6, 4, 1,  0,  -4,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::fish,0,"\
+An expensive fishing rod, perfect for the aspiring angler");
+
+TOOL("cot",                   80, 1000,';',  c_green,   STEEL, MNULL,
+        15,7,0, 4,   -5,  0,  0,  0, 0, AT_NULL, itm_null, &iuse::cot,0,"\
+A military style cot, folded up for transportation");
+
+TOOL("dredge",                   30, 1000,'/',  c_brown,   WOOD, STEEL,
+         15, 7,   0, 4,  -5, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::dredge,0,"\
+It's shaped a bit like a plough, it's used for bog iron dredging");
+
+
+TOOL("anvil", 0, 1000, 'z', c_dkgray, IRON, MNULL,
+         20, 50,  9, 0,  -5, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::anvil,0, "\
+An very heavy anvil, don't leave it hanging from a rope");
+
+TOOL("ingot mold", 30, 10, ',', c_dkgray,	STONE,	MNULL,
+	 4,  6,  12, 0,  -2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::ingotmold,0, "\
+A clay mold with a large, bar shaped, depression in it\n\
+for pouring molten metal into");
+
+
+TOOL("torch (unlit)",40, 380,';', c_brown, WOOD, MNULL,
+         6,  2,  3,  0,  2, 50,50, 0,  0, AT_NULL, itm_stick, &iuse::torch_off,0,"\
+Using this torch with a lighter in your inventory will light it, a lit torch\n\
+will provide light at night and underground, when the head has burned out you\n\
+will be able to reuse the stick.");
+
+
+TOOL("torch (lit)",40, 380,';', c_brown, WOOD, MNULL,
+         6,  2,  6,  0,  2, 50,50, 0,  1, AT_NULL, itm_stick, &iuse::torch_on,0,"\
+This torch is burning brightly, and will provide light as long as it is held,\n\
+You will need to put it out to return it to your inventory, obviously.");
+
+TOOL("fence posts",40, 380,';', c_brown, WOOD, MNULL,
+         9,  2,  6,  0,  -4, 0,0, 0,  0, AT_NULL, itm_null, &iuse::fpost,0,"\
+This is a pair of fence posts, you could entrench them in the ground with a shovel\n\
+or hammer them in with a sledge hammer, and then string up a decent fence between\n\
+them");
+
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated
@@ -3298,7 +3691,7 @@ GUN("fusion blaster",	 0,0,c_magenta,	STEEL,	PLASTIC,
    } while (namepart.find("-") == std::string::npos);
    art->name = namedata.str();
    start = true;
- 
+
    std::stringstream descdata;
    do {
     fin >> namepart;

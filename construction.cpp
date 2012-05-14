@@ -8,7 +8,6 @@
 #include "skill.h"
 #include "crafting.h" // For the use_comps use_tools functions
 
-#define PICKUP_RANGE 2
 
 bool will_flood_stop(map *m, bool fill[SEEX * MAPSIZE][SEEY * MAPSIZE],
                      int x, int y);
@@ -90,32 +89,75 @@ void game::init_construction()
  CONSTRUCT("Build Wall", 2, &construct::able_empty, &construct::done_nothing);
   STAGE(t_wall_half, 10);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 10, NULL);
+   COMP(itm_2x4, 6, NULL);
    COMP(itm_nail, 20, NULL);
   STAGE(t_wall_wood, 10);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 10, NULL);
+   COMP(itm_2x4, 6, NULL);
    COMP(itm_nail, 20, NULL);
 
- CONSTRUCT("Build Window", 3, &construct::able_wall_wood,
+ CONSTRUCT("Build Forge", 0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_forge_base, 10);
+  COMP(itm_rock, 20, NULL);
+  COMP(itm_2x4, 15, NULL);
+  STAGE(t_forge, 10);
+  TOOL(itm_hammer, itm_rock, itm_hatchet, NULL);
+  COMP(itm_bellows, 1, NULL);
+  COMP(itm_nail, 80, itm_stake, 20, NULL);
+  COMP(itm_chain, 1, NULL);
+
+ CONSTRUCT("Build Crucible", 0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_crucible, 10);
+  COMP(itm_crucible, 1, NULL);
+  COMP(itm_2x4, 4, NULL);
+  COMP(itm_stake, 2, NULL);
+
+/* CONSTRUCT("Build Grindstone",0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_grindstone, 10);
+  TOOL(itm_rock, itm_hammer, itm_hatchet, NULL);
+  COMP(itm_rock, 5, NULL);
+  COMP(itm_2x4, 10, NULL);
+  COMP(itm_stake, 4, NULL); */
+
+ CONSTRUCT("Water Tub", 0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_watertub, 10);
+  TOOL(itm_rock, itm_hatchet, itm_hammer, NULL);
+  COMP(itm_2x4, 4, NULL);
+  COMP(itm_stake, 4, NULL);
+  COMP(itm_water, 5, NULL);
+
+ CONSTRUCT("Build Palisade", 3, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_palisade, 10);
+   TOOL(itm_hammer, itm_hatchet, NULL);
+   COMP(itm_log, 2, NULL);
+   COMP(itm_nail, 20, itm_stake, 4, NULL);
+
+ CONSTRUCT("Build Palisade Gate", 3, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_palgate_c, 10);
+  TOOL(itm_hammer, itm_hatchet, NULL);
+  COMP(itm_log, 2, NULL);
+  COMP(itm_nail, 20, itm_stake, 4, NULL);
+  COMP(itm_rope_6, 1, itm_crossbar, 1, NULL);
+
+ CONSTRUCT("Build Window", 3, &construct::able_empty,
                               &construct::done_nothing);
   STAGE(t_window_empty, 10);
-   TOOL(itm_saw, NULL);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_2x4, 5, NULL);
+   COMP(itm_nail,20, NULL);
   STAGE(t_window, 5);
    COMP(itm_glass_sheet, 1, NULL);
 
- CONSTRUCT("Build Door", 4, &construct::able_wall_wood,
+ CONSTRUCT("Build Door", 4, &construct::able_empty,
                               &construct::done_nothing);
   STAGE(t_door_frame, 15);
-   TOOL(itm_saw, NULL);
-  STAGE(t_door_b, 15);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 4, NULL);
-   COMP(itm_nail, 12, NULL);
+   COMP(itm_2x4, 10, NULL);
+   COMP(itm_nail, 10, NULL);
   STAGE(t_door_c, 15);
-   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 4, NULL);
-   COMP(itm_nail, 12, NULL);
+   TOOL(itm_hammer, itm_hatchet, NULL);
+   COMP(itm_door, 1, NULL);
+   COMP(itm_nail, 4, NULL);
 
 /*  Removed until we have some way of auto-aligning fences!
  CONSTRUCT("Build Fence", 1, 15, &construct::able_empty);
@@ -124,13 +166,40 @@ void game::init_construction()
    COMP(itm_2x4, 5, itm_nail, 8, NULL);
 */
 
- CONSTRUCT("Build Roof", 4, &construct::able_between_walls,
+ CONSTRUCT("Build Roof", 4, &construct::able_cieling,
                             &construct::done_nothing);
   STAGE(t_floor, 40);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
    COMP(itm_2x4, 8, NULL);
    COMP(itm_nail, 40, NULL);
 
+ CONSTRUCT("Start vehicle construction", 0, &construct::able_empty, &construct::done_vehicle);
+  STAGE(t_null, 10);
+   COMP(itm_frame, 1, NULL);
+
+ CONSTRUCT("Build Counter",1, &construct::able_indoors,
+                            &construct::done_nothing);
+  STAGE(t_counter, 20);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_2x4, 5, NULL);
+   COMP(itm_nail, 10, NULL);
+
+
+ CONSTRUCT("Build Bed",1, &construct::able_indoors,
+                            &construct::done_nothing);
+  STAGE(t_cot, 20);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_2x4, 6, NULL);
+   COMP(itm_nail, 10, NULL);
+   COMP(itm_rag, 10, itm_sheet, 1, NULL);
+
+
+ CONSTRUCT("Build Dresser",1, &construct::able_indoors,
+                            &construct::done_nothing);
+  STAGE(t_dresser, 20);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_2x4, 5, NULL);
+   COMP(itm_nail, 10, NULL);
 }
 
 void game::construction_menu()
@@ -197,7 +266,7 @@ void game::construction_menu()
     nc_color color_stage = (player_can_build(u, total_inv, current_con, n) ?
                             c_white : c_dkgray);
     mvwprintz(w_con, posy, 31, color_stage, "Stage %d: %s", n + 1,
-              terlist[current_con->stages[n].terrain].name.c_str());
+              current_con->stages[n].terrain == t_null? "" : terlist[current_con->stages[n].terrain].name.c_str());
     posy++;
 // Print tools
     construction_stage stage = current_con->stages[n];
@@ -286,6 +355,8 @@ void game::construction_menu()
   switch (ch) {
    case 'j':
     update_info = true;
+    wclear(w_con);
+    wrefresh(w_con);
     if (select < constructions.size() - 1)
      select++;
     else
@@ -293,6 +364,8 @@ void game::construction_menu()
     break;
    case 'k':
     update_info = true;
+    wclear(w_con);
+    wrefresh(w_con);
     if (select > 0)
      select--;
     else
@@ -313,6 +386,7 @@ void game::construction_menu()
   }
  } while (ch != 'q' && ch != 'Q' && ch != KEY_ESCAPE);
  refresh_all();
+ wrefresh(w_con);
 }
 
 bool game::player_can_build(player &p, inventory inv, constructable* con,
@@ -452,7 +526,8 @@ void game::complete_construction()
  
 // Make the terrain change
  int terx = u.activity.placement.x, tery = u.activity.placement.y;
- m.ter(terx, tery) = stage.terrain;
+ if (stage.terrain != t_null)
+  m.ter(terx, tery) = stage.terrain;
  construct effects;
  (effects.*(built->done))(this, point(terx, tery));
 
@@ -469,6 +544,11 @@ void game::complete_construction()
 bool construct::able_empty(game *g, point p)
 {
  return (g->m.move_cost(p.x, p.y) == 2);
+}
+
+bool construct::able_indoors(game *g, point p)
+{
+ return (g->m.ter(p.x, p.y) == t_floor);
 }
 
 bool construct::able_window(game *g, point p)
@@ -512,43 +592,27 @@ bool construct::able_wall_wood(game *g, point p)
  return (g->m.ter(p.x, p.y) == t_wall_wood);
 }
 
-bool construct::able_between_walls(game *g, point p)
+bool construct::able_cieling(game *g, point p)
 {
- bool fill[SEEX * MAPSIZE][SEEY * MAPSIZE];
- for (int x = 0; x < SEEX * MAPSIZE; x++) {
-  for (int y = 0; y < SEEY * MAPSIZE; y++)
-   fill[x][y] = false;
- }
-
- return (will_flood_stop(&(g->m), fill, p.x, p.y)); // See bottom of file
+ return (g->m.ter(p.x + 1, p.y) == t_wall_wood || 
+g->m.ter(p.x -1, p.y) == t_wall_wood || g->m.ter(p.x, p.y +1) == t_wall_wood||
+g->m.ter(p.x, p.y -1) == t_wall_wood||
+g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x, p.y +1) == t_floor ||
+g->m.ter(p.x -1, p.y) == t_floor && g->m.ter(p.x, p.y -1) == t_floor ||
+g->m.ter(p.x -1, p.y) == t_floor && g->m.ter(p.x, p.y +1) == t_floor ||
+g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x, p.y -1) == t_floor ||
+g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x -1, p.y) == t_floor ||
+g->m.ter(p.x, p.y +1) == t_floor && g->m.ter(p.x, p.y -1) == t_floor);
 }
-
 bool construct::able_dig(game *g, point p)
 {
- return (g->m.has_flag(diggable, p.x, p.y));
+ return (g->m.has_flag(diggable, p.x, p.y)||g->m.ter(p.x, p.y) == t_pit_shallow
+ || g->m.ter(p.x, p.y) == t_pit);
 }
 
 bool construct::able_pit(game *g, point p)
 {
  return (g->m.ter(p.x, p.y) == t_pit);//|| g->m.ter(p.x, p.y) == t_pit_shallow);
-}
-
-bool will_flood_stop(map *m, bool fill[SEEX * MAPSIZE][SEEY * MAPSIZE],
-                     int x, int y)
-{
- if (x == 0 || y == 0 || x == SEEX * MAPSIZE - 1 || y == SEEY * MAPSIZE - 1)
-  return false;
-
- fill[x][y] = true;
- bool skip_north = (fill[x][y - 1] || m->has_flag(supports_roof, x, y - 1)),
-      skip_south = (fill[x][y + 1] || m->has_flag(supports_roof, x, y + 1)),
-      skip_east  = (fill[x + 1][y] || m->has_flag(supports_roof, x + 1, y)),
-      skip_west  = (fill[x - 1][y] || m->has_flag(supports_roof, x - 1, y));
-
- return ((skip_north || will_flood_stop(m, fill, x    , y - 1)) &&
-         (skip_east  || will_flood_stop(m, fill, x + 1, y    )) &&
-         (skip_south || will_flood_stop(m, fill, x    , y + 1)) &&
-         (skip_west  || will_flood_stop(m, fill, x - 1, y    ))   );
 }
 
 void construct::done_pit(game *g, point p)
@@ -572,4 +636,17 @@ void construct::done_fill_pit(game *g, point p)
 void construct::done_window_pane(game *g, point p)
 {
  g->m.add_item(g->u.posx, g->u.posy, g->itypes[itm_glass_sheet], 0);
+}
+
+void construct::done_vehicle(game *g, point p)
+{
+    std::string name = string_input_popup(20, "Enter new vehicle name");
+    vehicle *veh = g->m.add_vehicle (g, veh_custom, p.x, p.y, 270);
+    if (!veh)
+    {
+        debugmsg ("error constructing vehicle");
+        return;
+    }
+    veh->name = name;
+    veh->install_part (0, 0, vp_frame_v2);
 }

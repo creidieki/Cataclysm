@@ -269,9 +269,26 @@ void mattack::science(game *g, monster *z)	// I said SCIENCE again!
   z->moves -= 400;
   if (g->u.dodge(g) > rng(1, 16))
    g->add_msg("You dodge the beam!");
-  else if (one_in(6))
+  else if (one_in(6)) {
+  if (one_in(4)) {
+  g->add_msg("You feel sick.");
+ g->u.vomit(g);
+ if (one_in(6))
+    g->u.mutate(g);
+  }
+  if (one_in(10)) {
+  g->add_msg("You suddenly collapse onto the ground and spasm uncontrollably!");
+ g->u.moves -= 800;
+ if (one_in(3)) {
+    g->add_msg("You hurt yourself during the convlusions!");
+    g->u.hit(g, bp_legs, 1, 0, rng(0,  5));
+     g->u.hit(g, bp_arms, 1, 0, rng(0,  5));
+      g->u.hit(g, bp_torso, 1, 0, rng(0,  3));
+       g->u.hit(g, bp_head, 1, 0, rng(0,  5));
    g->u.mutate(g);
-  else {
+ }
+  }
+   } else {
    g->add_msg("You get pins and needles all over.");
    g->u.radiation += rng(20, 50);
   }
@@ -1052,6 +1069,24 @@ void mattack::gene_sting(game *g, monster *z)
  z->moves -= 150;
  z->sp_timeout = z->type->sp_freq;
  g->add_msg("The %s shoots a dart into you!", z->name().c_str());
+  if (one_in(4)) {
+  g->add_msg("You feel sick.");
+ g->u.vomit(g);
+ if (one_in(6))
+    g->u.mutate(g);
+  }
+  if (one_in(10)) {
+  g->add_msg("You suddenly collapse onto the ground and spasm uncontrollably!");
+ g->u.moves -= 800;
+ if (one_in(3)) {
+    g->add_msg("You hurt yourself during the convlusions!");
+    g->u.hit(g, bp_legs, 1, 0, rng(0,  5));
+     g->u.hit(g, bp_arms, 1, 0, rng(0,  5));
+      g->u.hit(g, bp_torso, 1, 0, rng(0,  3));
+       g->u.hit(g, bp_head, 1, 0, rng(0,  5));
+   g->u.mutate(g);
+ }
+  }
  g->u.mutate(g);
 }
 
@@ -1130,7 +1165,7 @@ void mattack::smg(game *g, monster *z)
   int closest = 13;
   for (int i = 0; i < g->z.size(); i++) {
    int dist = rl_dist(z->posx, z->posy, g->z[i].posx, g->z[i].posy);
-   if (g->z[i].friendly == 0 && dist < closest && 
+   if (g->z[i].friendly == 0 && dist < closest &&
        g->m.sees(z->posx, z->posy, g->z[i].posx, g->z[i].posy, 12, t)) {
     target = &(g->z[i]);
     closest = dist;
@@ -1162,7 +1197,7 @@ void mattack::smg(game *g, monster *z)
 
   return;
  }
- 
+
 // Not friendly; hence, firing at the player
  if (trig_dist(z->posx, z->posy, g->u.posx, g->u.posy) > 12 ||
      !g->sees_u(z->posx, z->posy, t))

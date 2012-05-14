@@ -14,9 +14,8 @@ ter_id grass_or_dirt()
 {
  if (one_in(4))
   return t_grass;
- return t_dirt;
+ return t_claydirt;
 }
-
 enum room_type {
  room_null,
  room_closet,
@@ -340,7 +339,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
      if (ter(x, y) == t_water_sh)
       ter(x, y) = t_water_dp;
      else if (ter(x, y) == t_dirt || ter(x, y) == t_underbrush)
-      ter(x, y) = t_water_sh;
+      ter(x, y) = t_bog;
     } else
      i = 20;
     x += rng(-2, 2);
@@ -1185,7 +1184,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
 
  case ot_s_lot:
   for (int i = 0; i < SEEX * 2; i++) {
-   for (int j = 0; j < SEEX * 2; j++) {
+   for (int j = 0; j < SEEY * 2; j++) {
     if ((j == 5 || j == 9 || j == 13 || j == 17 || j == 21) &&
         ((i > 1 && i < 8) || (i > 14 && i < SEEX * 2 - 2)))
      ter(i, j) = t_pavement_y;
@@ -1195,6 +1194,15 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
     else
      ter(i, j) = grass_or_dirt();
    }
+  }
+  if (one_in(3))
+  {
+      int vx = rng (0, 3) * 4 + 5;
+      int vy = 4;
+      vhtype_id vt = (one_in(10)? veh_sandbike :
+                     (one_in(8)? veh_truck :
+                     (one_in(3)? veh_car : veh_motorcycle)));
+      add_vehicle (g, vt, vx, vy, one_in(2)? 90 : 270);
   }
   place_items(mi_road, 8, 0, 0, SEEX * 2 - 1, SEEY * 2 - 1, false, turn);
   if (t_east  >= ot_road_null && t_east  <= ot_road_nesw_manhole)
@@ -1666,6 +1674,77 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
    rotate(3);
   break;
 
+
+ case ot_workshop_north:
+ case ot_workshop_east:
+ case ot_workshop_south:
+ case ot_workshop_west:
+     /*
+     -------""---"""------
+     |{{{{{           #   |
+     |{               #   |
+     |{               #   |
+     |{               ### |
+     |{                   |
+     |{     {{            "
+     |{     {{            "
+     |{                   "
+     |{                   |
+     |{                   |
+     |{  {{     {{        "
+     |{  {{     {{        "
+     |{                   "
+     |{                   |
+     |#     {      {     #|
+     |#     {      {     #|
+     |#     {      {     #|
+     |#     {      {     #|
+     |####################|
+     ----------------------
+
+     */
+
+  square(this, grass_or_dirt(), 0, 0, SEEX * 2, SEEY * 2);
+  square(this, t_floor, 4, 4, SEEX * 2 - 4, SEEY * 2 - 4);
+  line(this, t_wall_v, 3, 4, 3, SEEY * 2 - 4);
+  line(this, t_wall_v, SEEX * 2 - 3, 4, SEEX * 2 - 3, SEEY * 2 - 4);
+  line(this, t_wall_h, 3, 3, SEEX * 2 - 3, 3);
+  line(this, t_wall_h, 3, SEEY * 2 - 3, SEEX * 2 - 3, SEEY * 2 - 3);
+  ter(13, 3) = t_door_c;
+  line(this, t_window, 10, 3, 11, 3);
+  line(this, t_window, 16, 3, 18, 3);
+  line(this, t_window, SEEX * 2 - 3, 9,  SEEX * 2 - 3, 11);
+  line(this, t_window, SEEX * 2 - 3, 14,  SEEX * 2 - 3, 16);
+  line(this, t_counter, 4, SEEY * 2 - 4, SEEX * 2 - 4, SEEY * 2 - 4);
+  line(this, t_counter, 4, SEEY * 2 - 5, 4, SEEY * 2 - 9);
+  line(this, t_counter, SEEX * 2 - 4, SEEY * 2 - 5, SEEX * 2 - 4, SEEY * 2 - 9);
+  line(this, t_counter, SEEX * 2 - 7, 4, SEEX * 2 - 7, 6);
+  line(this, t_counter, SEEX * 2 - 7, 7, SEEX * 2 - 5, 7);
+  line(this, t_rack, 9, SEEY * 2 - 5, 9, SEEY * 2 - 9);
+  line(this, t_rack, SEEX * 2 - 9, SEEY * 2 - 5, SEEX * 2 - 9, SEEY * 2 - 9);
+  line(this, t_rack, 4, 4, 4, SEEY * 2 - 10);
+  line(this, t_rack, 5, 4, 8, 4);
+  place_items(mi_wood_working_tools, 25, 4, SEEY * 2 - 4, SEEX * 2 - 4,
+              SEEY * 2 - 4, false, turn - 50);
+  place_items(mi_wood_working_tools, 90, 4, SEEY * 2 - 5, 4, SEEY * 2 - 9,
+              false, turn - 50);
+  place_items(mi_wood_working_tools, 60, SEEX * 2 - 4, SEEY * 2 - 5,
+              SEEX * 2 - 4, SEEY * 2 - 9, false, turn - 50);
+  place_items(mi_wood_working_tools, 70, 9, SEEY * 2 - 5, 9, SEEY * 2 - 9,
+              false, turn - 50);
+  place_items(mi_wood_working_tools, 70, SEEX * 2 - 9, SEEY * 2 - 5,
+              SEEX * 2 - 9, SEEY * 2 - 9, false, turn - 50);
+  place_items(mi_wood_working_tools, 85, 4, 4, 4, SEEY * 2 - 10, false,
+              turn - 50);
+  place_items(mi_wood_working_tools, 85, 5, 4, 8, 4, false, turn - 50);
+  if (terrain_type == ot_workshop_east)
+   rotate(1);
+  if (terrain_type == ot_workshop_south)
+   rotate(2);
+  if (terrain_type == ot_workshop_west)
+   rotate(3);
+  break;
+ 
  case ot_s_sports_north:
  case ot_s_sports_east:
  case ot_s_sports_south:
@@ -2109,7 +2188,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
                ((i < SEEX - 1 || i > SEEX) && (j == SEEY - 2 || j == SEEY + 1)))
        ter(i, j) = t_wall_h;
       else
-       ter(i, j) = t_floor;
+       ter(i, j) = t_metal_floor;
      }
     }
     if (t_above == ot_lab_stairs)
@@ -4179,12 +4258,12 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
   ter(17, 17) = t_door_locked;
 
   // Item placement
-  place_items(mi_snacks, 30, 19, 3, 19, 10, false, 0);
-  place_items(mi_snacks, 50, 18, 18, 21, 18, false, 0);
   place_items(mi_fridgesnacks, 60, 21, 4, 21, 4, false, 0);
   place_items(mi_fridgesnacks, 60, 21, 17, 21, 17, false, 0);
   place_items(mi_alcohol, 70, 21, 5, 21, 8, false, 0);
   place_items(mi_trash, 15, 2, 17, 16, 19, true, 0);
+ if (one_in(3))
+  place_items(mi_alcohol, 50, 21, 5, 21, 8, false, 0);
 
   if (terrain_type == ot_bar_east)
    rotate(1);
@@ -6375,6 +6454,32 @@ void map::add_spawn(monster *mon)
            mon->faction_id, mon->mission_id, spawnname);
 }
 
+vehicle *map::add_vehicle(game *g, vhtype_id type, int x, int y, int dir)
+{
+ if (x < 0 || x >= SEEX * my_MAPSIZE || y < 0 || y >= SEEY * my_MAPSIZE) {
+  debugmsg("Bad add_vehicle t=%d d=%d x=%d y=%d", type, dir, x, y);
+  return 0;
+ }
+// debugmsg("add_vehicle t=%d d=%d x=%d y=%d", type, dir, x, y);
+ int smx = x / SEEX;
+ int smy = y / SEEY;
+ int nonant = smx + smy * my_MAPSIZE;
+ x %= SEEX;
+ y %= SEEY;
+// debugmsg("n=%d x=%d y=%d MAPSIZE=%d ^2=%d", nonant, x, y, MAPSIZE, MAPSIZE*MAPSIZE);
+ vehicle veh(g, type);
+ veh.posx = x;
+ veh.posy = y;
+ veh.smx = smx;
+ veh.smy = smy;
+ veh.face.init(dir);
+ veh.turn_dir = dir;
+ veh.precalc_mounts (0, dir);
+ grid[nonant].vehicles.push_back(veh);
+ //debugmsg ("grid[%d].vehicles.size=%d veh.parts.size=%d", nonant, grid[nonant].vehicles.size(),veh.parts.size());
+ return &grid[nonant].vehicles[grid[nonant].vehicles.size()-1];
+}
+
 computer* map::add_computer(int x, int y, std::string name, int security)
 {
  ter(x, y) = t_console; // TODO: Turn this off?
@@ -6402,6 +6507,7 @@ void map::rotate(int turns)
  std::vector<item> itrot[SEEX*2][SEEY*2];
  std::vector<spawn_point> sprot[my_MAPSIZE * my_MAPSIZE];
  computer tmpcomp;
+ std::vector<vehicle> tmpveh;
 
  switch (turns) {
  case 1:
@@ -6433,6 +6539,12 @@ void map::rotate(int turns)
   grid[my_MAPSIZE].comp = grid[my_MAPSIZE + 1].comp;
   grid[my_MAPSIZE + 1].comp = grid[1].comp;
   grid[1].comp = tmpcomp;
+// ...and vehicles
+  tmpveh = grid[0].vehicles;
+  grid[0].vehicles = grid[my_MAPSIZE].vehicles;
+  grid[my_MAPSIZE].vehicles = grid[my_MAPSIZE + 1].vehicles;
+  grid[my_MAPSIZE + 1].vehicles = grid[1].vehicles;
+  grid[1].vehicles = tmpveh;
   break;
     
  case 2:
@@ -6464,6 +6576,13 @@ void map::rotate(int turns)
   tmpcomp = grid[1].comp;
   grid[1].comp = grid[my_MAPSIZE].comp;
   grid[my_MAPSIZE].comp = tmpcomp;
+// ...and vehicles
+  tmpveh = grid[0].vehicles;
+  grid[0].vehicles = grid[my_MAPSIZE + 1].vehicles;
+  grid[my_MAPSIZE + 1].vehicles = tmpveh;
+  tmpveh = grid[1].vehicles;
+  grid[1].vehicles = grid[my_MAPSIZE].vehicles;
+  grid[my_MAPSIZE].vehicles = tmpveh;
   break;
     
  case 3:
@@ -6494,11 +6613,23 @@ void map::rotate(int turns)
   grid[1].comp = grid[my_MAPSIZE + 1].comp;
   grid[my_MAPSIZE + 1].comp = grid[my_MAPSIZE].comp;
   grid[my_MAPSIZE].comp = tmpcomp;
+// ...and vehicles
+  tmpveh = grid[0].vehicles;
+  grid[0].vehicles = grid[1].vehicles;
+  grid[1].vehicles = grid[my_MAPSIZE + 1].vehicles;
+  grid[my_MAPSIZE + 1].vehicles = grid[my_MAPSIZE].vehicles;
+  grid[my_MAPSIZE].vehicles = tmpveh;
   break;
 
  default:
   return;
  }
+
+// change vehicles' directions
+ for (int i = 0; i < my_MAPSIZE * my_MAPSIZE; i++)
+     for (int v = 0; v < grid[i].vehicles.size(); v++)
+         if (turns >= 1 && turns <= 3)
+            grid[i].vehicles[v].turn (turns * 90);
 
 // Set the spawn points
  grid[0].spawns = sprot[0];
@@ -6658,6 +6789,8 @@ void house_room(map *m, room_type type, int x1, int y1, int x2, int y2)
    m->place_items(mi_homeguns, 58, x1 + 1, y1 + 1, x2 - 1, y2 - 1, false, 0);
   if (one_in(10))
    m->place_items(mi_home_hw,  40, x1 + 1, y1 + 1, x2 - 1, y2 - 1, false, 0);
+  if (one_in(20))
+   m->place_items(mi_fur,      40, x1 + 1, y1 + 1, x2 - 1, y2 - 1, false, 0);
   switch (rng(1, 5)) {
   case 1:
    m->ter(x1 + 1, y1 + 2) = t_bed;

@@ -37,6 +37,7 @@ class iuse
   void inhaler		(game *g, player *p, item *it, bool t);
   void blech		(game *g, player *p, item *it, bool t);
   void mutagen		(game *g, player *p, item *it, bool t);
+  void mutagen_2	(game *g, player *p, item *it, bool t);
   void mutagen_3	(game *g, player *p, item *it, bool t);
   void purifier		(game *g, player *p, item *it, bool t);
   void marloss		(game *g, player *p, item *it, bool t);
@@ -98,6 +99,19 @@ class iuse
   void vortex		(game *g, player *p, item *it, bool t);
   void dog_whistle	(game *g, player *p, item *it, bool t);
   void vacutainer	(game *g, player *p, item *it, bool t);
+  void axe              (game *g, player *p, item *it, bool t);
+  void tent             (game *g, player *p, item *it, bool t);
+  void pickaxe          (game *g, player *p, item *it, bool t);
+  void barricade        (game *g, player *p, item *it, bool t);
+  void awning           (game *g, player *p, item *it, bool t);
+  void fish             (game *g, player *p, item *it, bool t);
+  void cot              (game *g, player *p, item *it, bool t);
+  void dredge           (game *g, player *p, item *it, bool t);
+  void anvil            (game *g, player *p, item *it, bool t);
+  void ingotmold        (game *g, player *p, item *it, bool t);
+  void torch_on         (game *g, player *p, item *it, bool t);
+  void torch_off        (game *g, player *p, item *it, bool t);
+  void fpost            (game *g, player *p, item *it, bool t);
 // MACGUFFINS
   void mcg_note		(game *g, player *p, item *it, bool t);
 // ARTIFACTS
@@ -111,7 +125,7 @@ class iuse
   void growth		(game *g, player *p, item *it, bool t);
   void water		(game *g, player *p, item *it, bool t);
   void lava		(game *g, player *p, item *it, bool t);
-  
+
 };
 
 #endif

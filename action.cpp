@@ -2,6 +2,7 @@
 #include "keypress.h"
 #include <fstream>
 
+//
 action_id look_up_action(std::string ident);
 
 void game::load_keyboard_settings()

@@ -11,13 +11,14 @@ enum skill {
  sk_throw, sk_gun, sk_pistol, sk_shotgun, sk_smg, sk_rifle, sk_archery,
   sk_launcher,
 // Crafting
- sk_mechanics, sk_electronics, sk_cooking, sk_tailor, sk_carpentry,
+ sk_mechanics, sk_electronics, sk_cooking, sk_tailor, sk_carpentry, sk_smithing,
+ sk_woodworking,
 // Medical
  sk_firstaid,
 // Social
  sk_speech, sk_barter,
 // Other
- sk_computer, sk_survival, sk_traps, sk_swimming,
+ sk_computer, sk_survival, sk_traps, sk_swimming, sk_driving,
  num_skill_types	// MUST be last!
 };
 

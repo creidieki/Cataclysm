@@ -371,6 +371,7 @@ has not yet developed bark, but its sting\n\
 is still sharp and deadly."
 );
 FLAGS(MF_HEARS, MF_SMELLS, MF_NOHEAD);
+ANGER(MTRIG_HURT);
 
 mon("queen triffid",species_plant, 'F',	c_red,		MS_LARGE,	VEGGY,
 //	frq dif agr mor spd msk mdi m## cut dge bsh cut itm  HP special freq
