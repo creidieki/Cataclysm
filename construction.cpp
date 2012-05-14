@@ -166,7 +166,7 @@ void game::init_construction()
    COMP(itm_2x4, 5, itm_nail, 8, NULL);
 */
 
- CONSTRUCT("Build Roof", 4, &construct::able_cieling,
+ CONSTRUCT("Build Roof", 4, &construct::able_ceiling,
                             &construct::done_nothing);
   STAGE(t_floor, 40);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
@@ -593,17 +593,18 @@ bool construct::able_wall_wood(game *g, point p)
  return (g->m.ter(p.x, p.y) == t_wall_wood);
 }
 
-bool construct::able_cieling(game *g, point p)
+bool construct::able_ceiling(game *g, point p)
 {
- return (g->m.ter(p.x + 1, p.y) == t_wall_wood || 
-g->m.ter(p.x -1, p.y) == t_wall_wood || g->m.ter(p.x, p.y +1) == t_wall_wood||
-g->m.ter(p.x, p.y -1) == t_wall_wood||
-g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x, p.y +1) == t_floor ||
-g->m.ter(p.x -1, p.y) == t_floor && g->m.ter(p.x, p.y -1) == t_floor ||
-g->m.ter(p.x -1, p.y) == t_floor && g->m.ter(p.x, p.y +1) == t_floor ||
-g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x, p.y -1) == t_floor ||
-g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x -1, p.y) == t_floor ||
-g->m.ter(p.x, p.y +1) == t_floor && g->m.ter(p.x, p.y -1) == t_floor);
+  return (g->m.ter(p.x + 1, p.y) == t_wall_wood || 
+	  g->m.ter(p.x -1, p.y) == t_wall_wood || 
+	  g->m.ter(p.x, p.y +1) == t_wall_wood||
+	  g->m.ter(p.x, p.y -1) == t_wall_wood||
+	  (g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x, p.y +1) == t_floor) ||
+	  (g->m.ter(p.x -1, p.y) == t_floor && g->m.ter(p.x, p.y -1) == t_floor) ||
+	  (g->m.ter(p.x -1, p.y) == t_floor && g->m.ter(p.x, p.y +1) == t_floor) ||
+	  (g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x, p.y -1) == t_floor) ||
+	  (g->m.ter(p.x +1, p.y) == t_floor && g->m.ter(p.x -1, p.y) == t_floor) ||
+	  (g->m.ter(p.x, p.y +1) == t_floor && g->m.ter(p.x, p.y -1) == t_floor));
 }
 bool construct::able_dig(game *g, point p)
 {
