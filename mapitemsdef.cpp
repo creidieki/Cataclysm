@@ -398,7 +398,7 @@ void game::init_mapitems()
  setvector(
    mapitems[mi_vault],
 	itm_purifier, itm_plut_cell, itm_ftk93, itm_canister_goo, itm_UPS_off,
-	itm_gold, itm_bionics_super, itm_plasma_engine, itm_minireactor, itm_alloy_plate, itm_wristwatch, NULL);
+	itm_gold, itm_bionics_super, itm_plasma_engine, itm_minireactor, itm_alloy_plate, NULL);
 
  setvector(
    mapitems[mi_art],
