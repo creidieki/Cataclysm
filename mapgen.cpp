@@ -1171,7 +1171,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
      }
     }
    }
-   place_items(mi_rare, 60, 0, 0, SEEX * 2 - 1, SEEY * 2 - 1, false, turn);
+   place_items(mi_rare, 60 + 1, 0, 0, SEEX * 2 - 1, SEEY * 2 - 1, false, turn);
   }
 
   if (terrain_type == ot_house_east  || terrain_type == ot_house_base_east)
@@ -2667,7 +2667,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
     case 3: // Supplies
      for (int i = by1 + 1; i <= by2 - 1; i += 3) {
       line(this, t_rack, bx1 + 2, i, bx2 - 1, i);
-      place_items(mi_mil_food, 78, bx1 + 2, i, bx2 - 1, i, false, 0);
+      place_items(mi_mil_food, 78 + 1, bx1 + 2, i, bx2 - 1, i, false, 0);
      }
      break;
     }
