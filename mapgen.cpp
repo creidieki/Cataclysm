@@ -5105,22 +5105,50 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
    break;
 
   case 4: // One large room in lower-left
+			//   0    xxxXxx  cccCccc  rR
+			// T	|.......|............... T
+			// t |.......|............... t
+			//   |.......*............... 
+			//   |.......|............... 
+			// m |.......|............... m
+			// m |.......*............... m
+			// m |.......|............... m
+			// M |-*---*--+-----+-....... M
+			// m |...............|....... m
+			// m |...............+....... m
+			// m |...............|....... m
+			//   |...............|....... 
+			//   |...............|....... 
+			// y |...............|....... y
+			// y |...............|....... y
+			// y |...............+....... y
+			// Y |...............|-*---*- Y
+			// y |...............|....... y
+			// y |...............*....... y
+			//   |...............|....... 
+			//   |...............|....... 
+			//   |...............*....... 
+			//   |...............|....... 
+			//   ------------------------
+			//   0    xxxXxx  cccCccc  rR
+
    mw = rng( 4, 10);
    cw = rng(13, 19);
+   x = rng(5, 10);
+   y = rng(13, 18);
    line(this, t_wall_h,  1, mw, cw, mw);
-   ter(rng(2, cw - 1), mw) = t_door_c;
+   ter(rng(x + 1, cw - 1), mw) = t_door_c;
    line(this, t_wall_v, cw, mw + 1, cw, SEEY * 2 - 2);
-   ter(cw, rng(mw + 2, SEEY * 2 - 3)) = t_door_c;
+   ter(cw, rng(y + 2, SEEY * 2 - 3)) = t_door_c;
    mansion_room(this, 1, mw + 1, cw - 1, SEEY * 2 - 2);
 // And a couple small rooms in the UL LR corners
-   x = rng(5, 10);
    line(this, t_wall_v, x, tw, x, mw - 1);
    mansion_room(this, 1, tw, x - 1, mw - 1);
    if (one_in(2))
     ter(rng(2, x - 2), mw) = t_door_c;
    else
     ter(x, rng(tw + 2, mw - 2)) = t_door_c;
-   y = rng(13, 18);
+
    line(this, t_wall_h, cw + 1, y, rw, y);
    mansion_room(this, cw + 1, y, rw, SEEY * 2 - 2);
    if (one_in(2))

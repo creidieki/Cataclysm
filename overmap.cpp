@@ -2103,7 +2103,7 @@ void overmap::place_special(overmap_special special, point p)
  }
 
  if (special.flags & mfb(OMS_FLAG_3X3_SECOND)) {
-  int startx = -1, starty = -1;
+  int startx = p.x - 1, starty = p.y;
   if (is_road(p.x, p.y - 1)) { // Road to north
    startx = p.x - 1;
    starty = p.y;
