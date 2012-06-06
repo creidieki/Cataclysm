@@ -736,7 +736,7 @@ void dis_effect(game *g, player &p, disease &dis)
   g->add_msg("You suddenly collapse onto the ground and spasm uncontrollably!");
  p.moves -= 800;
  if (one_in(3)) {
-    g->add_msg("You hurt yourself during the convlusions!");
+    g->popup_top("You hurt yourself during the convlusions!");
     g->u.hit(g, bp_legs, 1, 0, rng(0,  5));
      g->u.hit(g, bp_arms, 1, 0, rng(0,  5));
       g->u.hit(g, bp_torso, 1, 0, rng(0,  3));
