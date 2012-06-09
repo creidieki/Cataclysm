@@ -837,6 +837,10 @@ void game::cancel_activity_query(const char* message, ...)
    if (query_yn("%s Stop construction?", s.c_str()))
     u.activity.type = ACT_NULL;
    break;
+ case ACT_VEHICLE:
+   if (query_yn("%s Stop construction?", s.c_str()))
+    u.activity.type = ACT_NULL;
+   break;
   default:
    u.activity.type = ACT_NULL;
  }
@@ -4777,7 +4781,7 @@ bool game::handle_liquid(item &liquid, bool from_ground, bool infinite)
            add_msg ("Already full.");
        else
        {
-           veh.refill (AT_GAS, liquid.charges);
+           veh.refill (AT_GAS, liquid.charges*5);
            add_msg ("You refill %s with %s%s.", veh.name.c_str(), veh.fuel_name(ftype).c_str(),
                     veh.fuel_left(ftype) >= fuel_cap? " to its maximum" : "");
            return true;
