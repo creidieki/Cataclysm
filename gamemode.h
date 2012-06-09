@@ -185,9 +185,8 @@ struct west_game : public special_game {
   virtual bool init(game *g);
   virtual void per_turn(game * g);
   int distance_to_horde(game *g);
+  void spam_zombies (game * g, int n = 200, bool fast_only = false);
   virtual void pre_action(game *g, action_id &act);
-
-
 };
 
 #endif
