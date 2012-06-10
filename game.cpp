@@ -2499,6 +2499,8 @@ unsigned char game::light_level()
 
  if (ret < 8 && u.has_active_bionic(bio_flashlight))
   ret = 8;
+ if (ret < 6 && u.has_trait(PF_BIO_LUM))
+  ret = 6;
  if (ret < 4 && u.has_artifact_with(AEP_GLOW))
   ret = 4;
  if (ret < 1)
