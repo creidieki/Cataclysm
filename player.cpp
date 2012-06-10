@@ -4488,11 +4488,11 @@ void player::practice(skill s, int amount)
    }
   }
  }
- // If no xp, there's a 1/4 chance of increasing anyway.
+ // If no xp, there's a 1/(4 + skill level) chance of increasing anyway.
  while (amount > 0) {
   amount -= sklevel[s] + 1;
   if ((savant == sk_null || savant == s || !one_in(2)) && rng(0, 100) < comprehension_percent(s)
-      && (xp_pool >= (1 + sklevel[s]) || one_in(4))) {
+      && (xp_pool >= (1 + sklevel[s]) || one_in(4 + sklevel[s]))) {
    xp_pool = std::max(0, (int) (xp_pool - (1 + sklevel[s])/(1 + rust/100.0)));
    skexercise[s]++;
   }
