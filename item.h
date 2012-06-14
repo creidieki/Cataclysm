@@ -25,7 +25,7 @@ public:
  item in_its_container(std::vector<itype*> *itypes);
 
  nc_color color(player *u);
- std::string tname(game *g = NULL); // g needed for rotten-test
+ std::string tname(game *g = NULL, bool in_container = false); // g needed for rotten-test
  void use(player &u);
  bool burn(int amount = 1); // Returns true if destroyed
 

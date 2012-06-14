@@ -15,7 +15,7 @@ bool west_game::init (game *g)
 
   if (g->load(g->u.name)) {
     if(g->u.cash == 0)
-      horde_location = g->global_location().x - 10;
+      horde_location = g->global_location().x - 25;
     else
       horde_location = g->u.cash;
 
@@ -68,7 +68,7 @@ bool west_game::init (game *g)
   g->u.normalize(g);
   g->u.weapon = item(g->itypes[itm_baton], 0, 'a' + g->u.worn.size());
 
-  horde_location = g->global_location().x - 10;
+  horde_location = g->global_location().x - 25;
 
   return true;
 }

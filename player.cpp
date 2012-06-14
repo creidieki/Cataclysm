@@ -10,6 +10,7 @@
 #include "artifact.h"
 #include <sstream>
 #include <stdlib.h>
+#include <algorithm>
 //timefixing more
 #if (defined _WIN32 || defined WINDOWS)
 	#include "catacurse.h"
@@ -2854,6 +2855,8 @@ void player::add_morale(morale_type type, int bonus, int max_bonus,
  }
 }
 
+bool sort_fn (std::vector<item> i, std::vector<item> j) { return i[0].type->id < j[0].type->id; }
+
 void player::sort_inv()
 {
  // guns ammo weaps armor food tools books other
@@ -2880,6 +2883,7 @@ void player::sort_inv()
  }
  inv.clear();
  for (int i = 0; i < 8; i++) {
+  std::sort(types[i].begin(), types[i].end(), sort_fn);
   for (int j = 0; j < types[i].size(); j++)
    inv.push_back(types[i][j]);
  }
@@ -3786,7 +3790,7 @@ bool player::wear(game *g, char let)
  if (armor->covers & mfb(bp_hands) &&
      (has_trait(PF_WEBBED) || has_trait(PF_PINCERS) ||
       has_trait(PF_TALONS) || has_trait(PF_ARM_TENTACLES) || has_trait(PF_ARM_TENTACLES_4) || has_trait(PF_ARM_TENTACLES_8))) {
-  g->add_msg("You cannot put %s over your %s.",
+  g->add_msg("You cannot put gloves over your %s.", 
              (has_trait(PF_WEBBED) ? "webbed hands" :
               (has_trait(PF_TALONS) ? "talons" :
                (has_trait(PF_PINCERS) ? "pincers" :

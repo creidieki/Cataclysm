@@ -469,7 +469,7 @@ nc_color item::color(player *u)
  return ret;
 }
 
-std::string item::tname(game *g)
+std::string item::tname(game *g, bool in_container)
 {
  std::stringstream ret;
 
@@ -536,6 +536,9 @@ std::string item::tname(game *g)
  else if (burnt > 0)
   ret << "burnt ";
 
+ if (type->m1 == LIQUID && !in_container)
+  ret << "puddle of ";
+
  if (type->id == itm_corpse) {
   ret << corpse->name << " corpse";
   if (name != "")
@@ -554,7 +557,7 @@ std::string item::tname(game *g)
   for (int i = 0; i < contents.size(); i++)
    ret << "+";
  } else if (contents.size() == 1)
-  ret << type->name << " of " << contents[0].tname();
+  ret << type->name << " of " << contents[0].tname(g, true);
  else if (contents.size() > 0)
   ret << type->name << ", full";
  else
@@ -563,8 +566,8 @@ std::string item::tname(game *g)
  it_comest* food = NULL;
  if (is_food())
   food = dynamic_cast<it_comest*>(type);
- else if (is_food_container())
-  food = dynamic_cast<it_comest*>(contents[0].type);
+ // else if (is_food_container())
+ //  food = dynamic_cast<it_comest*>(contents[0].type);
  if (food != NULL && g != NULL && food->spoils != 0 &&
      int(g->turn) - bday > food->spoils * 600)
   ret << " (rotten)";

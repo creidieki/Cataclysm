@@ -2347,32 +2347,32 @@ void game::draw_surroundings(view_mode vm)
    switch(act){
     case ACTION_MOVE_N: //NORTH
      xshift = 0;
-     yshift = -(SEEY - 1);
+     yshift = -(SEEY - 0);
      idx = 0;
      break;
     case ACTION_MOVE_S: //SOUTH
      xshift = 0;
-     yshift = SEEY - 1;
+     yshift = SEEY - 0;
      idx = 0;
      break;
     case ACTION_MOVE_NW: //NORTHWEST
      xshift = -(SEEX + EXTX - 15);
-     yshift = -(SEEY - 1);
+     yshift = -(SEEY - 0);
      idx = 0;
      break;
     case ACTION_MOVE_NE: //NORTHEAST
      xshift = SEEX + EXTX - 15;
-     yshift = -(SEEY - 1);
+     yshift = -(SEEY - 0);
      idx = 0;
      break;
     case ACTION_MOVE_SW: //SOUTHWEST
      xshift = -(SEEX + EXTX - 15);
-     yshift = SEEY - 1;
+     yshift = SEEY - 0;
      idx = 0;
      break;
     case ACTION_MOVE_SE: //SOUTHEAST
      xshift = SEEX + EXTX - 15;
-     yshift = SEEY - 1;
+     yshift = SEEY - 0;
      idx = 0;
      break;
     case ACTION_MOVE_W: //WEST
@@ -2399,19 +2399,19 @@ void game::draw_surroundings(view_mode vm)
        break;
       case 1: //NORTHWEST
        xshift = -(SEEX + EXTX - 15);
-       yshift = -(SEEY - 1);
+       yshift = -(SEEY - 0);
        break;
       case 2: //NORTHEAST
        xshift = SEEX + EXTX - 15;
-       yshift = -(SEEY - 1);
+       yshift = -(SEEY - 0);
        break;
       case 3: //SOUTHEAST
        xshift = SEEX + EXTX - 15;
-       yshift = SEEY - 1;
+       yshift = SEEY - 0;
        break;
       case 4: //SOUTHWEST
        xshift = -(SEEX + EXTX - 15);
-       yshift = SEEY - 1;
+       yshift = SEEY - 0;
        break;
      }
      break;
@@ -4557,11 +4557,11 @@ point game::look_around()
    mvwprintw(w_look, 2, 1, "%s", m.features(lx, ly).c_str());
    field tmpfield = m.field_at(lx, ly);
    if (tmpfield.type != fd_null)
-    mvwprintz(w_look, 4, 1, fieldlist[tmpfield.type].color[tmpfield.density-1],
+    mvwprintz(w_look, 6, 1, fieldlist[tmpfield.type].color[tmpfield.density-1],
               "%s", fieldlist[tmpfield.type].name[tmpfield.density-1].c_str());
    if (m.tr_at(lx, ly) != tr_null &&
        u.per_cur - u.encumb(bp_eyes) >= traps[m.tr_at(lx, ly)]->visibility)
-    mvwprintz(w_look, 5, 1, traps[m.tr_at(lx, ly)]->color, "%s",
+    mvwprintz(w_look, 7, 1, traps[m.tr_at(lx, ly)]->color, "%s",
               traps[m.tr_at(lx, ly)]->name.c_str());
    int dex = mon_at(lx, ly);
    if (dex != -1 && u_see(&(z[dex]), junk)) {
@@ -4585,8 +4585,11 @@ point game::look_around()
    } else if (m.i_at(lx, ly).size() > 0) {
     mvwprintw(w_look, 3, 1, "There is a %s there.",
               m.i_at(lx, ly)[0].tname(this).c_str());
-    if (m.i_at(lx, ly).size() > 1)
-     mvwprintw(w_look, 4, 1, "There are other items there as well.");
+    if (m.i_at(lx, ly).size() > 1) 
+     mvwprintw(w_look, 4, 1, "There is a %s there.",
+               m.i_at(lx, ly)[1].tname(this).c_str());
+    if (m.i_at(lx, ly).size() > 2)
+     mvwprintw(w_look, 5, 1, "There are other items there as well.");
     m.drawsq(w_terrain, u, lx, ly, true, true);
    } else
     m.drawsq(w_terrain, u, lx, ly, true, true);
@@ -4924,7 +4927,7 @@ bool game::handle_liquid(item &liquid, bool from_ground, bool infinite)
   return false;
  }
  if (!from_ground &&
-     query_yn("Pour %s on the ground?", liquid.tname(this).c_str())) {
+     query_yn("Pour %s on the ground?", liquid.tname(this, true).c_str())) {
   m.add_item(u.posx, u.posy, liquid);
   return true;
  } else
@@ -4980,19 +4983,19 @@ bool game::handle_liquid(item &liquid, bool from_ground, bool infinite)
    ammotype liquid_type = liquid.ammo_type();
    if (ammo != liquid_type) {
     add_msg("Your %s won't hold %s.", cont->tname(this).c_str(),
-                                      liquid.tname(this).c_str());
+                                      liquid.tname(this, true).c_str());
     return false;
    }
    if (max <= 0 || cont->charges >= max) {
     add_msg("Your %s can't hold any more %s.", cont->tname(this).c_str(),
-                                               liquid.tname(this).c_str());
+                                               liquid.tname(this, true).c_str());
     return false;
    }
    if (cont->charges > 0 && cont->curammo->id != liquid.type->id) {
     add_msg("You can't mix loads in your %s.", cont->tname(this).c_str());
     return false;
    }
-   add_msg("You pour %s into your %s.", liquid.tname(this).c_str(),
+   add_msg("You pour %s into your %s.", liquid.tname(this, true).c_str(),
                                         cont->tname(this).c_str());
    cont->curammo = dynamic_cast<it_ammo*>(liquid.type);
    if (infinite)
@@ -5010,7 +5013,7 @@ bool game::handle_liquid(item &liquid, bool from_ground, bool infinite)
    return true;
   } else if (!cont->is_container()) {
    add_msg("That %s won't hold %s.", cont->tname(this).c_str(),
-                                     liquid.tname(this).c_str());
+                                     liquid.tname(this, true).c_str());
    return false;
   } else if (!cont->contents.empty()) {
    add_msg("Your %s is not empty.", cont->tname(this).c_str());
@@ -5034,7 +5037,7 @@ bool game::handle_liquid(item &liquid, bool from_ground, bool infinite)
    }
    if (liquid.charges > container->contains * default_charges) {
     add_msg("You fill your %s with some of the %s.", cont->tname(this).c_str(),
-                                                    liquid.tname(this).c_str());
+                                                     liquid.tname(this, true).c_str());
     u.inv_sorted = false;
     int oldcharges = liquid.charges - container->contains * default_charges;
     liquid.charges = container->contains * default_charges;
@@ -5956,7 +5959,7 @@ void game::plmove(int x, int y)
     add_msg("Moving past this %s is slow!", m.tername(x, y).c_str());
   }
   if (m.has_flag(rough, x, y)) {
-   if (one_in(5) && u.armor_bash(bp_feet) < rng(1, 5)) {
+   if (one_in(5) && u.armor_bash(bp_feet) < rng(1, 5) && u.armor_cut(bp_feet) == 0) {
     add_msg("You hurt your feet on the %s!", m.tername(x, y).c_str());
     u.hit(this, bp_feet, 0, 0, 1);
     u.hit(this, bp_feet, 1, 0, 1);
