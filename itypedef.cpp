@@ -1490,7 +1490,7 @@ ARMOR("fire gauntlets",	 5,  95,C_GLOVES,	LEATHER,	MNULL,
     3,  5, -2,  2,  6,  1,  2,  5,  4,  0,	mfb(bp_hands), "\
 A heavy pair of leather gloves, used by firefighters for heat protection.");
 
-ARMOR("wristwatch", 25,  20,C_GLOVES,	PLASTIC,	MNULL,
+ARMOR("wristwatch", 2,  20,C_GLOVES,	PLASTIC,	MNULL,
     1,  1, -5,  -5,  0,  0,  0,  0,  0,  0,	mfb(bp_hands), "\
 A lightweight instrument used to keep time.");
 
