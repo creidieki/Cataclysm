@@ -2883,7 +2883,7 @@ void player::sort_inv()
  }
  inv.clear();
  for (int i = 0; i < 8; i++) {
-  std::sort(types[i].begin(), types[i].end(), sort_fn);
+  std::stable_sort(types[i].begin(), types[i].end(), sort_fn);
   for (int j = 0; j < types[i].size(); j++)
    inv.push_back(types[i][j]);
  }
