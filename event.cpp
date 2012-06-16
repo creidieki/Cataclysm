@@ -100,10 +100,12 @@ void event::actualize(game *g)
       }
      }
      tries++;
-    } while (monx != -1 && mony != -1 && !g->is_empty(monx, mony) &&
+    } while ((monx == -1 || mony == -1 || !g->is_empty(monx, mony)) &&
              tries < 10);
-    horror.spawn(monx, mony);
-    g->z.push_back(horror);
+    if(tries < 10) {
+     horror.spawn(monx, mony);
+     g->z.push_back(horror);
+    }
    }
   } break;
 
