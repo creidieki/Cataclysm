@@ -186,17 +186,8 @@ bool player::create(game *g, character_type type, std::string tempname)
    max_power_level = 0;
    power_level = 0;
   }
-
-/* CHEATER'S STUFF
-
-  add_bionic(bionic_id(rng(0, bio_ethanol)));	// Power Source
-  for (int i = 0; i < 5; i++)
-   add_bionic(bionic_id(rng(bio_memory, max_bio_start - 1)));// Other
-  max_power_level = 80;
-  power_level = 80;
-
-End of cheatery */
  }
+
  ret_null = item(g->itypes[0], 0);
  weapon   = item(g->itypes[0], 0);
 // Nice to start out less than naked.
@@ -206,6 +197,7 @@ End of cheatery */
  worn.push_back(tmp);
  tmp = item(g->itypes[itm_sneakers], 0, 'c');
  worn.push_back(tmp);
+
 // The near-sighted get to start with glasses.
  if (has_trait(PF_MYOPIC)) {
   tmp = item(g->itypes[itm_glasses_eye], 0, 'd');
@@ -219,7 +211,29 @@ End of cheatery */
 // make sure we have no mutations
 for (int i = 0; i < PF_MAX2; i++)
   my_mutations[i] = false;
+
+// CHEATER'S STUFF
+
+  if (name == "WizardABC") {
+   add_bionic(bio_metabolics);	// Power Source
+   for (int i = 0; i < 5; i++)
+    add_bionic(bionic_id(rng(bio_memory, max_bio_start - 1)));// Other
+   max_power_level = 80;
+   power_level = 80;
+   tmp = item(g->itypes[itm_backpack], 0, 'a' + worn.size());
+   worn.push_back(tmp);
+   weapon = item(g->itypes[itm_crowbar], 0, 'a' + worn.size());
+   my_traits[PF_NIGHTVISION3] = my_traits[PF_LIGHTEATER] = my_traits[PF_PLANTSKIN] = true;
+   add_bionic(bio_recycler);
+   my_traits[PF_INCONSPICUOUS] = true;
+   for (int i = 1; i < num_skill_types - 1; i++)
+    sklevel[i] = 10;
+  }
+
+  // End of cheatery
+
  return true;
+
 }
 
 void draw_tabs(WINDOW* w)
