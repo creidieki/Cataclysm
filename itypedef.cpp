@@ -1135,13 +1135,13 @@ MELEE("steel frame",  25, 35, ',', c_cyan,  STEEL,   MNULL,
 A large frame made of steel.  Useful for crafting.");
 
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
-MELEE("wheel",  15, 50, '0', c_black,  STEEL,   PLASTIC,
+MELEE("wheel",  15, 50, '0', c_dkgray,  STEEL,   PLASTIC,
 //  VOL WGT DAM CUT HIT FLAGS
     10,  80,  8,  0,  -4, 0, "\
 A wheel, perhaps from some car.");
 
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
-MELEE("large wheel",  6, 80, '0', c_black,  STEEL,   PLASTIC,
+MELEE("large wheel",  6, 80, '0', c_dkgray,  STEEL,   PLASTIC,
 //  VOL WGT DAM CUT HIT FLAGS
     20,  200,  12,  0,  -5, 0, "\
 A large wheel, from some big car.");
