@@ -85,6 +85,32 @@ struct trapfuncm {
  void boobytrap (game *g, monster *z, int x, int y);
 };
 
+struct trapfuncshoot {
+ void none		(game *g, int dam, int x, int y) { };
+ void bubble		(game *g, int dam, int x, int y);
+ void cot		(game *g, int dam, int x, int y);
+ void beartrap		(game *g, int dam, int x, int y);
+ void snare		(game *g, int dam, int x, int y) { };
+ void board		(game *g, int dam, int x, int y);
+ void tripwire		(game *g, int dam, int x, int y);
+ void crossbow		(game *g, int dam, int x, int y);
+ void shotgun		(game *g, int dam, int x, int y);
+ void blade		(game *g, int dam, int x, int y);
+ void landmine		(game *g, int dam, int x, int y);
+ void telepad		(game *g, int dam, int x, int y);
+ void goo		(game *g, int dam, int x, int y);
+ void dissector		(game *g, int dam, int x, int y);
+ void sinkhole		(game *g, int dam, int x, int y);
+ void pit		(game *g, int dam, int x, int y);
+ void pit_spikes	(game *g, int dam, int x, int y);
+ void portal		(game *g, int dam, int x, int y) { };
+ void ledge		(game *g, int dam, int x, int y);
+ void boobytrap		(game *g, int dam, int x, int y);
+ void temple_flood	(game *g, int dam, int x, int y);
+ void temple_toggle	(game *g, int dam, int x, int y);
+};
+
+
 struct trap {
  int id;
  char sym;
@@ -100,11 +126,15 @@ struct trap {
  void (trapfunc::*act)(game *, int x, int y);
 // Monster stepped on it
  void (trapfuncm::*actm)(game *, monster *, int x, int y);
+
+// Trap got shot
+ void (trapfuncshoot::*acts)(game *, int damage, int x, int y);
  
  trap(int pid, char psym, nc_color pcolor, std::string pname,
       int pvisibility, int pavoidance, int pdifficulty, 
       void (trapfunc::*pact)(game *, int x, int y),
-      void (trapfuncm::*pactm)(game *, monster *, int x, int y), ...) {
+      void (trapfuncm::*pactm)(game *, monster *, int x, int y), 
+      void (trapfuncshoot::*pacts)(game *, int dam, int x, int y), ...) {
   id = pid;
   sym = psym;
   color = pcolor;
@@ -114,6 +144,7 @@ struct trap {
   difficulty = pdifficulty;
   act = pact;
   actm = pactm;
+  acts = pacts;
   va_list ap;
   va_start(ap, pactm);
   itype_id tmp;

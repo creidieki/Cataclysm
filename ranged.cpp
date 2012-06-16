@@ -359,7 +359,7 @@ void game::throw_item(player &p, int tarx, int tary, item &thrown,
     kill_mon(mon_at(tx, ty));
    return;
   } else // No monster hit, but the terrain might be.
-   m.shoot(this, tx, ty, dam, false, 0);
+   m.shoot(this, tx, ty, dam, i == trajectory.size() - 1, 0);
   if (m.move_cost(tx, ty) == 0) {
    if (i > 0) {
     tx = trajectory[i - 1].x;

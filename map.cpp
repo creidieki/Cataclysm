@@ -1326,8 +1326,13 @@ void map::shoot(game *g, int x, int y, int &dam, bool hit_items, unsigned flags)
 
 // Now, destroy items on that tile.
 
- if ((move_cost(x, y) == 2 && !hit_items) || !INBOUNDS(x, y))
+ if ((move_cost(x, y) <= 3 && !hit_items) || !INBOUNDS(x, y))
   return;	// Items on floor-type spaces won't be shot up.
+
+ if(tr_at(x, y)) {
+  trapfuncshoot f;
+  (f.*(g->traps[tr_at(x,y)]->acts))(g, dam, x, y);
+ }
 
  bool destroyed;
  for (int i = 0; i < i_at(x, y).size(); i++) {

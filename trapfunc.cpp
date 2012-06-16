@@ -243,6 +243,18 @@ void trapfuncm::landmine(game *g, monster *z, int x, int y)
  g->m.tr_at(x, y) = tr_null;
 }
 
+void trapfuncshoot::landmine(game *g, int dam, int x, int y)
+{
+ if(rng(dam/2,dam) <= rng(2,15))
+  return;
+
+ int t;
+ if (g->u_see(x, y, t))
+  g->add_msg("A landmine goes off!");
+ g->m.tr_at(x, y) = tr_null;
+ g->explosion(x, y, 10, 8, false);
+}
+
 void trapfunc::boobytrap(game *g, int x, int y)
 {
  g->add_msg("You trigger a boobytrap!");
