@@ -6384,7 +6384,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
 	   && ter(x,y) != t_pavement && ter(x,y) != t_pavement_y ) {
 	 ter(x, y) = t_rubble;
        }
-       if (one_in(3)) {
+       if (one_in(4)) {
 	 bash(x, y, rng(0, 10)*rng(0, 10), junk);	// Smash the fuck out of it
 	 if (one_in(2))
 	   bash(x, y, rng(0, 10)*rng(0,10), junk);	// Smash the fuck out of it

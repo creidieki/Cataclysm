@@ -854,7 +854,8 @@ Strength - 4;    Dexterity - 4;    Intelligence - 4;    Dexterity - 4");
    if (line < 9) {
     mvwprintz(w_skills, line, 1, c_ltblue, "%s:",
               skill_name(skill(i)).c_str());
-    mvwprintz(w_skills, line,19, c_ltblue, "%d (%s%d%%%%)", sklevel[i],
+    mvwprintz(w_skills, line,19, c_ltblue, "%d%s(%s%d%%%%)", sklevel[i],
+              (sklevel[i] < 10 ? " " : ""),
               (skexercise[i] < 10 && skexercise[i] >= 0 ? " " : ""),
               (skexercise[i] <  0 ? 0 : skexercise[i]));
     line++;
