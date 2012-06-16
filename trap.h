@@ -146,7 +146,7 @@ struct trap {
   actm = pactm;
   acts = pacts;
   va_list ap;
-  va_start(ap, pactm);
+  va_start(ap, pacts);
   itype_id tmp;
   while ((tmp = (itype_id)va_arg(ap, int)))
    components.push_back(tmp);
