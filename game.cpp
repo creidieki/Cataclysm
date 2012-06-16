@@ -5511,8 +5511,7 @@ void game::eat()
   add_msg("You don't have item '%c'!", ch);
   return;
  }
- if (!u.eat(this, u.lookup_item(ch)))
-  add_msg("You can't eat that!");
+ u.eat(this, u.lookup_item(ch)); // Further messages are handled by player::eat.
 }
 
 void game::wear()
