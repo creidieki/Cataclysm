@@ -3573,11 +3573,11 @@ bool player::eat(game *g, int index)
 // Descriptive text
   if (!is_npc()) {
    if (eaten->made_of(LIQUID))
-    g->add_msg("You drink your %s.", eaten->tname(g).c_str());
+    g->add_msg("You drink your %s.", eaten->tname(g, index != which).c_str());
    else if (comest->nutr >= 5)
-    g->add_msg("You eat your %s.", eaten->tname(g).c_str());
+    g->add_msg("You eat your %s.", eaten->tname(g, index != which).c_str());
   } else if (g->u_see(posx, posy, linet))
-   g->add_msg("%s eats a %s.", name.c_str(), eaten->tname(g).c_str());
+   g->add_msg("%s eats a %s.", name.c_str(), eaten->tname(g, index != which).c_str());
 
   if (g->itypes[comest->tool]->is_tool())
    use_charges(comest->tool, 1); // Tools like lighters get used
